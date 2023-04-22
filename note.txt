@@ -1,0 +1,59 @@
+Phân tích thiết kế Database
+1. Bảng Role
+    - id: int -> Khoá chính tự tăng
+    - name: string(varchar) - 20 ký tự
+2. Bảng User
+    - id: int -> khoá chính tự tăng
+    - fullname: string -> 50 ký tự
+    - email: string -> 150 ký tự
+    - phone: string -> 20 ký tự             //thêm phone vào form đăng ký tài khoản
+    - address: tring -> 200 ký tự
+    - password: string -> 32 ký tự -> chính xác 
+    - role_id -> int -> foreign key -> role (id)
+3. Bảng danh mục -> Category
+    - id: int -> khoá chính tự tăng
+    - name: string -> 100 ký tự
+4. Bảng sản phẩm -> Product
+    - id: int -> khoá tự tăng
+    - category_id -> foreign key -> Category(id)
+    - title: string -> 100 ký tự
+    - price: int 
+    - discount: int 
+    - thumbnail: string -> 500 ký tự
+    - description: longtext
+    - created_at: datetime -> tạo bản ghi
+    - updated_ad: datetime -> sửa bản ghi
+5. Bảng quản lý galery
+    - id: int -> khoá tự tăng 
+    - product_id: int ->  foreign key -> product_id
+    - thumbnail: string -> 500 ký tự
+6. Bảng quản lý đơn hàng
+    - id: int -> khoá tự tăng
+    - fullname: string
+    - phone: string
+    - address: string
+    - note: longtext
+    - order_date: datetime -> thời điểm đặt đơn hàng    
+    - danh sách sản phẩm:
+        - sản phẩm 1 x số lượng x giá thời điểm mua
+        - sản phẩm 2 x số lượng x giá thời điểm mua
+        -...
+    7.1: Bảng order
+        - id: int -> khoá tự tăng
+        - user_id -> foreign key -> user (id)
+        - fullname: string
+        - phone: string
+        - address: string
+        - note: stin    
+        - order_date: datetime -> thời điểm đặt đơn hàng
+        - status: int -> trạng thái đơn hàng
+        - total_money: int -> tổng tiền của đơn hàng
+    7.2: Bảng chi tiết đơn hàng
+        - id: int -> khoá tự tăng
+        - order_id -> int -> foreign key -> order (id)
+        - product_id: int -> foreign key -> product (id)
+        - price -> int
+        - num: int -> số lượng sản phẩm mua 
+        - total_money -> lưu tổng tiền của sản phẩm
+
+    * Trên lý thuyết thì 2 total_money là dư thừa vì có thể có được sau truy vấn    
