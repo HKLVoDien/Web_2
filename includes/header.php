@@ -26,7 +26,7 @@
         <div class="header__content container-xl ">
             <div class="header__logo">
                 <div class="logo">
-                    <a href="index.html"><img src="./img/img_index/Tenthuonghieu 182x58 .png" alt="logo"></a>
+                    <a href="index.php"><img src="./img/img_index/Tenthuonghieu 182x58 .png" alt="logo"></a>
                 </div>
             </div>
             <nav class="header__menu">
