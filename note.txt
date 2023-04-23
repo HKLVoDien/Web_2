@@ -16,7 +16,7 @@ Phân tích thiết kế Database
 4. Bảng sản phẩm -> Product
     - id: int -> khoá tự tăng
     - category_id -> foreign key -> Category(id)
-    - title: string -> 100 ký tự
+    - title: string -> 350 ký tự
     - price: int 
     - discount: int 
     - thumbnail: string -> 500 ký tự
@@ -44,7 +44,7 @@ Phân tích thiết kế Database
         - fullname: string
         - phone: string
         - address: string
-        - note: stin    
+        - note: sting
         - order_date: datetime -> thời điểm đặt đơn hàng
         - status: int -> trạng thái đơn hàng
         - total_money: int -> tổng tiền của đơn hàng
