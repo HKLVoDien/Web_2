@@ -1,26 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mỳ Cay</title>
-    <!-- FONT AWESOME  -->
-    <link rel="stylesheet" href="./css/fontawesome-free/css/all.min.css">
-    <!-- FONT GOOGLE  -->
-    <link href="https://fonts.googleapis.com/css2?family=Mulish&display=swap" rel="stylesheet">
-    <!-- OWL CAROUSEL  -->
-    <link rel="stylesheet" href="./css/owl.carousel.min.css">
-    <link rel="stylesheet" href="./css/owl.theme.default.min.css">
-    <!-- BOOSTRAP -->
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <!-- CSS  -->
-    <link rel="stylesheet" href="./css/index.css">
-  
-</head>
-
-<body>
     <!-- HEADER  -->
     <header>
         <div class="header__content container-xl ">
@@ -31,11 +9,11 @@
             </div>
             <nav class="header__menu">
                 <ul class="menu menu-1" id="mainNav">
-                    <li class="active"><a href="#">TRANG CHỦ</a></li>
-                    <li><a href="./pages/Menu/all-menu.html">THỰC ĐƠN</a></li>
-                    <li><a href="./pages/intro.html">GIỚI THIỆU</a></li>
-                    <li><a href="./pages/contact.html">LIÊN HỆ</a></li>
-                </ul>
+                    <li class="active"><a href="index.php">TRANG CHỦ</a></li>
+                    <li><a href="./pages/Menu/all-menu.php">THỰC ĐƠN</a></li>
+                    <li><a href="./pages/intro.php">GIỚI THIỆU</a></li>
+                    <li><a href="./pages/contact.php">LIÊN HỆ</a></li>
+                </ul>   
             </nav>
             <div class="header__tool d-flex align-items-center ">
                 <form class="input-group" action="./pages/search.html" method="post">
