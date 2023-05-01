@@ -10,9 +10,9 @@
             <nav class="header__menu">
                 <ul class="menu menu-1" id="mainNav">
                     <li class="active"><a href="index.php">TRANG CHỦ</a></li>
-                    <li><a href="./pages/Menu/all-menu.php">THỰC ĐƠN</a></li>
-                    <li><a href="./pages/intro.php">GIỚI THIỆU</a></li>
-                    <li><a href="./pages/contact.php">LIÊN HỆ</a></li>
+                    <li><a href="index.php?quanly=thucdon">THỰC ĐƠN</a></li>
+                    <li><a href="index.php?quanly=gioithieu">GIỚI THIỆU</a></li>
+                    <li><a href="index.php?quanly=lienhe">LIÊN HỆ</a></li>
                 </ul>   
             </nav>
             <div class="header__tool d-flex align-items-center ">
@@ -39,10 +39,10 @@
 
                 <div class="header__icon">
                     <div class="icon">
-                        <a href="./pages/Login.html">
+                        <a href="index.php?quanly=user">
                             <i class="fa fa-user"></i>
                         </a>
-                        <a href="./pages/cart.html">
+                        <a href="index.php?quanly=cart">
                             <i class="fa fa-shopping-basket basket">
                                 <span class="notify-cart">0</span>
                             </i>

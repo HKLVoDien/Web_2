@@ -69,12 +69,5 @@
             <p>&copy; <span>2022 Công ty TNHH Mỳ Cay Seoul | Design by My Group</span> </p>
         </div>
     </section>
-    <!-- JQUERY  -->
-    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-    <!-- OWL CAROUSEL -->
-    <script src="./js/owl.carousel.min.js"></script>
-    <!-- BOOSTRAP JS  -->
-    <script src="./js/bootstrap.bundle.min.js"></script>
-    <!-- UTIL JS  -->
-    <script src="./js/util.js"></script>
+ 
 

@@ -378,7 +378,14 @@
 
     </section>    
     <!-- thư viện hỗ trợ animation  -->
- 
+    <!-- JQUERY  -->
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- OWL CAROUSEL -->
+    <script src="./js/owl.carousel.min.js"></script>
+    <!-- BOOSTRAP JS  -->
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <!-- UTIL JS  -->
+    <script src="./js/util.js"></script>
     <script>
         $('.owl-carousel').owlCarousel({
             autoplay: true,

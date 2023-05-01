@@ -1,4 +1,4 @@
-
+    <link rel="stylesheet" href="./css/cart.css">
     <!-- CART  -->
     <section class="Seoul__cart container">
         <div class="row Seoul__cart__content">

@@ -6,7 +6,7 @@ require_once 'config.php';
 function execute($sql)
 {
     //open connection
-    $conn = mysqli_connect(HOST, DATABASE, USERNAME, PASSWORD);
+    $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
     mysqli_set_charset('utf_8');
 
     //query
@@ -34,7 +34,6 @@ function executeResult($sql, $isSingle = flase)
         while (($row = mysqli_fetch_array($resultset, 1)) != null) {
             $data[] = $row;
         }
-
     }
     //close connection
     mysqli_close($conn);

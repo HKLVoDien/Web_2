@@ -1,6 +1,11 @@
-CREATE TABLE `Role` (
+CREATE TABLE `Admin` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL
+  `fullname` varchar(50), 
+  `email` varchar(150),
+  `phone` varchar(20),
+  `address` varchar(200),
+  `password` varchar(50),
+  `is_block` tinyint(4)
 );
 
 CREATE TABLE `User` (
@@ -10,8 +15,7 @@ CREATE TABLE `User` (
   `phone` varchar(20),
   `address` varchar(200),
   `password` varchar(50),
-  `role_id` int,
-  `deleted` int
+  `is_block` tinyint(4)
 );
 
 CREATE TABLE `Category` (
@@ -59,7 +63,7 @@ CREATE TABLE `Orders_Details` (
   `total_money` int
 );
 
-ALTER TABLE `User` ADD FOREIGN KEY (`role_id`) REFERENCES `Role` (`id`);
+
 
 ALTER TABLE `Product` ADD FOREIGN KEY (`category_id`) REFERENCES `Category` (`id`);
 
