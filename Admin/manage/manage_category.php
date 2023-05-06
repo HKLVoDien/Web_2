@@ -51,7 +51,6 @@ elseif (isset($_POST['update_category'])) {
     header('Location:../pages/category.php');
 } else {
     $id = $_GET['id'];
-    echo $id;
     $sql_xoa = "DELETE FROM category WHERE id ='" . $id . "'";
     mysqli_query($mysqli, $sql_xoa);
     header('Location:../pages/category.php');

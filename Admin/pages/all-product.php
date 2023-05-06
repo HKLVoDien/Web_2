@@ -7,14 +7,16 @@
   <title>Sản phẩm | Admin Seoul</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="../../css/fontawesome-free/css/all.min.css">
   <!-- IonIcons -->
   <link rel="stylesheet" href="../css/IonIcons.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../css/adminlte.min.css">
+  <?php
+  include '../../database/config.php';
+  ?>
   <style>
     .filter__right input {
       border-radius: 5px;
@@ -23,6 +25,54 @@
 
     .app-content {
       background-color: #fff;
+    }
+
+    .btn_update_img {
+      position: relative;
+      /* max-width: 90px; */
+      text-align: center;
+    }
+
+    .btn_update_img input {
+      opacity: 0;
+      position: absolute;
+      top: 0%;
+      left: 0;
+      height: 100%;
+      width: 100%;
+
+    }
+
+    .btn_update_img input:hover {
+      cursor: pointer;
+    }
+
+    .box-preview-img,
+    .box-preview-img_small {
+      margin-top: 10px;
+      display: none;
+    }
+
+    /* .box-preview-img p,
+        .box-preview-img_small p {
+font        } */
+
+    .box-preview-img img {
+      width: 100%;
+      height: 100%;
+      border: 1px solid #e5e5e5;
+      margin-right: 5px;
+      margin-top: 5px;
+    }
+
+
+
+    .box-preview-img_small img {
+      width: 100%;
+      height: 100%;
+      border: 1px solid #e5e5e5;
+      margin-right: 5px;
+      margin-top: 5px;
     }
   </style>
 </head>
@@ -37,7 +87,7 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="../../index.html" class="nav-link">Trang web</a>
+          <a href="../../index.php" class="nav-link">Trang web</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
           <a href="#" class="nav-link">Liên hệ</a>
@@ -54,8 +104,7 @@
           <div class="navbar-search-block">
             <form class="form-inline">
               <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Tìm kiếm"
-                  aria-label="Search">
+                <input class="form-control form-control-navbar" type="search" placeholder="Tìm kiếm" aria-label="Search">
                 <div class="input-group-append">
                   <button class="btn btn-navbar" type="submit">
                     <i class="fas fa-search"></i>
@@ -109,9 +158,8 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="../admin.html" class="brand-link">
-        <img src="../../img/img_index/logo_spicy.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
+      <a href="../admin.php" class="brand-link">
+        <img src="../../img/img_index/logo_spicy.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Admin Seoul</span>
       </a>
 
@@ -145,7 +193,7 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item ">
-              <a href="../admin.html" class="nav-link ">
+              <a href="../admin.php" class="nav-link ">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Bảng tin </p>
@@ -271,19 +319,19 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="./All-product.html" class="nav-link active">
+                  <a href="./All-product.php" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tất cả sản phẩm</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./add-product.html" class="nav-link">
+                  <a href="./add-product.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Thêm mới</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="./category.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Danh mục</p>
                   </a>
@@ -305,7 +353,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="./orders.html" class="nav-link">
+                  <a href="./orders.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tất cả đơn hàng</p>
                   </a>
@@ -325,14 +373,14 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a href="./user.html" class="nav-link ">
+              <a href="./user.php" class="nav-link ">
                 <i class="nav-icon fas fa-user"></i>
                 <p>
                   Quản lý người dùng </p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="./statistical.html" class="nav-link ">
+              <a href="./statistical.php" class="nav-link ">
                 <i class="nav-icon fas fa-chart-bar"></i>
                 <p>
                   Thống kê </p>
@@ -346,7 +394,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="../index.html" class="nav-link ">
+              <a href="../index.php" class="nav-link ">
                 <i class=" nav-icon fas fa-sign-out-alt"></i></i>
                 <p>
                   Đăng xuất </p>
@@ -380,22 +428,18 @@
               <div class="tile-body">
                 <div class="row element-button m-0">
                   <div class="mr-3 mb-3">
-                    <a class="btn btn-outline-success " href="./add-product.html" title="Thêm"><i
-                        class="fas fa-plus"></i>
+                    <a class="btn btn-outline-success " href="./add-product.php" title="Thêm"><i class="fas fa-plus"></i>
                       Tạo mới sản phẩm</a>
                   </div>
                   <div class="mr-3 mb-3">
-                    <a class="btn btn-outline-warning  nhap-tu-file" type="button" title="Nhập"><i
-                        class="fas fa-file-upload"></i> Tải từ file</a>
+                    <a class="btn btn-outline-warning  nhap-tu-file" type="button" title="Nhập"><i class="fas fa-file-upload"></i> Tải từ file</a>
                   </div>
 
                   <div class="mr-3 mb-3">
-                    <a class="btn btn-outline-primary  print-file" type="button" title="In"
-                      onclick="myApp.printTable()"><i class="fas fa-print"></i> In dữ liệu</a>
+                    <a class="btn btn-outline-primary  print-file" type="button" title="In" onclick="myApp.printTable()"><i class="fas fa-print"></i> In dữ liệu</a>
                   </div>
                   <div class="mr-3 mb-3">
-                    <a class="btn btn-outline-primary  print-file js-textareacopybtn" type="button" title="Sao chép"><i
-                        class="fas fa-copy"></i> Sao chép</a>
+                    <a class="btn btn-outline-primary  print-file js-textareacopybtn" type="button" title="Sao chép"><i class="fas fa-copy"></i> Sao chép</a>
                   </div>
 
                   <div class="mr-3 mb-3">
@@ -403,8 +447,7 @@
                       Excel</a>
                   </div>
                   <div class="mr-3 mb-3">
-                    <a class="btn btn-outline-secondary " type="button" title="Xóa" onclick="myFunction(this)"><i
-                        class="fas fa-trash-alt"></i> Xóa tất cả </a>
+                    <a class="btn btn-outline-secondary " type="button" title="Xóa" onclick="myFunction(this)"><i class="fas fa-trash-alt"></i> Xóa tất cả </a>
                   </div>
                 </div>
                 <div class="row element-filter mx-0 mb-3">
@@ -424,10 +467,15 @@
                   </div>
 
                 </div>
+                <?php
+                $sql_lietke_sp = "SELECT *, product.id as product_id FROM product,category WHERE product.category_id =category.id ORDER BY product.id asc";
+                $query_lietke_sp = mysqli_query($mysqli, $sql_lietke_sp);
+                ?>
                 <table class="table table-hover table-bordered" id="sampleTable">
                   <thead>
                     <tr>
                       <th width="10"><input type="checkbox" id="all"></th>
+                      <th>Id</th>
                       <th>Mã sản phẩm</th>
                       <th>Tên sản phẩm</th>
                       <th>Ảnh</th>
@@ -435,180 +483,41 @@
                       <th>Tình trạng</th>
                       <th>Giá tiền</th>
                       <th>Danh mục</th>
-                      <th >Chức năng</th>
+                      <th>Chức năng</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                      <td>MT001 </td>
-                      <td>Bibimbap bò</td>
-                      <td><img src="../../img/ComTron/BBB.jpg" alt="" width="100px;"></td>
-                      <!-- <td>40</td> -->
-                      <td><span class="badge bg-success">Còn hàng</span></td>
-                      <td>55.000 đ</td>
-                      <td>Món trộn</td>
-                      <td><button class="btn btn-outline-danger btn-sm trash" type="button" title="Xóa"
-                          data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button class="btn btn-outline-warning btn-sm edit" type="button" title="Sửa" id="show-emp"
-                          data-bs-toggle="modal" data-bs-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                    <?php
+                    while ($row = mysqli_fetch_array($query_lietke_sp)) {
+                    ?>
+                      <tr>
+                        <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                        <td class="id_product"><?php echo $row['product_id'] ?></td>
+                        <td><?php echo $row['product_code'] ?> </td>
+                        <td><?php echo $row['product_name'] ?></td>
+                        <td><img src="../img/upload/img_product/<?php echo $row['thumbnail'] ?>" alt="" width="100px;"></td>
+                        <!-- <td>40</td> -->
+                        <td><?php
+                            if ($row['status'] == 1) {
+                              echo '<span class="badge bg-success">Còn hàng</span>';
+                            } else {
+                              echo '<span class="badge bg-danger">Hết hàng</span>';
+                            }
+                            ?></td>
+                        <td><?php echo $row['price'] ?></td>
+                        <td><?php echo $row['name'] ?></td>
+                        <td><button class="btn btn-outline-danger btn-sm trash" type="button" title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i>
+                          </button>
+                          <button class="btn btn-outline-warning btn-sm edit" type="button" title="Sửa" id="show-emp" data-bs-toggle="modal" data-bs-target="#ModalUP" data-id="<?php echo $row['product_id']; ?>"><i class="fas fa-edit"></i></button>
 
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                      <td>MT002</td>
-                      <td>Ăn Vặt Thập cẩm</td>
-                      <td><img src="../../img/AnVat/AVTC.jpg" alt="" width="100px;"></td>
-                      <!-- <td>40</td> -->
-                      <td><span class="badge bg-success">Còn hàng</span></td>
-                      <td>99.000 đ</td>
-                      <td>Ăn vặt</td>
-                      <td><button class="btn btn-outline-danger btn-sm trash" type="button" title="Xóa"
-                          data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button class="btn btn-outline-warning btn-sm edit" type="button" title="Sửa" id="show-emp"
-                          data-bs-toggle="modal" data-bs-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                        </td>
+                      </tr>
 
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                      <td>MT003</td>
-                      <td>Mì kim chi bò</td>
-                      <td><img src="../../img/Mi/MKCB.jpg" alt="" width="100px;"></td>
-                      <!-- <td>40</td> -->
-                      <td><span class="badge bg-danger">Hết hàng</span></td>
-                      <td>34.000 đ</td>
-                      <td>Mì kim chi</td>
-                      <td><button class="btn btn-outline-danger btn-sm trash" type="button" title="Xóa"
-                          data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button class="btn btn-outline-warning btn-sm edit" type="button" title="Sửa" id="show-emp"
-                          data-bs-toggle="modal" data-bs-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                    <?php
+                    }
 
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                      <td>MT004</td>
-                      <td>Lẩu thái hải sản</td>
-                      <td><img src="../../img/Lau/LTHSL.jpg" alt="" width="100px;"></td>
-                      <!-- <td>40</td> -->
-                      <td><span class="badge bg-success">Còn hàng</span></td>
-                      <td>210.000 đ</td>
-                      <td>Lẩu thái</td>
-                      <td><button class="btn btn-outline-danger btn-sm trash" type="button" title="Xóa"
-                          data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button class="btn btn-outline-warning btn-sm edit" type="button" title="Sửa" id="show-emp"
-                          data-bs-toggle="modal" data-bs-target="#ModalUP"><i class="fas fa-edit"></i></button>
 
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                      <td>MT005</td>
-                      <td>Nước ép táo</td>
-                      <td><img src="../../img/Nuoc/NETAO.jpg" alt="" width="100px;"></td>
-                      <!-- <td>40</td> -->
-                      <td><span class="badge bg-success">Còn hàng</span></td>
-                      <td>55.000 đ</td>
-                      <td>Đồ uống</td>
-                      <td><button class="btn btn-outline-danger btn-sm trash" type="button" title="Xóa"
-                          data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button class="btn btn-outline-warning btn-sm edit" type="button" title="Sửa" id="show-emp"
-                          data-bs-toggle="modal" data-bs-target="#ModalUP"><i class="fas fa-edit"></i></button>
-
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                      <td>MT006</td>
-                      <td>Tokbokki hải sản</td>
-                      <td><img src="../../img/AnVat/Tokbokki/TBHS.jpg" alt="" width="100px;"></td>
-                      <!-- <td>40</td> -->
-                      <td><span class="badge bg-success">Còn hàng</span></td>
-                      <td>55.000 đ</td>
-                      <td>Đồ ăn vặt</td>
-                      <td><button class="btn btn-outline-danger btn-sm trash" type="button" title="Xóa"
-                          data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button class="btn btn-outline-warning btn-sm edit" type="button" title="Sửa" id="show-emp"
-                          data-bs-toggle="modal" data-bs-target="#ModalUP"><i class="fas fa-edit"></i></button>
-
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                      <td>MT007</td>
-                      <td>Mỳ kim chi bò mỹ</td>
-                      <td><img src="../../img/Mi/MKCBM.jpg" alt="" width="100px;"></td>
-                      <!-- <td>40</td> -->
-                      <td><span class="badge bg-success">Còn hàng</span></td>
-                      <td>49.000 đ</td>
-                      <td>Mì kim chi</td>
-                      <td><button class="btn btn-outline-danger btn-sm trash" type="button" title="Xóa"
-                          data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button class="btn btn-outline-warning btn-sm edit" type="button" title="Sửa" id="show-emp"
-                          data-bs-toggle="modal" data-bs-target="#ModalUP"><i class="fas fa-edit"></i></button>
-
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                      <td>MT008</td>
-                      <td>Mỳ kim chi cá</td>
-                      <td><img src="../../img/Mi/MKCC.jpg" alt="" width="100px;"></td>
-                      <!-- <td>40</td> -->
-                      <td><span class="badge bg-success">Còn hàng</span></td>
-                      <td>45.000 đ</td>
-                      <td>Mì kim chi</td>
-                      <td><button class="btn btn-outline-danger btn-sm trash" type="button" title="Xóa"
-                          data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button class="btn btn-outline-warning btn-sm edit" type="button" title="Sửa" id="show-emp"
-                          data-bs-toggle="modal" data-bs-target="#ModalUP"><i class="fas fa-edit"></i></button>
-
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                      <td>MT009</td>
-                      <td>Bắp cải xanh thêm</td>
-                      <td><img src="../../img/Mi/MonThem/BCXtm.jpg" alt="" width="100px;"></td>
-                      <!-- <td>40</td> -->
-                      <td><span class="badge bg-success">Còn hàng</span></td>
-                      <td>7.000 đ</td>
-                      <td>Món thêm</td>
-                      <td><button class="btn btn-outline-danger btn-sm trash" type="button" title="Xóa"
-                          data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button class="btn btn-outline-warning btn-sm edit" type="button" title="Sửa" id="show-emp"
-                          data-bs-toggle="modal" data-bs-target="#ModalUP"><i class="fas fa-edit"></i></button>
-
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                      <td>MT010</td>
-                      <td>Mỳ kim chi thập cẩm</td>
-                      <td><img src="../../img/Mi/MKCTCAM.jpg" alt="" width="100px;"></td>
-                      <!-- <td>40</td> -->
-                      <td><span class="badge bg-success">Còn hàng</span></td>
-                      <td>55.000 đ</td>
-                      <td>Mì kim chi</td>
-                      <td><button class="btn btn-outline-danger btn-sm trash" type="button" title="Xóa"
-                          data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button class="btn btn-outline-warning btn-sm edit" type="button" title="Sửa" id="show-emp"
-                          data-bs-toggle="modal" data-bs-target="#ModalUP"><i class="fas fa-edit"></i></button>
-
-                      </td>
-                    </tr>
+                    ?>
                   </tbody>
                 </table>
                 <!-- pagination -->
@@ -637,8 +546,7 @@
       <!--
   MODAL
 -->
-      <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
-        data-keyboard="false">
+      <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
 
@@ -718,7 +626,7 @@
               Bạn chắc chắn muốn xoá sản phẩm này? </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ bỏ</button>
-              <button type="button" class="btn btn-success">Đồng ý</button>
+              <button class=" btn btn-success remove " onclick="location.reload()"> Đồng ý</button>
             </div>
           </div>
         </div>
@@ -750,7 +658,7 @@ MODAL
   <!-- REQUIRED SCRIPTS -->
 
   <!-- jQuery -->
-  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../../node_modules/jquery/dist/jquery.js"></script>
   <!-- Bootstrap -->
   <script src="../../js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE -->
@@ -761,6 +669,87 @@ MODAL
   <!-- <script src="dist/js/demo.js"></script> -->
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="../js/dashboard3.js"></script>
+  <!-- JS DELETED -->
+  <script>
+    $(document).ready(function() {
+      var id_product = null;
+
+      $('.trash').click(function() {
+        id_product = $(this).closest('tr').find('.id_product').text().trim();
+        console.log('id_product:', id_product);
+      });
+      $(".remove").click(function() {
+        if (id_product) {
+          var id = id_product;
+          $.ajax({
+            url: '../manage/manage_product.php',
+            type: 'GET',
+            data: {
+              id: id
+            },
+          });
+        }
+      });
+    });
+  </script>
+  <!-- JS UPDATED -->
+  <script>
+    $(document).ready(function() {
+      $('.edit').click(function() {
+        var id = $(this).data('id');
+        $.post('../manage/manage_product.php', {
+            id_update: id
+          },
+          function(data) {
+            $('#ModalUP .modal-content').html(data);
+          });
+      });
+    });
+  </script>
+  <!-- JS UPLOAD IMG -->
+  <script>
+    // Xem hình ảnh trước khi upload
+    function previewImg(event) {
+      // Gán giá trị các file vào biến files
+      var files = document.getElementById('img_file').files;
+
+      // Show khung chứa ảnh xem trước
+      $('#img_upload .box-preview-img').show();
+
+      // Thêm chữ "Xem trước" vào khung
+      $('#img_upload .box-preview-img').html('<p>Xem trước</p>');
+
+      // Dùng vòng lặp for để thêm các thẻ img vào khung chứa ảnh xem trước
+      for (i = 0; i < files.length; i++) {
+        // Thêm thẻ img theo i
+        $('#img_upload .box-preview-img').append('<img src="" id="' + i + '">');
+
+        // Thêm src vào mỗi thẻ img theo id = i
+        $('#img_upload .box-preview-img img:eq(' + i + ')').attr('src', URL.createObjectURL(event.target.files[i]));
+      }
+
+    }
+
+    function previewImg_small(event) {
+      // Gán giá trị các file vào biến files
+      var files = document.getElementById('img_file_small').files;
+
+      // Show khung chứa ảnh xem trước
+      $('#img_upload_small .box-preview-img_small').show();
+
+      // Thêm chữ "Xem trước" vào khung
+      $('#img_upload_small .box-preview-img_small').html('<p>Xem trước</p>');
+
+      // Dùng vòng lặp for để thêm các thẻ img vào khung chứa ảnh xem trước
+      for (i = 0; i < files.length; i++) {
+        // Thêm thẻ img theo i
+        $('#img_upload_small .box-preview-img_small').append('<img src="" id="' + i + '">');
+
+        // Thêm src vào mỗi thẻ img theo id = i
+        $('#img_upload_small .box-preview-img_small img:eq(' + i + ')').attr('src', URL.createObjectURL(event.target.files[i]));
+      }
+    }
+  </script>
 </body>
 
 </html>

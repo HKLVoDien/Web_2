@@ -7,8 +7,7 @@
     <title>Thêm sản phẩm | Admin Seoul</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="../../css/fontawesome-free/css/all.min.css">
     <!-- IonIcons -->
@@ -77,7 +76,104 @@
         .btn-sm {
             width: 100%;
         }
+
+        .dropzone_small {
+            box-sizing: border-box;
+            width: 160px;
+            height: 140px;
+            border: 1px dashed #A4A4A4;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .dropzone {
+            box-sizing: border-box;
+            width: 240px;
+            height: 180px;
+            border: 1px dashed #A4A4A4;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .drop-content {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+    
+        .drop-content img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+            height: 50%;
+        }
+
+        .dropzone input, .dropzone_small input {
+            opacity: 0;
+            position: absolute;
+            top: 0%;
+            left: 0;
+            height: 100%;
+            width: 100%;
+        }
+        .dropzone input:hover, .dropzone_small input:hover {
+            cursor: pointer;
+        }
+        .btn-reset {
+
+            background-color: #fff;
+            border: 1px solid #ccc;
+            color: #444;
+            margin-top: 10px;
+            margin-right: 5px;
+            padding: 7px;
+            font-size: 14px;
+            border-radius: 4px;
+
+        }
+
+        .submit-btn {
+            background-color: #428bca;
+            border: 1px solid #428bca;
+            color: #fff;
+            margin-top: 10px;
+            margin-right: 5px;
+            padding: 7px;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        .box-preview-img,
+        .box-preview-img_small {
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* .box-preview-img p,
+        .box-preview-img_small p {
+font        } */
+
+        .box-preview-img img {
+            max-width: 240px;
+            max-height: 180px;
+            border: 1px solid #e5e5e5;
+            margin-right: 5px;
+            margin-top: 5px;
+        }
+
+
+
+        .box-preview-img_small img {
+            max-width: 160px;
+            max-height: 140px;
+            border: 1px solid #e5e5e5;
+            margin-right: 5px;
+            margin-top: 5px;
+        }
     </style>
+    <?php
+    include '../../database/config.php';
+    ?>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -90,7 +186,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../../index.html" class="nav-link">Trang web</a>
+                    <a href="../../index.php" class="nav-link">Trang web</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Liên hệ</a>
@@ -107,8 +203,7 @@
                     <div class="navbar-search-block">
                         <form class="form-inline">
                             <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Tìm kiếm"
-                                    aria-label="Search">
+                                <input class="form-control form-control-navbar" type="search" placeholder="Tìm kiếm" aria-label="Search">
                                 <div class="input-group-append">
                                     <button class="btn btn-navbar" type="submit">
                                         <i class="fas fa-search"></i>
@@ -162,9 +257,8 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="../admin.html" class="brand-link">
-                <img src="../../img/img_index/logo_spicy.png" alt="AdminLTE Logo"
-                    class="brand-image img-circle elevation-3" style="opacity: .8">
+            <a href="../admin.php" class="brand-link">
+                <img src="../../img/img_index/logo_spicy.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Admin Seoul</span>
             </a>
 
@@ -173,8 +267,7 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="../../img/img_index/Originals/logo_spicy.png" class="img-circle elevation-2"
-                            alt="User Image">
+                        <img src="../../img/img_index/Originals/logo_spicy.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">Ong Bắp Cày</a>
@@ -184,8 +277,7 @@
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm"
-                            aria-label="Search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm" aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-sidebar">
                                 <i class="fas fa-search fa-fw"></i>
@@ -196,12 +288,11 @@
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item ">
-                            <a href="../admin.html" class="nav-link ">
+                            <a href="../admin.php" class="nav-link ">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Bảng tin </p>
@@ -327,7 +418,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./All-product.html" class="nav-link ">
+                                    <a href="./All-product.php" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tất cả sản phẩm</p>
                                     </a>
@@ -339,7 +430,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="./category.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Danh mục</p>
                                     </a>
@@ -361,7 +452,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./orders.html" class="nav-link">
+                                    <a href="./orders.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tất cả đơn hàng</p>
                                     </a>
@@ -381,14 +472,14 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="./user.html" class="nav-link ">
+                            <a href="./user.php" class="nav-link ">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Quản lý người dùng </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./statistical.html" class="nav-link ">
+                            <a href="./statistical.php" class="nav-link ">
                                 <i class="nav-icon fas fa-chart-bar"></i>
                                 <p>
                                     Thống kê </p>
@@ -402,7 +493,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../index.html" class="nav-link ">
+                            <a href="../index.php" class="nav-link ">
                                 <i class=" nav-icon fas fa-sign-out-alt"></i></i>
                                 <p>
                                     Đăng xuất </p>
@@ -430,31 +521,14 @@
                         <div class="tile">
                             <h3 class="tile-title ">Thêm sản phẩm</h3>
                             <div class="tile-body">
-                                <div class="row element-button">
-                                    <div class="col-sm-2">
-                                        <a class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModalCenter"><i class="fas fa-folder-plus"></i> Thêm
-                                            nhà cung cấp</a>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <a class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#adddanhmuc"><i class="fas fa-folder-plus"></i> Thêm danh
-                                            mục</a>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <a class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#addtinhtrang"><i class="fas fa-folder-plus"></i> Thêm tình
-                                            trạng</a>
-                                    </div>
-                                </div>
-                                <form class="row">
+                                <form class="row" method="POST" action="../manage/manage_product copy.php" enctype="multipart/form-data" id="formUpload">
                                     <div class="form-group col-md-3">
                                         <label class="control-label">Mã sản phẩm </label>
-                                        <input class="form-control" type="number" placeholder="">
+                                        <input class="form-control" type="text" placeholder="" name="product_code">
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label class="control-label">Tên sản phẩm</label>
-                                        <input class="form-control" type="text">
+                                        <input class="form-control" type="text" name="product_name">
                                     </div>
 
 
@@ -464,24 +538,26 @@
                                     </div> -->
                                     <div class="form-group col-md-3 ">
                                         <label for="exampleSelect1" class="control-label">Tình trạng</label>
-                                        <select class="form-control" id="exampleSelect1">
+                                        <select class="form-control" id="exampleSelect1" name="status">
                                             <option>-- Chọn tình trạng --</option>
-                                            <option>Còn hàng</option>
-                                            <option>Hết hàng</option>
+                                            <option value="1">Còn hàng</option>
+                                            <option value="0">Hết hàng</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="exampleSelect1" class="control-label">Danh mục</label>
-                                        <select class="form-control" id="exampleSelect1">
+                                        <select class="form-control" id="exampleSelect1" name="category">
                                             <option>-- Chọn danh mục --</option>
-                                            <option>Mì kim chi</option>
-                                            <option>Mì lẩu thái</option>
-                                            <option>Lẩu kim chi</option>
-                                            <option>Lẩu thái</option>
-                                            <option>Món trộn</option>
-                                            <option>Đồ ăn vặt</option>
-                                            <option>Đồ uống</option>
-                                            <option>Món thêm</option>
+                                            <?php
+                                            $sql_danhmuc = "SELECT * FROM category ORDER BY id ASC";
+                                            $query_danhmuc = mysqli_query($mysqli, $sql_danhmuc);
+                                            while ($row_danhmuc = mysqli_fetch_array($query_danhmuc)) {
+                                            ?>
+                                                <option value="<?php echo $row_danhmuc['id'] ?>">
+                                                    <?php echo $row_danhmuc['name'] ?></option>
+                                            <?php
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                     <!-- <div class="form-group col-md-3 ">
@@ -496,154 +572,52 @@
                                     </div> -->
                                     <div class="form-group col-md-3">
                                         <label class="control-label">Giá bán</label>
-                                        <input class="form-control" type="text">
+                                        <input class="form-control" type="text" name="price">
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <!-- <div class="form-group col-md-3">
                                         <label class="control-label">Giá vốn</label>
                                         <input class="form-control" type="text">
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <label class="control-label">Ảnh sản phẩm</label>
-                                        <div id="boxchoice">
-                                            <a href="javascript:" class="Choicefile"><i
-                                                    class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
-                                            <p style="clear:both"></p>
+                                    </div> -->
+                                    <div class="form-group col-md-12 box-upload">
+                                        <label class="control-label ">Ảnh sản phẩm </label>
+                                        <i class="d-block text-gray f-1">Ảnh nhỏ</i>
+                                        <div class="dropzone_small">
+                                            <div class="drop-content">
+                                                <img src="https://100dayscss.com/codepen/upload.svg" class="upload">
+                                                <input type="file" name="img_file_small" onchange="previewImg_small(event);" id="img_file_small" accept="image/*">
+                                            </div>
                                         </div>
+                                        <div class="box-preview-img_small"></div>
+                                        <label class="control-label mt-3">Ảnh sản phẩm </label>
+                                        <i class="d-block text-gray f-1">Ảnh lớn</i>
+                                        <div class="dropzone">
+                                            <div class="drop-content">
+                                                <img src="https://100dayscss.com/codepen/upload.svg" class="upload">
+                                                <input type="file" name="img_file" onchange="previewImg(event);" id="img_file" accept="image/*">
+                                            </div>
+                                        </div>
+                                        <div class="box-preview-img"></div>
 
+                                        <button class="btn-reset " type="reset"><i class="fa fa-redo p-1"></i>Làm
+                                            mới</button>
                                     </div>
+
                                     <div class="form-group col-md-12">
                                         <label class="control-label">Mô tả sản phẩm</label>
-                                        <textarea class="form-control" name="mota" id="mota"></textarea>
-                                        <script>CKEDITOR.replace('mota');</script>
+                                        <textarea class="form-control" name="description" id="mota" style="resize: none"></textarea>
+                                        <script>
+                                            CKEDITOR.replace('mota');
+                                        </script>
                                     </div>
-
+                                    <button class="btn btn-success mx-1" type="submit" name="add_product">Lưu lại</button>
+                                    <a class="btn btn-danger" href="./all-product.php">Hủy bỏ</a>
+                                </form>
                             </div>
-                            <button class="btn btn-success" type="button">Lưu lại</button>
-                            <a class="btn btn-danger" href="./All-product.html">Hủy bỏ</a>
+
                         </div>
+
+                    </div>
             </main>
-
-
-            <!--
-              MODAL CHỨC VỤ 
-            -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalCenterTitle" data-backdrop="static" data-keyboard="false">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="form-group  col-md-12">
-                                    <span class="thong-tin-thanh-toan">
-                                        <h5>Thêm mới nhà cung cấp</h5>
-                                    </span>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">Nhập tên chức vụ mới</label>
-                                    <input class="form-control" type="text" required>
-                                </div>
-                            </div>
-                            <BR>
-                            <button class="btn btn-save" type="button">Lưu lại</button>
-                            <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-                            <BR>
-                        </div>
-                        <div class="modal-footer">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--
-            MODAL
-            -->
-
-
-
-            <!--
-              MODAL DANH MỤC
-            -->
-            <div class="modal fade" id="adddanhmuc" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalCenterTitle" data-backdrop="static" data-keyboard="false">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="form-group  col-md-12">
-                                    <span class="thong-tin-thanh-toan">
-                                        <h5>Thêm mới danh mục </h5>
-                                    </span>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">Nhập tên danh mục mới</label>
-                                    <input class="form-control" type="text" required>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">Danh mục sản phẩm hiện đang có</label>
-                                    <ul style="padding-left: 20px;">
-                                        <li>Bàn ăn</li>
-                                        <li>Bàn thông minh</li>
-                                        <li>Tủ</li>
-                                        <li>Ghế gỗ</li>
-                                        <li>Ghế sắt</li>
-                                        <li>Giường người lớn</li>
-                                        <li>Giường trẻ em</li>
-                                        <li>Bàn trang điểm</li>
-                                        <li>Giá đỡ</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <BR>
-                            <button class="btn btn-save" type="button">Lưu lại</button>
-                            <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-                            <BR>
-                        </div>
-                        <div class="modal-footer">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--
-            MODAL
-            -->
-
-
-
-
-            <!--
-              MODAL TÌNH TRẠNG
-            -->
-            <div class="modal fade" id="addtinhtrang" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalCenterTitle" data-backdrop="static" data-keyboard="false">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="form-group  col-md-12">
-                                    <span class="thong-tin-thanh-toan">
-                                        <h5>Thêm mới tình trạng</h5>
-                                    </span>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="control-label">Nhập tình trạng mới</label>
-                                    <input class="form-control" type="text" required>
-                                </div>
-                            </div>
-                            <BR>
-                            <button class="btn btn-save" type="button">Lưu lại</button>
-                            <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-                            <BR>
-                        </div>
-                        <div class="modal-footer">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--
-            MODAL
-            -->
         </div>
         <!-- /.content-wrapper -->
 
@@ -667,7 +641,143 @@
     <!-- REQUIRED SCRIPTS -->
 
     <!-- jQuery -->
-    <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../js/jquery.form.js"></script>
+    <!-- JS UPLOAD IMG -->
+    <script>
+        // Xem hình ảnh trước khi upload
+        function previewImg(event) {
+            // Gán giá trị các file vào biến files
+            var files = document.getElementById('img_file').files;
+
+            // Show khung chứa ảnh xem trước
+            $('#formUpload .box-preview-img').show();
+
+            // Thêm chữ "Xem trước" vào khung
+            // $('#formUpload .box-preview-img').html('<p>Xem trước</p>');
+
+            // Dùng vòng lặp for để thêm các thẻ img vào khung chứa ảnh xem trước
+            for (i = 0; i < files.length; i++) {
+                // Thêm thẻ img theo i
+                $('#formUpload .box-preview-img').append('<img src="" id="' + i + '">');
+
+                // Thêm src vào mỗi thẻ img theo id = i
+                $('#formUpload .box-preview-img img:eq(' + i + ')').attr('src', URL.createObjectURL(event.target.files[i]));
+            }
+            $('#formUpload .dropzone').hide();
+
+        }
+        
+        function previewImg_small(event) {
+            // Gán giá trị các file vào biến files
+            var files = document.getElementById('img_file_small').files;
+
+            // Show khung chứa ảnh xem trước
+            $('#formUpload .box-preview-img_small').show();
+
+            // Thêm chữ "Xem trước" vào khung
+            // $('#formUpload .box-preview-img_small').html('<p>Xem trước</p>');
+
+            // Dùng vòng lặp for để thêm các thẻ img vào khung chứa ảnh xem trước
+            for (i = 0; i < files.length; i++) {
+                // Thêm thẻ img theo i
+                $('#formUpload .box-preview-img_small').append('<img src="" id="' + i + '">');
+
+                // Thêm src vào mỗi thẻ img theo id = i
+                $('#formUpload .box-preview-img_small img:eq(' + i + ')').attr('src', URL.createObjectURL(event.target.files[i]));
+            }
+            $('#formUpload .dropzone_small').hide();
+        }
+        // Nút reset form upload
+        $('#formUpload .btn-reset').on('click', function() {
+            // Làm trống khung chứa hình ảnh xem trước
+            $('#formUpload .box-preview-img').html('');
+            $('#formUpload .box-preview-img_small').html('');
+            // Hide khung chứa hình ảnh xem trước
+            $('#formUpload .box-preview-img').hide();
+            $('#formUpload .box-preview-img_small').hide();
+
+            // show khung 
+            $('#formUpload .dropzone').show();
+            $('#formUpload .dropzone_small').show();
+
+        });
+
+        // Xử lý ảnh và upload
+        $('#formUpload .btn-submit').on('click', function() {
+            // Gán giá trị của nút chọn tệp vào var img_file
+            $img_file = $('#formUpload #img_file').val();
+
+            // Cắt đuôi của file để kiểm tra
+            $type_img_file = $('#formUpload #img_file').val().split('.').pop().toLowerCase();
+
+            // Nếu không có ảnh nào
+            if ($img_file == '') {
+                // Show khung kết quả
+                $('#formUpload .output').show();
+
+                // Thông báo lỗi
+                $('#formUpload .output').html('Vui lòng chọn ít nhất một file ảnh.');
+            }
+            // Ngược lại nếu file ảnh không hợp lệ với các đuôi bên dưới
+            else if ($.inArray($type_img_file, ['png', 'jpeg', 'jpg', 'gif']) == -1) {
+                // Show khung kết quả
+                $('#formUpload .output').show();
+
+                // Thông báo lỗi
+                $('#formUpload .output').html('File ảnh không hợp lệ với các đuôi .png, .jpeg, .jpg, .gif.');
+            }
+            // Ngược lại
+            else {
+                // Tiến hành upload 
+                $('#formUpload').ajaxSubmit({
+                    // Trước khi upload
+                    beforeSubmit: function() {
+                        target: '#formUpload .output',
+
+                        // Ẩn khung kết quả
+                        $('#formUpload .output').hide();
+
+                        // Show thanh tiến trình
+                        $("#formUpload .progress").show();
+
+                        // Đặt mặc định độ dài thanh tiến trình là 0
+                        $("#formUpload .progress-bar").width('0');
+                    },
+
+                    // Trong quá trình upload
+                    uploadProgress: function(event, position, total, percentComplete) {
+                        // Kéo dãn độ dài thanh tiến trình theo % tiến độ upload
+                        $("#formUpload .progress-bar").css('width', percentComplete + '%');
+
+                        // Hiển thị con số % trên thanh tiến trình
+                        $("#formUpload .progress-bar").html(percentComplete + '%');
+                    },
+                    // Sau khi upload xong
+                    success: function() {
+                        // Show khung kết quả 
+                        $('#formUpload .output').show();
+
+                        // Thêm class success vào khung kết quả
+                        $('#formUpload .output').addClass('success');
+
+                        // Thông báo thành công
+                        $('#formUpload .output').html('Upload ảnh thành công.');
+                    },
+                    // Nếu xảy ra lỗi
+                    error: function() {
+                        // Show khung kết quả
+                        $('#formUpload .output').show();
+
+                        // Thông báo lỗi
+                        $('#formUpload .output').html('Không thể upload ảnh vào lúc này, hãy thử lại sau.');
+                    }
+                });
+                return false;
+            }
+        });
+    </script>
+
     <!-- Bootstrap -->
     <script src="../../js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE -->
@@ -678,6 +788,7 @@
     <!-- <script src="dist/js/demo.js"></script> -->
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="../js/dashboard3.js"></script>
+
 </body>
 
 </html>
