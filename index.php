@@ -17,8 +17,12 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <!-- CSS  -->
     <link rel="stylesheet" href="./css/index.css">
-     <!-- <link rel="stylesheet" href="./css/header-footer.css"> -->
-
+     <link rel="stylesheet" href="./css/header-footer.css">
+    <style>
+        .carousel{
+            padding-top: 0px;
+        }
+    </style>
 </head>
 
 <body>

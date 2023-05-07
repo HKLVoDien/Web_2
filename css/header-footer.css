@@ -49,7 +49,6 @@ header {
     /* position: fixed; */
     z-index: 100;
     border-bottom: 1px solid #adadad;
-    margin-bottom: 25px;
 }
 
 .header__logo {

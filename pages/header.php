@@ -10,7 +10,7 @@
             <ul class="menu menu-1" id="mainNav">
 
                 <li class=" <?php if ($_GET['quanly'] == '') echo 'active' ?>"><a href="index.php">TRANG CHỦ</a></li>
-                <li class=" <?php if ($_GET['quanly'] == 'thucdon') echo 'active' ?>"><a href="index.php?quanly=thucdon&id=0">THỰC ĐƠN</a></li>
+                <li class=" <?php if ($_GET['quanly'] == 'thucdon'||$_GET['quanly'] == 'sanpham') echo 'active' ?>"><a href="index.php?quanly=thucdon&id=0">THỰC ĐƠN</a></li>
                 <li class=" <?php if ($_GET['quanly'] == 'gioithieu') echo 'active' ?>"><a href="index.php?quanly=gioithieu">GIỚI THIỆU</a></li>
                 <li class=" <?php if($_GET['quanly']== 'lienhe') echo 'active' ?>"><a href="index.php?quanly=lienhe">LIÊN HỆ</a></li>
             </ul>

@@ -31,7 +31,7 @@ if ($_GET['id'] == 0) {
             </div>
         </div>
         <div class="product_tags mb-4">
-            <a class="btn btn-outline-secondary active" role="button" href="./pages/Menu/all-menu.php" type="Tất cả">Tất cả</a>
+            <a class="btn btn-outline-secondary active" role="button" href="#" type="Tất cả">Tất cả</a>
             <?php
             while ($row_title = mysqli_fetch_array($query_cate)) {
             ?>
@@ -60,7 +60,7 @@ if ($_GET['id'] == 0) {
             ?>
                 <div class="col-3 product_content_items">
                     <div class="card">
-                        <div class="product_content__img"><a href="../Product/mtr_bibimbapbo-product.html">
+                        <div class="product_content__img"><a href="index.php?quanly=sanpham&id=<?php echo $row_pro['id'] ?>">
                                 <img src="./admin/img/upload/img_product/<?php echo $row_pro['thumbnail'] ?>" class="card-img-top" alt="..."></a>
                         </div>
                         <div class="card-body ">
@@ -180,7 +180,7 @@ if ($_GET['id'] == 0) {
             ?>
                 <div class="col-3 product_content_items">
                     <div class="card">
-                        <div class="product_content__img"><a href="../Product/mtr_bibimbapbo-product.html">
+                        <div class="product_content__img"><a href="index.php?quanly=sanpham&id=<?php echo $row_pro['id'] ?>">
                                 <img src="./admin/img/upload/img_product/<?php echo $row_pro['thumbnail'] ?>" class="card-img-top" alt="..."></a>
                         </div>
                         <div class="card-body ">
@@ -257,6 +257,3 @@ if ($_GET['id'] == 0) {
 <!-- BACKTOTOP JS  -->
 <script src="./js/main-backToTop.js"></script>
 
-</body>
-
-</html>
