@@ -140,26 +140,32 @@
     margin-top: 12px;
 }
 
-.product_qty button {
+.product_qty a {
     width: 1.5em;
     height: 1.5em;
     border: 1px solid #e6e6e6;
     background-color: #fff;
+    color: #333;
     font-size: 18px;
     padding: 0;
     font-weight: 700;
     border-radius: 0;
     line-height: 0px;
+    position: relative;
 }
 
 
 .qtyminus i,
 .qtyplus i {
     font-size: 8px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
 }
 
 
-.product_qty input {
+.product_qty p {
     width: 80px;
     height: 27px;
     border-top: #e6e6e6 solid 1px;
@@ -234,7 +240,8 @@
     text-transform: uppercase;
     background-color: #00a850;
     transition: all .25s;
-
+    display: inline-block;
+    color: white;
 }
 
 .orders__submit--total .total--pay a {

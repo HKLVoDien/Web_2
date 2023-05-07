@@ -65,7 +65,7 @@ if ($_GET['id'] == 0) {
                         </div>
                         <div class="card-body ">
                             <h5 class="card-title"><?php echo $row_pro['product_name'] ?></h5>
-                            <p class="card-text"><?php echo $row_pro['price'] ?>₫</p>
+                            <p class="card-text"><?php echo number_format($row_pro['price'], 0, ',', ',') . '₫'; ?></p>
                             <a href="#" class="btn 
                         <?php if ($row_pro['status'] == 0)
                             echo 'disabled' ?>" data-bs-toggle="modal" data-bs-target="#Modalcheck-user"><?php if ($row_pro['status'] == 0) echo 'Hết hàng';
@@ -256,4 +256,3 @@ if ($_GET['id'] == 0) {
 <script src="./js/util.js"></script>
 <!-- BACKTOTOP JS  -->
 <script src="./js/main-backToTop.js"></script>
-

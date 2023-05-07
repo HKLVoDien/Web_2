@@ -31,38 +31,39 @@ while ($row_chitiet = mysqli_fetch_array($query_chitiet)) {
                 </div>
             </div>
             <div class="col-6 product_details_info">
-                <h3><?php echo $row_chitiet['product_name'] ?></h3>
-                <p>Mã sản phẩm: <span><?php echo $row_chitiet['product_code'] ?></span></p>
-                <p>Danh mục: <span><?php echo $row_chitiet['category_name'] ?></span></p>
-                <span class="price"><?php echo $row_chitiet['price'] ?>₫</span>
-                <!-- <div class="product_qty">
-                    <div>
-                        <p class="text-dark">Số lượng:</p>
-                    </div>
-                    <form action="">
-                        <div class="qty row m-0">
-                            <button class="qtyminus" aria-hidden="true">&minus;</button>
-                            <input name="qty" id="qty" min="1" max="20" step="1" value="1" class="text-center">
-                            <button class="qtyplus" aria-hidden="true">&plus;</button>
+                <form action="./pages/Handle/cart_handle.php?id_product=<?php echo $row_chitiet['id'] ?>" method="post">
+
+                    <h3><?php echo $row_chitiet['product_name'] ?></h3>
+                    <p>Mã sản phẩm: <span><?php echo $row_chitiet['product_code'] ?></span></p>
+                    <p>Danh mục: <span><?php echo $row_chitiet['category_name'] ?></span></p>
+                    <span class="price"><span><?php echo number_format($row_chitiet['price'], 0, ',', ',') . '₫'; ?></span>
+                        <div class="product_qty">
+                            <div>
+                                <p class="text-dark">Số lượng:</p>
+                            </div>
+                            <div class="qty row m-0">
+                                <button class="qtyminus" aria-hidden="true">&minus;</button>
+                                <input name="qty" id="qty" min="1" max="20" step="1" value="1" class="text-center">
+                                <button class="qtyplus" aria-hidden="true">&plus;</button>
+                            </div>
                         </div>
-                    </form>
-                </div> -->
-                <button class="btn btn-orders <?php if ($row_chitiet['status'] == 0)
-                                                echo 'disabled' ?>" data-bs-toggle="modal" data-bs-target="#Modalcheck-user"><?php if ($row_chitiet['status'] == 0) echo 'Hết hàng';
-                                                                                                                                else echo 'Đặt món'; ?> </button>
-                <div class="product_tag" id="#readmore">
-                    <h4>
-                        Thông tin chi tiết
-                    </h4>
-                    <div class="product_tag-read">
-                        <p>
-                            <?php echo $row_chitiet['description'] ?>
-                            <button class="read-more">Xem thêm</button>
-                        </p>
+                        <button type="submit" name="add_cart" class="btn btn-orders <?php if ($row_chitiet['status'] == 0)
+                                                                                        echo 'disabled' ?>" data-bs-toggle="modal" data-bs-target="#Modalcheck-user"><?php if ($row_chitiet['status'] == 0) echo 'Hết hàng';
+                                                                                                                                                                    else echo 'Đặt món'; ?> </button>
+                        <div class="product_tag" id="#readmore">
+                            <h4>
+                                Thông tin chi tiết
+                            </h4>
+                            <div class="product_tag-read">
+                                <p>
+                                    <?php echo $row_chitiet['description'] ?>
+                                    <button class="read-more">Xem thêm</button>
+                                </p>
 
-                    </div>
+                            </div>
 
-                </div>
+                        </div>
+                </form>
             </div>
             <!-- Modal -->
             <div class="product_details_img-modal">
@@ -118,7 +119,7 @@ while ($row_chitiet = mysqli_fetch_array($query_chitiet)) {
                         </div>
                         <div class="card-body ">
                             <h5 class="card-title"><?php echo $row_pro['product_name'] ?></h5>
-                            <p class="card-text"><?php echo $row_pro['price'] ?>đ</p>
+                            <p class="card-text"><?php echo number_format($row_pro['price'], 0, ',', ',') . '₫'; ?></p>
                             <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#Modalcheck-user">Đặt món</a>
                         </div>
                     </div>

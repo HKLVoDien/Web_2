@@ -279,28 +279,7 @@
     <script src="../js/util.js"></script>
     <!-- BACKTOTOP JS  -->
     <script src="../js/main-backToTop.js"></script>
-    <!-- HEADER JS  -->
-    <Script>
-        // kiếm thẻ có id là mainNav 
-        //kiếm thẻ ul
-        var mainNav = document.getElementById("mainNav");
-        // kiếm thẻ con li 
-        var listNav = mainNav.getElementsByTagName("li");
-        for (var i = 0; i < listNav.length; i++) {
-            // khi thẻ li đc click thì gọi hàm nó ra
-            listNav[i].addEventListener("click", function () {
-                //tìm thẻ nào đang đc gắn acitve
-                var current = document.querySelector("#mainNav .active");
-                // xóa class active của thẻ đang được gắn
-                current.className = current.className.replace("active", "");
-                // thêm class active vào thẻ li được click 
-                this.className += "active";
-            });
-
-        }
-    </Script>
-    <!-- QUANTITY JS  -->
-    <!-- <script>
+ 
         var input = document.querySelector('#qty');
         var btnminus = document.querySelector('.qtyminus');
         var btnplus = document.querySelector('.qtyplus');

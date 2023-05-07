@@ -161,6 +161,9 @@
     min-height: unset;
     border-left: none;
     border-right: none;
+
+    font-size: 1rem;
+
 }
 
 .product_details_info .product_qty button:hover {
@@ -239,9 +242,10 @@
     bottom: 20px;
     left: 0;
 }
+
 /* SALE  */
 
-.Sale .sale-title a{
+.Sale .sale-title a {
     font-size: 25px;
     text-transform: uppercase;
     margin: 0;
@@ -250,6 +254,7 @@
     margin-bottom: 20px;
     color: #333;
 }
+
 .product_content_items .card {
     margin-bottom: 24px;
     overflow: hidden;
@@ -311,10 +316,13 @@
     text-transform: uppercase;
     width: 100%;
 }
-.btn.disabled,a.disabled {
+
+.btn.disabled,
+a.disabled {
     background-color: gray !important;
     border: gray;
 }
+
 .product_content_items .card:hover img {
     transform: scale(1.2);
     /* transition: all 0.5s ease; */
@@ -323,35 +331,43 @@
 .product_content_items .card .card-body a:hover {
     background-color: #960605;
 }
+
 /* PREV NEXT CAROUSEL  */
-.owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev{
+.owl-carousel .owl-nav button.owl-next,
+.owl-carousel .owl-nav button.owl-prev {
     font-size: 80px;
     position: absolute;
     top: 90px;
 }
-.owl-carousel .owl-nav button.owl-next{
+
+.owl-carousel .owl-nav button.owl-next {
     right: -15px;
     translate: calc(40px);
     opacity: 0;
 }
-.owl-carousel .owl-nav button.owl-prev{
+
+.owl-carousel .owl-nav button.owl-prev {
     left: -15px;
     translate: calc(-40px);
     opacity: 0;
 
 }
-.owl-carousel:hover .owl-nav button.owl-next{
+
+.owl-carousel:hover .owl-nav button.owl-next {
     translate: calc(0px);
     opacity: 1;
 }
-.owl-carousel:hover .owl-nav button.owl-prev{
+
+.owl-carousel:hover .owl-nav button.owl-prev {
     translate: calc(0px);
     opacity: 1;
 
 }
-.owl-carousel:hover .owl-nav button{
+
+.owl-carousel:hover .owl-nav button {
     transition: .5s all;
 }
+
 /* Modalcheck-user */
 #Modalcheck-user .modal-header h1 {
     text-align: center;
@@ -368,6 +384,7 @@
     text-decoration: none;
     color: white;
 }
+
 /* ADD CART  */
 .toast--add {
     right: 0;
