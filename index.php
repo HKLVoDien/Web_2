@@ -17,15 +17,17 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <!-- CSS  -->
     <link rel="stylesheet" href="./css/index.css">
+     <!-- <link rel="stylesheet" href="./css/header-footer.css"> -->
 
 </head>
 
 <body>
     <?php
-include "./pages/header.php";
-include "./pages/main.php";
-include "./pages/footer.php";
-?>
-    </body>
+    include "./database/config.php";
+    include "./pages/header.php";
+    include "./pages/main.php";
+    include "./pages/footer.php";
+    ?>
+</body>
 
 </html>

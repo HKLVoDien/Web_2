@@ -6,7 +6,7 @@
     $tam = '';
 }
 if ($tam == 'thucdon') {
-    include "./pages/Menu/all-menu.html";
+    include "./pages/Menu/all-menu.php";
 
 } elseif ($tam == 'gioithieu') {
     include "./pages/intro.php";
