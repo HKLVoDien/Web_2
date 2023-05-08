@@ -19,7 +19,10 @@ body {
     justify-content: center;
     align-items: center; */
 }
+.login{
+    margin-top: 50px;
 
+}
 .container--Login {
     width: 400px;
     border: none;

@@ -54,7 +54,6 @@ if (isset($_POST['btndangnhap'])) {
 			font-size: 80px;
 			line-height: 100px;
 			background: -webkit-linear-gradient(#27EF9F, #0DB8DE);
-			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 		}
 

@@ -13,8 +13,10 @@
         include "./pages/intro.php";
     } elseif ($tam == 'lienhe') {
         include "./pages/contact.php";
-    } elseif ($tam == 'user') {
+    } elseif ($tam == 'login') {
         include "./pages/login.php";
+    }elseif ($tam == 'signup') {
+        include "./pages/signup.php";
     } elseif ($tam == 'cart') {
         include "./pages/cart.php";
     } else {

@@ -37,7 +37,7 @@
 
             <div class="header__icon">
                 <div class="icon">
-                    <a href="index.php?quanly=user">
+                    <a href="index.php?quanly=login">
                         <i class="fa fa-user"></i>
                     </a>
                     <a href="index.php?quanly=cart">
