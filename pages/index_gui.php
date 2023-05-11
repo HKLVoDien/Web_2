@@ -1,3 +1,11 @@
+   <?php if (isset($_SESSION['username'])) {
+    ?>
+       <!-- HELLO -->
+       <div id="hello" class=""><Strong class="d-block" style="color: #c40505;">Mỳ Cay Seoul</Strong>Xin chào <?php echo $_SESSION['username']; ?>
+       </div>
+       </div>
+   <?php
+    } ?>
    <!-- CAROUSEL  -->
    <section class="carousel">
        <div class="owl-carousel owl-theme">
@@ -31,7 +39,7 @@
                    </p>
                </div>
                <div class="view_more">
-                   <p><a href="./pages/intro.html">Xem Thêm</a></p>
+                   <p><a href="./index.php?quanly=gioithieu">Xem Thêm</a></p>
                </div>
            </div>
            <div class="about__right col-7">
@@ -71,124 +79,65 @@
            </div>
            <div class="menu__food">
                <div class="food__main" id="all">
-                   <div class="row-1">
-                       <div class="food__item-1 food__item">
-                           <div class="food__img">
-                               <a href="./pages/Product/mtr_bibimbap-product.html"><img src="./img/ComTron/BB.jpg" alt="ảnh BBB"></a>
-                           </div>
-                           <div class="food__content">
-                               <a href="./pages/Product/mtr_bibimbap-product.html">BIBIMBAP</a>
-                               <p>55,000₫</p>
-                               <div class="orders" data-bs-toggle="modal" data-bs-target="#Modalcheck-user">
-                                   <button href="#">ĐẶT MÓN</button>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="food__item-2  food__item">
-                           <div class="food__img">
-                               <a href="./pages/Product/mlt_thapcam-product.html"><img src="./img/mi/MLTTCAM.jpg" alt="ảnh "></a>
-                           </div>
-                           <div class="food__content">
-                               <a href="">MỲ LẨU THÁI THẬP CẨM</a>
-                               <p>99,000₫</p>
-                               <div class="orders" data-bs-toggle="modal" data-bs-target="#Modalcheck-user">
-                                   <button href="#">ĐẶT MÓN</button>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="food__item-3  food__item">
-                           <div class="food__img">
-                               <a href="./pages/Product/dav_kimbap-product.html"><img src="./img/AnVat/KB.jpg" alt="ảnh "></a>
-                           </div>
-                           <div class="food__content">
-                               <a href="">KIMBAP</a>
-                               <p>45,000₫</p>
-                               <div class="orders" data-bs-toggle="modal" data-bs-target="#Modalcheck-user">
-                                   <button href="#">ĐẶT MÓN</button>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
+                   <?php
+                    $sql_pro = "SELECT * FROM product ORDER BY id DESC";
+                    $query_pro = mysqli_query($mysqli, $sql_pro);
+                    $products = mysqli_fetch_all($query_pro, MYSQLI_ASSOC);
+                    $count = mysqli_num_rows($query_pro);
+                    $index = 0;
+                    for ($i = 0; $i < 3; $i++) {
+                    ?>
+                       <div class="row-1">
+                           <?php
+                            for ($j = 0; $j < 3; $j++) {
+                                if ($index < $count) {
+                                    $product = $products[$index];
+                            ?>
+                                   <div class="food__item-1 food__item">
+                                       <div class="food__img">
+                                           <a href="./index.php?quanly=sanpham&id=<?php echo $product['id'] ?>"><img src="./Admin/img/upload/img_product/<?php echo $product['thumbnail'] ?>" alt="ảnh <?php echo $product['product_name'] ?>"></a>
+                                       </div>
+                                       <div class="food__content">
+                                           <a href="./index.php?quanly=sanpham&id=<?php echo $product['id'] ?>"><?php echo $product['product_name'] ?></a>
+                                           <p><?php echo number_format($product['price'], 0, ',', ',') . '₫'; ?></p>
+                                           <?php
+                                            if (isset($_SESSION['username'])) {
+                                            ?>
+                                               <div class="orders ">
+                                                   <button href="#" class="btn <?php if ($product['status'] == 0)
+                                                                                    echo 'disabled' ?>"><?php if ($product['status'] == 0) echo 'HẾT HÀNG';
+                                                                                                        else echo 'ĐẶT MÓN'; ?> </button>
+                                               </div>
+                                           <?php
+                                            } else {
+                                            ?>
+                                               <div class="orders " data-bs-toggle="modal" data-bs-target="#Modalcheck-user">
+                                                   <button href="#" class="btn <?php if ($product['status'] == 0)
+                                                                                    echo 'disabled' ?>"><?php if ($product['status'] == 0) echo 'HẾT HÀNG';
+                                                                                                        else echo 'ĐẶT MÓN'; ?></button>
+                                               </div>
+                                           <?php
+                                            }
+                                            ?>
 
-                   <div class="row-2">
-                       <div class="food__item-1  food__item">
-                           <div class="food__img LTTCN">
-                               <a href="./pages/Product/dav_hcc-product.html"><img src="./imG/AnVat/Hcc.jpg" alt="ảnh "></a>
-                           </div>
-                           <div class="food__content">
-                               <a href="">HÁ CẢO CHIÊN</a>
-                               <p>35,000₫</p>
-                               <div class="orders" data-bs-toggle="modal" data-bs-target="#Modalcheck-user">
-                                   <button href="#">ĐẶT MÓN</button>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="food__item-2  food__item">
-                           <div class="food__img TĐ">
-                               <a href="./pages/Product/du_tratraicay-product.html"><img src="./img/Nuoc/Seoul-drink03242-1.jpg" alt="ảnh "></a>
-                           </div>
-                           <div class="food__content">
-                               <a href="">TRÀ TRÁI CÂY</a>
-                               <p>30,000₫</p>
-                               <div class="orders" data-bs-toggle="modal" data-bs-target="#Modalcheck-user">
-                                   <button href="#">ĐẶT MÓN</button>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="food__item-3  food__item">
-                           <div class="food__img">
-                               <a href="./pages/Product/dav_TBKtruyenthong-product.html"><img src="./img/AnVat/Tokbokki/Seoul 201421.jpg" alt="ảnh "></a>
-                           </div>
-                           <div class="food__content">
-                               <a href="">TOKBOKKI TRUYỀN THỐNG</a>
-                               <p>55,000₫</p>
-                               <div class="orders" data-bs-toggle="modal" data-bs-target="#Modalcheck-user">
-                                   <button href="#">ĐẶT MÓN</button>
-                               </div>
+                                       </div>
+                                   </div>
+                           <?php
+                                }
 
-                           </div>
+
+                                $index++;
+                            }
+                            ?>
                        </div>
-                   </div>
-                   <div class="row-3">
-                       <div class="food__item-1  food__item">
-                           <div class="food__img">
-                               <a href="./pages/Product/dav_bcc-product.html"><img src="./img/AnVat/BTTHS.jpg" alt="ảnh "></a>
-                           </div>
-                           <div class="food__content">
-                               <a href="">BÁNH CUỘN CHIÊN</a>
-                               <p>35,000₫</p>
-                               <div class="orders" data-bs-toggle="modal" data-bs-target="#Modalcheck-user">
-                                   <button href="#">ĐẶT MÓN</button>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="food__item-2  food__item">
-                           <div class="food__img">
-                               <a href="./pages/Product/dav_TBKphomai-product.html"> <img src="./img/AnVat/Tokbokki/TBLPM.jpg" alt="ảnh "></a>
-                           </div>
-                           <div class="food__content">
-                               <a href="">TOKBOKKI PHÔ MAI</a>
-                               <p>25,000₫</p>
-                               <div class="orders" data-bs-toggle="modal" data-bs-target="#Modalcheck-user">
-                                   <button href="#">ĐẶT MÓN</button>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="food__item-3  food__item">
-                           <div class="food__img">
-                               <a href="./pages/Product/du_ruousoju-product.html"><img src="./img/Nuoc/Ruousoju.jpg" alt="ảnh "></a>
-                           </div>
-                           <div class="food__content">
-                               <a href="">RƯỢU SOJU</a>
-                               <p>70,000₫</p>
-                               <div class="orders" data-bs-toggle="modal" data-bs-target="#Modalcheck-user">
-                                   <button href="#">ĐẶT MÓN</button>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
+                   <?php
+                    }
+
+
+                    ?>
+
                </div>
-               <div class="food__main " id="MM">
+               <div class=" food__main " id=" MM">
                    <div class="row-1">
                        <div class="food__item-1  food__item">
                            <div class="food__img">
@@ -318,60 +267,111 @@
                </div>
                <div class="menu__cart">
                    <div class="sticky-right">
-                       <div class="title">Thông tin đơn hàng</div>
+                       <div class="title">Giỏ hàng</div>
                        <div class="sticky__content">
                            <div class="orders-cart" id="cart-sidebar">
                                <div class="order-cart-ajax ajax-here">
-                                   <div class="orders-cart-item">
-                                       <div class="cart-item ">
+                                   <?php
+                                    if (isset($_SESSION['cart_seoul'])) {
+                                        $i = 0;
+                                        $tongtien = 0;
+                                    ?>
+                                       <div class="orders-cart-item">
+                                           <div class="cart-item ">
+                                               <?php
+                                                foreach ($_SESSION['cart_seoul'] as $cart_item) {
+                                                    $thanhtien = $cart_item['soluong'] * $cart_item['giasp'];
+                                                    $tongtien += $thanhtien;
+                                                    $i++;
+                                                ?>
+                                                   <div class="simpleCart_items row">
+                                                       <!-- khung chứa sp  -->
+                                                       <div class="items-thumb col-4">
+                                                           <img src="./admin/img/upload/img_product/<?php echo $cart_item['hinhanh'] ?>" alt="<?php echo $cart_item['tensanpham'] ?>">
+                                                       </div>
+                                                       <div class="items-content col-8 ">
+                                                           <a href="./index.php?quanly=sanpham&id=<?php echo $cart_item['id'] ?>" class="col-12"><?php echo $cart_item['tensanpham'] ?></a>
+                                                           <div class="items-price col-5"><?php echo number_format($cart_item['giasp'], 0, ',', ',') . '₫' ?></div>
+                                                           <div class="items-quantity d-inline-block col-5  ">
+                                                               <form id='myform' method='GET' class='quantity  m-0 d-inline-block' action='./pages/Handle/cart_handle.php'>
+                                                                   <button type="submit" class="qtyminus minus" field='quantity'><i class="fas fa-minus"></i></button>
+                                                                   <input name="quantity" type='text' id="qty" value="<?php echo $cart_item['soluong'] ?>" class="text-center qty">
+                                                                   <button type="submit" class="qtyplus plus" field='quantity'><i class="fas fa-plus"></i></button>
+                                                                   <input type="hidden" value="<?php echo $cart_item['id'] ?>" name="id">
+                                                               </form>
+                                                           </div>
+                                                           <button class="">Xoá</button>
+                                                       </div>
+                                                   </div>
+                                               <?php
+                                                }
+                                                ?>
+                                           </div>
+                                       </div>
+                                       <div class="orders-cart-bottom">
+                                           <p class="subtotal">
+                                               Tạm tính:
+                                               <span class="order-total"><?php echo number_format($tongtien, 0, ',', ',') . '₫' ?></span>
+                                           </p>
+                                           <p class="fee-transport">
+                                               Phí vận chuyển:
+                                               <span class="order-total">0₫</span>
+                                           </p>
+                                       </div>
+                                       <div class="orders-cart-total">
+                                           <p>TỔNG CỘNG: <span><?php echo number_format($tongtien, 0, ',', ',') . '₫' ?></span></p>
+                                       </div>
+                                   <?php
+                                    } else {
+                                    ?>
+                                       <div class="orders-cart-item">
+                                           <div class="cart-item ">
+                                               <div class="simpleCart_items row">
+                                                   <h6 class="">Chưa có sản phẩm nào!</p>
+                                               </div>
+                                           </div>
 
                                        </div>
-                                   </div>
-                                   <div class="orders-cart-bottom">
-                                       <p class="subtotal">
-                                           Tạm tính:
-                                           <span class="order-total">0₫</span>
-                                       </p>
-                                       <p class="fee-transport">
-                                           Phí vận chuyển:
-                                           <span class="order-total">0₫</span>
-                                       </p>
-                                   </div>
-                                   <div class="orders-cart-total">
-                                       <p>TỔNG CỘNG: <span>0₫</span></p>
-                                   </div>
+                                       <div class="orders-cart-bottom">
+                                           <p class="subtotal">
+                                               Tạm tính:
+                                               <span class="order-total">0₫</span>
+                                           </p>
+                                           <p class="fee-transport">
+                                               Phí vận chuyển:
+                                               <span class="order-total">0₫</span>
+                                           </p>
+                                       </div>
+                                       <div class="orders-cart-total">
+                                           <p>TỔNG CỘNG: <span>0₫</span></p>
+                                       </div>
                                </div>
+                           <?php
+                                    }
+                            ?>
+                           <?php if (isset($_SESSION['username'])) {
+                            ?>
                                <div class="payment">
+                                   <a href="./index.php?quanly=payment">THANH TOÁN</a>
+                               </div>
+                           <?php
+                            } else {
+                            ?> <div class="payment">
                                    <a href="" data-bs-toggle="modal" data-bs-target="#Modalcheck-user">THANH TOÁN</a>
                                </div>
-
+                           <?php
+                            } ?>
                            </div>
+
 
                        </div>
 
                    </div>
-               </div>
-               <!-- Modal check-user-->
-               <div class="modal fade" id="Modalcheck-user" tabindex="-1" aria-labelledby="check-user" aria-hidden="true">
-                   <div class="modal-dialog modal-dialog-centered modal-sm">
-                       <div class="modal-content">
-                           <div class="modal-header">
-                               <h1 class="modal-title " id="check-user">Bạn chưa đăng nhập!</h1>
-                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                           </div>
-                           <div class="modal-body">
-                               Bạn cần đăng nhập hoặc đăng ký tài khoản để mua hàng và thanh toán!
-                           </div>
-                           <div class="modal-footer justify-content-center">
-                               <button type="button" class="btn btn-danger"><a href="./pages/Login.html">Đăng
-                                       nhập</a></button>
-                               <button type="button" class="btn btn-warning "><a href="./pages/SignUp.html">Đăng
-                                       ký</a></button>
-                           </div>
-                       </div>
-                   </div>
+
                </div>
            </div>
+
+       </div>
        </div>
 
    </section>
@@ -514,32 +514,46 @@
                    }
                });
        });
-       $(function abc() {
-           $(".trash").on("click", function() {
-               swal({
-                       title: "Cảnh báo",
-                       text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
-                       buttons: ["Hủy bỏ", "Đồng ý"],
-                   })
-                   .then((willDelete) => {
-                       if (willDelete) {
-                           swal("Đã xóa thành công.!", {
+       $('#myform').on('submit', function(e) {
+           e.preventDefault(); // ngăn chặn form submit bằng cách mặc định
+           var form = new FormData(this);
+        //    alert(form.get('quantity'));
+           $.ajax({
+               url: './pages/Handle/cart_handle.php',
+               method: 'GET',
+               data: form,
+               success: function(response) {
+                   // Xử lý kết quả trả về từ server
+                   alert('thành công.');
 
-                           });
-                       }
-                   });
+               },
+               error: function(xhr, status, error) {
+                   var errorMessage = xhr.status + ': ' + xhr.statusText;
+                   alert('Lỗi xảy ra: ' + errorMessage);
+               }
            });
        });
-       oTable = $('#sampleTable').dataTable();
-       $('#all').click(function(e) {
-           $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
-           e.stopImmediatePropagation();
-       });
-   </script>
-   <!-- POPUP JS  -->
-   <!-- js thong bao popup -->
-   <script>
-       function thongbaopopup() {
-           document.getElementById("tbpopup-1").classList.toggle("active");
-       }
+
+       //        $('.qtyminus').click(function(e) {
+       //            e.preventDefault();
+       //            var form = $(this).closest('form');
+       //            var id = form.find('input[name="id"]').val();
+       //            var quantity = form.find('input[name="quantity"]').val();
+       //            $.ajax({
+       //                url: form.attr('action'),
+       //                method: 'GET',
+       //                data: {
+       //                    id: id,
+       //                    quantity: quantity,
+       //                    action: 'decrease'
+       //                },
+       //                success: function(response) {
+       //                    // Cập nhật số lượng sản phẩm trong giỏ hàng
+       //                },
+       //                error: function() {
+       //                    alert('Lỗi xảy ra. Vui lòng thử lại sau.');
+       //                }
+       //            });
+       //        });
+       //    });
    </script>

@@ -1,5 +1,5 @@
 var username = document.querySelector("#username");
-var address = document.querySelector("#address");
+var email = document.querySelector("#email");
 var phone = document.querySelector("#phone");
 var password = document.querySelector("#password");
 var confirmPassword = document.querySelector("#password-confirm");
@@ -30,30 +30,30 @@ function checkEmptyError(listInput) {
   return isEmptyError;
 }
 
-function checkAddressError(input) {
-  const regexAddress =
-    /[^a-z0-9A-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]/u;
-  input.value = input.value.trim();
-  let isAddressError = !regexAddress.test(input.value);
-  if (!isAddressError) {
-    showSuccess(input);
-  } else {
-    showError(input, "Địa chỉ bạn nhập không hợp lệ !");
-  }
-  return isAddressError;
-}
-
-// function checkEmailError(input){
-//     const regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-//     input.value = input.value.trim();
-//     let isEmaiError = !regexEmail.test(input.value)     // input có nằm trong regexEmail hay ko
-//     if (!isEmaiError){ // nếu input có nằm trong regexEmail => đk đúng
-// 		showSuccess(input)
-//     }else{
-//         showError(input,'Email bạn nhập không hợp lệ !');
-//     }
-//     return isEmaiError;
+// function checkAddressError(input) {
+//   const regexAddress =
+//     /[^a-z0-9A-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]/u;
+//   input.value = input.value.trim();
+//   let isAddressError = !regexAddress.test(input.value);
+//   if (!isAddressError) {
+//     showSuccess(input);
+//   } else {
+//     showError(input, "Địa chỉ bạn nhập không hợp lệ !");
+//   }
+//   return isAddressError;
 // }
+
+function checkEmailError(input){
+    const regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    input.value = input.value.trim();
+    let isEmaiError = !regexEmail.test(input.value)     // input có nằm trong regexEmail hay ko
+    if (!isEmaiError){ // nếu input có nằm trong regexEmail => đk đúng
+		showSuccess(input)
+    }else{
+        showError(input,'Email bạn nhập không hợp lệ !');
+    }
+    return isEmaiError;
+}
 function checkPhoneError(input) {
   const regexPhone = /^[0-9]{10}$/; // chỉ chấp nhận 10 chữ số
   input.value = input.value.trim();
@@ -105,13 +105,13 @@ function checkMatchPasswordError(password, confirmPassword) {
 }
 function saveUserData() {
   var usernameValue = document.querySelector("#username").value; // lấy ra giá trị
-  var addressValue = document.querySelector("#address").value;
+  var emailValue = document.querySelector("#email").value;
   var phoneValue = document.querySelector("#phone").value;
   var passwordValue = document.querySelector("#password").value;
   var user = {
     // tạo mảng
     username: usernameValue, // tên gọi phần tử :
-    address: addressValue,
+    email: emailValue,
     phone: phoneValue,
     password: passwordValue,
   };
@@ -128,16 +128,16 @@ signup.addEventListener("submit", function (e) {
   let isPasswordLengthError = checkLengthErrorPassword(password, 6, 20);
   let isUserNameLengthError = checkLengthErrorUsername(username, 7, 20);
   let isPhoneError = checkPhoneError(phone);
-  let isAddressError = checkAddressError(address);
+  let isEmailError = checkEmailError(email);
   let isEmptyError = checkEmptyError([
     username,
-    address,
+    email,
     phone,
     password,
     confirmPassword,
   ]);
   if (
-    !isAddressError &&
+    !isEmailError &&
     !isPhoneError &&
     !isEmptyError &&
     !isMacthError &&

@@ -521,7 +521,7 @@ font        } */
                         <div class="tile">
                             <h3 class="tile-title ">Thêm sản phẩm</h3>
                             <div class="tile-body">
-                                <form class="row" method="POST" action="../manage/manage_product copy.php" enctype="multipart/form-data" id="formUpload">
+                                <form class="row" method="POST" action="../manage/manage_product.php" enctype="multipart/form-data" id="formUpload">
                                     <div class="form-group col-md-3">
                                         <label class="control-label">Mã sản phẩm </label>
                                         <input class="form-control" type="text" placeholder="" name="product_code">

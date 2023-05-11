@@ -448,6 +448,11 @@ main {
     transition: all .1s ease-in-out;
 }
 
+.food__content button.disabled {
+    background-color: gray;
+    color: #f5f4ef;
+}
+
 .about .about__left .view_more {
     text-align: center;
 }
@@ -654,8 +659,7 @@ main {
 }
 
 .menu__content .menu__cart {
-    width: 29%;
-    margin-left: 25px;
+    width: 400px;
 }
 
 #Modalcheck-user .modal-header h1 {
@@ -919,7 +923,7 @@ main {
 }
 
 .food__main {
-    width: 770px;
+    width: 800px;
 }
 
 .no--product {

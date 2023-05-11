@@ -19,6 +19,8 @@
         include "./pages/signup.php";
     } elseif ($tam == 'cart') {
         include "./pages/cart.php";
+    } elseif ($tam == 'payment') {
+        include "./pages/payment.php";
     } else {
 
         include 'index_gui.php';

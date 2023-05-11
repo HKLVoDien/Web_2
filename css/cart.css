@@ -165,7 +165,7 @@
 }
 
 
-.product_qty p {
+.product_qty input {
     width: 80px;
     height: 27px;
     border-top: #e6e6e6 solid 1px;

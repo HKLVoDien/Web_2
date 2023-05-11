@@ -10,7 +10,7 @@
 			<small></small>
 		</div>
 		<div class="form-control">
-			<input type="address" id="address" name="address" placeholder="Địa chỉ" />
+			<input type="address" id="email" name="email" placeholder="Email" />
 			<span></span>
 			<small></small>
 		</div>

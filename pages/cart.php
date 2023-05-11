@@ -1,7 +1,6 @@
     <link rel="stylesheet" href="./css/cart.css">
 
     <?php
-    session_start();
     ?>
     <!-- BREADCRUMB -->
     <section class="breadcrumb_section container">
@@ -32,13 +31,12 @@
                                 <div class="items--thumb">
                                     <img src="./admin/img/upload/img_product/<?php echo $cart_item['hinhanh'] ?>" alt="KIMBAP">
                                     <div class="product_qty">
-                                        <div id='myform' class='quantity row m-0'>
+                                        <form id='myform' class='quantity row m-0' method="GET" action="./pages/Handle/cart_handle.php">
                                             <a href="./pages/Handle/cart_handle.php?tru=<?php echo $cart_item['id'] ?>" class="qtyminus minus" field='quantity'><i class="fas fa-minus"></i></a>
-                                            <p> <?php echo $cart_item['soluong']; ?>
-                                            </p>
+                                            <input type="text" name="quantity" value="<?php echo $cart_item['soluong']; ?>">
+                                            <input type="hidden" name="id" value="<?php echo $cart_item['id']?>">
                                             <a href="./pages/Handle/cart_handle.php?cong=<?php echo $cart_item['id'] ?>" class="qtyplus plus" field='quantity'><i class="fas fa-plus"></i></a>
-
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -49,6 +47,8 @@
                                 <a href="./pages/Handle/cart_handle.php?xoa=<?php echo $cart_item['id'] ?>" class="items--remove ">Xoá</a>
                             </div>
                         </div>
+
+
                     <?php
                     }
                     ?>

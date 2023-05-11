@@ -1,7 +1,5 @@
 <link rel="stylesheet" href="./css/styleLogin.css" />
-<?php
-session_start();
-?>
+
 <div class="login">
 	<form action="" class="seou--login" method="POST">
 		<div class="container--Login">
@@ -40,7 +38,7 @@ if (isset($_POST['login'])) {
 		$row_data = mysqli_fetch_array($row);
 		$_SESSION['username'] = $row_data['username'];
 		$_SESSION['phone'] = $row_data['phone'];
-		$_SESSION['id_customer'] = mysqli_insert_id($mysqli);
+		$_SESSION['id_customer'] = $row_data['id'];
 ?>
 		<div class="modalSuccess active">
 			<div class="modal_inner">
@@ -61,6 +59,19 @@ if (isset($_POST['login'])) {
 			</div>
 		</div>
 	<?php
+
+		// Lấy thông tin giỏ hàng từ cơ sở dữ liệu
+		$customer_id = $_SESSION['id_customer'];
+		$sql = "SELECT cart FROM user WHERE id='$customer_id' LIMIT 1";
+		$result = mysqli_query($mysqli, $sql);
+		$row = mysqli_fetch_assoc($result);
+		$cart_json = $row['cart'];
+
+		// Chuyển đổi chuỗi JSON thành thông tin giỏ hàng
+		$cart = json_decode($cart_json, true);
+
+		// Lưu thông tin giỏ hàng vào session
+		$_SESSION['cart_seoul'] = $cart;
 	} else {
 	?><div class="modalfail activefail">
 			<div class="modal_innerfail">

@@ -22,7 +22,7 @@
     </style>
 </head>
 
-<body>
+<body onload="thongbaopopup()">
     <?php
     include "./database/config.php";
     include "./pages/header.php";
