@@ -293,14 +293,14 @@
                                                            <a href="./index.php?quanly=sanpham&id=<?php echo $cart_item['id'] ?>" class="col-12"><?php echo $cart_item['tensanpham'] ?></a>
                                                            <div class="items-price col-5"><?php echo number_format($cart_item['giasp'], 0, ',', ',') . '₫' ?></div>
                                                            <div class="items-quantity d-inline-block col-5  ">
-                                                               <form id='myform' method='GET' class='quantity  m-0 d-inline-block' action='./pages/Handle/cart_handle.php'>
-                                                                   <button type="submit" class="qtyminus minus" field='quantity'><i class="fas fa-minus"></i></button>
-                                                                   <input name="quantity" type='text' id="qty" value="<?php echo $cart_item['soluong'] ?>" class="text-center qty">
-                                                                   <button type="submit" class="qtyplus plus" field='quantity'><i class="fas fa-plus"></i></button>
+                                                               <form method='GET' class='myform  m-0 d-inline-block' action='./pages/Handle/cart_handle.php'>
+                                                                   <button type="button" class="qtyminus minus"><i class="fas fa-minus"></i></button>
+                                                                   <input name="quantity" type='text' value="<?php echo $cart_item['soluong'] ?>" class="text-center qty">
+                                                                   <button type="button" class="qtyplus plus"><i class="fas fa-plus"></i></button>
                                                                    <input type="hidden" value="<?php echo $cart_item['id'] ?>" name="id">
                                                                </form>
                                                            </div>
-                                                           <button class="">Xoá</button>
+                                                           <button class="remove_items">Xoá</button>
                                                        </div>
                                                    </div>
                                                <?php
@@ -311,15 +311,12 @@
                                        <div class="orders-cart-bottom">
                                            <p class="subtotal">
                                                Tạm tính:
-                                               <span class="order-total"><?php echo number_format($tongtien, 0, ',', ',') . '₫' ?></span>
+                                               <span class="order-total" id="price-temp"><?php echo number_format($tongtien, 0, ',', ',') . '₫' ?></span>
                                            </p>
-                                           <p class="fee-transport">
-                                               Phí vận chuyển:
-                                               <span class="order-total">0₫</span>
-                                           </p>
+
                                        </div>
                                        <div class="orders-cart-total">
-                                           <p>TỔNG CỘNG: <span><?php echo number_format($tongtien, 0, ',', ',') . '₫' ?></span></p>
+                                           <p>TỔNG CỘNG: <span id="price-total"><?php echo number_format($tongtien, 0, ',', ',') . '₫' ?></span></p>
                                        </div>
                                    <?php
                                     } else {
@@ -498,62 +495,95 @@
    </script>
    <!-- QUANTITY JS  -->
    <script>
-       jQuery(document).ready(($) => {
-           $('.quantity').on('click', '.plus', function(e) {
-               let $input = $(this).prev('input.qty');
-               let val = parseInt($input.val());
-               $input.val(val + 1).change();
-           });
+       // Lấy danh sách các phần tử sản phẩm
+       var productItems = document.querySelectorAll('.simpleCart_items');
 
-           $('.quantity').on('click', '.minus',
-               function(e) {
-                   let $input = $(this).next('input.qty');
-                   var val = parseInt($input.val());
-                   if (val > 1) {
-                       $input.val(val - 1).change();
-                   }
-               });
-       });
-       $('#myform').on('submit', function(e) {
-           e.preventDefault(); // ngăn chặn form submit bằng cách mặc định
-           var form = new FormData(this);
-        //    alert(form.get('quantity'));
-           $.ajax({
-               url: './pages/Handle/cart_handle.php',
-               method: 'GET',
-               data: form,
-               success: function(response) {
-                   // Xử lý kết quả trả về từ server
-                   alert('thành công.');
-
-               },
-               error: function(xhr, status, error) {
-                   var errorMessage = xhr.status + ': ' + xhr.statusText;
-                   alert('Lỗi xảy ra: ' + errorMessage);
+       // Lặp qua từng phần tử và gắn sự kiện click
+       productItems.forEach(function(productItem) {
+           // Lấy các phần tử con cần sử dụng trong sản phẩm hiện tại
+           var quantityInput = productItem.querySelector('.qty');
+           var minusButton = productItem.querySelector('.qtyminus');
+           var plusButton = productItem.querySelector('.qtyplus');
+           var removeButton = productItem.querySelector('.remove_items');
+           // Sự kiện khi nhấn nút trừ
+           minusButton.addEventListener('click', function() {
+               var currentQuantity = parseInt(quantityInput.value);
+               if (currentQuantity > 1) {
+                   quantityInput.value = currentQuantity - 1;
+                   updateQuantity();
                }
            });
-       });
 
-       //        $('.qtyminus').click(function(e) {
-       //            e.preventDefault();
-       //            var form = $(this).closest('form');
-       //            var id = form.find('input[name="id"]').val();
-       //            var quantity = form.find('input[name="quantity"]').val();
-       //            $.ajax({
-       //                url: form.attr('action'),
-       //                method: 'GET',
-       //                data: {
-       //                    id: id,
-       //                    quantity: quantity,
-       //                    action: 'decrease'
-       //                },
-       //                success: function(response) {
-       //                    // Cập nhật số lượng sản phẩm trong giỏ hàng
-       //                },
-       //                error: function() {
-       //                    alert('Lỗi xảy ra. Vui lòng thử lại sau.');
-       //                }
-       //            });
-       //        });
-       //    });
+           // Sự kiện khi nhấn nút cộng
+           plusButton.addEventListener('click', function() {
+               var currentQuantity = parseInt(quantityInput.value);
+               quantityInput.value = currentQuantity + 1;
+               updateQuantity();
+           });
+           // Sự kiện khi nhấn nút xóa
+           removeButton.addEventListener('click', function() {
+               var id = productItem.querySelector('input[name="id"]').value;
+               // Tạo URL endpoint với các tham số truyền vào
+               var url = './pages/Handle/cart_handle.php?xoa=' + encodeURIComponent(id);
+               // Gửi yêu cầu AJAX
+               fetch(url, {
+                       method: 'GET'
+                   })
+                   .then(function(response) {
+                       if (response.ok) {
+                           // Xử lý kết quả trả về từ server nếu thành công
+                           response.text().then(function(responseData) {
+                               // Xử lý chuỗi văn bản
+                               document.querySelector('#price-temp').innerHTML = responseData;
+                               document.querySelector('#price-total').innerHTML = responseData;
+                               //xóa phần tử
+                               productItem.remove();
+                               //reload lại trang nếu không còn sản phẩm 
+                               if (responseData == '0₫') {
+                                   location.reload();
+                               }
+                           });
+                       } else {
+                           // Xử lý lỗi nếu không thành công
+                           alert('Lỗi xảy ra. Vui lòng thử lại sau.');
+                       }
+                   })
+                   .catch(function(error) {
+                       // Xử lý lỗi kết nối
+                       alert('Lỗi kết nối. Vui lòng kiểm tra lại đường truyền mạng.');
+                   });
+
+           });
+           // Hàm cập nhật số lượng và gửi form
+           function updateQuantity() {
+               // Lấy giá trị của các trường input
+               var quantity = quantityInput.value;
+               var id = productItem.querySelector('input[name="id"]').value;
+
+               // Tạo URL endpoint với các tham số truyền vào
+               var url = './pages/Handle/cart_handle.php?quantity=' + encodeURIComponent(quantity) + '&id=' + encodeURIComponent(id);
+
+               // Gửi yêu cầu AJAX
+               fetch(url, {
+                       method: 'GET'
+                   })
+                   .then(function(response) {
+                       if (response.ok) {
+                           // Xử lý kết quả trả về từ server nếu thành công
+                           response.text().then(function(responseData) {
+                               // Xử lý chuỗi văn bản
+                               document.querySelector('#price-temp').innerHTML = responseData;
+                               document.querySelector('#price-total').innerHTML = responseData;
+                           });
+                       } else {
+                           // Xử lý lỗi nếu không thành công
+                           alert('Lỗi xảy ra. Vui lòng thử lại sau.');
+                       }
+                   })
+                   .catch(function(error) {
+                       // Xử lý lỗi kết nối
+                       alert('Lỗi kết nối. Vui lòng kiểm tra lại đường truyền mạng.');
+                   });
+           }
+       });
    </script>

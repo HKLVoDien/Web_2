@@ -31,11 +31,11 @@
                                 <div class="items--thumb">
                                     <img src="./admin/img/upload/img_product/<?php echo $cart_item['hinhanh'] ?>" alt="KIMBAP">
                                     <div class="product_qty">
-                                        <form id='myform' class='quantity row m-0' method="GET" action="./pages/Handle/cart_handle.php">
-                                            <a href="./pages/Handle/cart_handle.php?tru=<?php echo $cart_item['id'] ?>" class="qtyminus minus" field='quantity'><i class="fas fa-minus"></i></a>
-                                            <input type="text" name="quantity" value="<?php echo $cart_item['soluong']; ?>">
-                                            <input type="hidden" name="id" value="<?php echo $cart_item['id']?>">
-                                            <a href="./pages/Handle/cart_handle.php?cong=<?php echo $cart_item['id'] ?>" class="qtyplus plus" field='quantity'><i class="fas fa-plus"></i></a>
+                                        <form class='quantity row m-0 myform' method="GET" action="./pages/Handle/cart_handle.php">
+                                            <button class="qtyminus minus" type="button"><i class="fas fa-minus"></i></button>
+                                            <input type="text" name="quantity" value="<?php echo $cart_item['soluong']; ?>" class="qty">
+                                            <input type="hidden" name="id" value="<?php echo $cart_item['id'] ?>">
+                                            <button class="qtyplus plus" type="button"><i class="fas fa-plus"></i></button>
                                         </form>
                                     </div>
                                 </div>
@@ -58,8 +58,8 @@
                             <a href="./index.php?quanly=thucdon&id=0">Tiếp tục chọn món </a>
                         </div>
                         <div class="orders__submit--total col-6">
-                            <p class="temp--money">Tạm tính: <span><?php echo number_format($tongtien, 0, ',', ',') . '₫' ?></span></p>
-                            <p class="into--money">Thành tiền: <span><?php echo number_format($tongtien, 0, ',', ',') . '₫' ?>đ</span></p>
+                            <p class="temp--money ">Tạm tính: <span id="price-temp"><?php echo number_format($tongtien, 0, ',', ',') . '₫' ?></span></p>
+                            <p class="into--money">Thành tiền: <span id="price-total"><?php echo number_format($tongtien, 0, ',', ',') . '₫' ?>đ</span></p>
                             <a href="./index.php?quanly=thanhtoan" class="total--pay">Thanh toán</a>
                         </div>
                     </div>
@@ -75,10 +75,7 @@
                 }
                 ?>
                 <!-- Cart null -->
-
             </div>
-
-
             <div class="col-3 Seoul__cart--contact">
                 <div class="user--sevice">
                     <h3>Dịch vụ khách hàng</h3>
@@ -109,20 +106,101 @@
     </a>
     <!-- QUANTITY JS  -->
     <script>
-        jQuery(document).ready(($) => {
-            $('.quantity').on('click', '.plus', function(e) {
-                let $input = $(this).prev('input.qty');
-                let val = parseInt($input.val());
-                $input.val(val + 1).change();
+        // Lấy danh sách các phần tử sản phẩm
+        var productItems = document.querySelectorAll('.orders--items');
+
+        // Lặp qua từng phần tử và gắn sự kiện click
+        productItems.forEach(function(productItem) {
+            // Lấy các phần tử con cần sử dụng trong sản phẩm hiện tại
+            var quantityInput = productItem.querySelector('.qty');
+            var minusButton = productItem.querySelector('.qtyminus');
+            var plusButton = productItem.querySelector('.qtyplus');
+            var removeButton = productItem.querySelector('.remove_items');
+            // Sự kiện khi nhấn nút trừ
+            minusButton.addEventListener('click', function() {
+                var currentQuantity = parseInt(quantityInput.value);
+                if (currentQuantity > 1) {
+                    quantityInput.value = currentQuantity - 1;
+                    updateQuantity();
+                }
             });
 
-            $('.quantity').on('click', '.minus',
-                function(e) {
-                    let $input = $(this).next('input.qty');
-                    var val = parseInt($input.val());
-                    if (val > 1) {
-                        $input.val(val - 1).change();
-                    }
-                });
+            // Sự kiện khi nhấn nút cộng
+            plusButton.addEventListener('click', function() {
+                var currentQuantity = parseInt(quantityInput.value);
+                quantityInput.value = currentQuantity + 1;
+                updateQuantity();
+            });
+            // Sự kiện khi nhấn nút xóa
+            removeButton.addEventListener('click', function() {
+                var id = productItem.querySelector('input[name="id"]').value;
+                // Tạo URL endpoint với các tham số truyền vào
+                var url = './pages/Handle/cart_handle.php?xoa=' + encodeURIComponent(id);
+                // Gửi yêu cầu AJAX
+                fetch(url, {
+                        method: 'GET'
+                    })
+                    .then(function(response) {
+                        if (response.ok) {
+                            // Xử lý kết quả trả về từ server nếu thành công
+                            response.json().then(function(responseData) {
+                                // Xử lý kết quả JSON
+                                var newTotal = responseData.newTotal;
+                                var thanhtienDetail = responseData.thanhtien_detail;
+                                // Xử lý chuỗi văn bản
+                                document.querySelector('#price-temp').innerHTML = newTotal;
+                                document.querySelector('#price-total').innerHTML = newTotal;
+                                //xóa phần tử
+                                productItem.remove();
+                                //reload lại trang nếu không còn sản phẩm 
+                                if (responseData == '0₫') {
+                                    location.reload();
+                                }
+                            });
+                        } else {
+                            // Xử lý lỗi nếu không thành công
+                            alert('Lỗi xảy ra. Vui lòng thử lại sau.');
+                        }
+                    })
+                    .catch(function(error) {
+                        // Xử lý lỗi kết nối
+                        alert('Lỗi kết nối. Vui lòng kiểm tra lại đường truyền mạng.');
+                    });
+
+            });
+            // Hàm cập nhật số lượng và gửi form
+            function updateQuantity() {
+                // Lấy giá trị của các trường input
+                var quantity = quantityInput.value;
+                var id = productItem.querySelector('input[name="id"]').value;
+
+                // Tạo URL endpoint với các tham số truyền vào
+                var url = './pages/Handle/cart_handle.php?quantity=' + encodeURIComponent(quantity) + '&id=' + encodeURIComponent(id);
+
+                // Gửi yêu cầu AJAX
+                fetch(url, {
+                        method: 'GET'
+                    })
+                    .then(function(response) {
+                        if (response.ok) {
+                            // Xử lý kết quả trả về từ server nếu thành công
+                            response.json().then(function(responseData) {
+                                // Xử lý kết quả JSON
+                                var newTotal = responseData.newTotal;
+                                var thanhtienDetail = responseData.thanhtien_detail;
+                                // Xử lý chuỗi văn bản
+                                document.querySelector('#price-temp').innerHTML = newTotal;
+                                document.querySelector('#price-total').innerHTML = newTotal;
+                            });
+                        } else {
+                            // Xử lý lỗi nếu không thành công
+                            alert('Lỗi xảy ra. Vui lòng thử lại sau.');
+                        }
+                    })
+                    .catch(function(error) {
+                        // Xử lý lỗi kết nối
+                        alert('Lỗi kết nối. Vui lòng kiểm tra lại đường truyền mạng.');
+                    });
+            }
         });
     </script>

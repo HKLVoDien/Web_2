@@ -733,7 +733,7 @@ main {
     padding: 0;
 }
 
-.items-content .items-quantity #qty {
+.items-content .items-quantity .qty {
     border: none;
     background-color: transparent;
     width: 20px;
