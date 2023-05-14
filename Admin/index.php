@@ -1,8 +1,12 @@
 <?php
-	if(isset($_GET['dangxuat'])&&$_GET['dangxuat']==1){
-		unset($_SESSION['dangnhap_seoul']);
-		header('Location:login_admin.php');
-	}
+session_start();
+if (!isset($_SESSION['dangnhap_seoul'])) {
+  header('Location:login_admin.php');
+}
+if (isset($_GET['dangxuat']) && $_GET['dangxuat'] == 1) {
+  unset($_SESSION['dangnhap_seoul']);
+  header('Location:login_admin.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,12 +34,7 @@
   * sidebar-collapse
   * sidebar-mini
 -->
-<?php
-session_start();
-if (!isset($_SESSION['dangnhap'])) {
-  header('Location:login_admin.php');
-}
-?>
+
 
 <body class="hold-transition sidebar-mini">
   <div class="wrapper">

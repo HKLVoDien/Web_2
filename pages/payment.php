@@ -1,171 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
+<link rel="stylesheet" href="./css/payment.css">
+<!-- BREADCRUMB-->
+<section class="breadcrumb_section container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./index.php">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a href="./index.php?quanly=cart">Giỏ hàng</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Thanh toán</li>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thanh toán</title>
-    <!-- FONT AWESOME  -->
-    <link rel="stylesheet" href="../css/fontawesome-free/css/all.min.css">
-    <!-- FONT GOOGLE  -->
-    <link href="https://fonts.googleapis.com/css2?family=Mulish&display=swap" rel="stylesheet">
-
-    <!-- BOOSTRAP -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <!-- CSS  -->
-    <link rel="stylesheet" href="../css/header-footer.css">
-    <link rel="stylesheet" href="../css/payment.css">
-
-</head>
-
-<body>
-    <!-- HEADER  -->
-    <header>
-        <div class="header__content container-xl ">
-            <div class="header__logo">
-                <div class="logo">
-                    <a href="./user-index.html"><img src="../img/img_index/Tenthuonghieu 182x58 .png" alt="logo"></a>
-                </div>
-            </div>
-            <nav class="header__menu">
-                <ul class="menu menu-1" id="mainNav">
-                    <li class=""><a href="./user-index.html">TRANG CHỦ</a></li>
-                    <li><a href="./Menu/all-menu.html">THỰC ĐƠN</a></li>
-                    <li><a href="./intro.html">GIỚI THIỆU</a></li>
-                    <li><a href="./contact.html">LIÊN HỆ</a></li>
-                </ul>
-            </nav>
-            <div class="header__tool d-flex align-items-center ">
-                <form class="input-group" action="./search.html" method="post">
-                    <input type="text" class="form-control" placeholder="Tìm món ăn..."
-                        aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button type="submit" id="button-addon2" class="header__search--button "><i
-                            class="fas fa-search"></i></button>
-                </form>
-
-                <div class="header__flag " data-bs-toggle="modal" data-bs-target="#notifyModal">
-                    <div class="flag-item1 ">
-                        <a href="#">
-                            <img src="../img/img_index/flag-vn.png" alt="flag_VN">
-                        </a>
-                    </div>
-                    <div class="flag-item2 ">
-                        <a href="#">
-                            <img src="../img/img_index/flag-en.png" alt="flag_EN">
-                        </a>
-                    </div>
-
-                </div>
-
-                <div class="header__icon">
-                    <div class="icon">
-                        <div class="account">
-                            <img src="../img/img_index/avatar.jpg" alt="">
-                            <ul class="list-group">
-                                <li class="list-group-item"><a href="./user-file.html"><i class="fas fa-user"></i>Hồ
-                                        sơ</a></li>
-                                <li class="list-group-item"><a href="./user-file.html"><i
-                                            class="fas fa-utensils"></i>Đơn hàng</a></li>
-                                <li class="list-group-item"><a href="./user-help.html"><i
-                                            class="fas fa-question-circle"></i>Hỗ trợ</a>
-                                </li>
-                                <li class="list-group-item"><a href="../index.html"><i
-                                            class="fas fa-sign-out-alt"></i>Đăng xuất</a></li>
-                            </ul>
-                        </div>
-                        <a href="./user-cart.html">
-                            <i class="fa fa-shopping-basket basket">
-                                <span class="notify-cart">2</span>
-                            </i>
-                        </a>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </header>
-    <!-- Modal -->
-    <div class="modal fade" id="notifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">Thông báo</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Chức năng đang cập nhật!
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- BREADCRUMB-->
-    <section class="breadcrumb_section container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="./user-index.html">Trang chủ</a></li>
-                <li class="breadcrumb-item"><a href="./user-cart.html">Giỏ hàng</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Thanh toán</li>
-
-            </ol>
-        </nav>
-    </section>
-    <!-- PAYMENT  -->
-    <section class="payment container">
+        </ol>
+    </nav>
+</section>
+<!-- PAYMENT  -->
+<section class="payment container">
+    <form class="payment--form" method="post" action="./pages/Handle/payment_handle.php" id="payment_form">
         <div class="payment__content row">
             <div class="payment__content__left col-6">
                 <h3>Thông tin giao hàng</h3>
-                <form class="payment--form" method="post" action="" onsubmit="return thanks()">
-                    <!-- Họ tên  -->
-                    <label for="payment--receiver"><i class="fas fa-user"></i>Họ tên</label>
-                    <input type="text" id="payment--receiver" required placeholder="Tên người nhận hàng">
-                    <!-- Điện thoại  -->
-                    <label for="payment--phone"><i class="fas fa-phone-volume"></i>Điện thoại</label>
-                    <input type="tel" id="payment--phone" required pattern="(84|0[3|5|7|8|9])+([0-9]{8})\b"
-                        placeholder="Số điện thoại người nhận hàng">
-                    <!-- Địa chỉ  -->
-                    <label for="payment--adr"><i class="far fa-address-card"></i></i>Địa chỉ</label>
-                    <input type="text" id="payment--adr" required placeholder="Địa chỉ nhận hàng">
-                    <input type="checkbox" id="payment--defaul">
-                    <label for="payment--defaul"> Sử dụng thông tin mặc
-                        định <i class="far fa-question-circle">
-                            <div class="more-info">Thông tin về họ tên, số điện thoại, địa chỉ mà bạn lưu trong tài
-                                khoản (nếu có) </div>
-                        </i> </label>
-                    <!-- Ghi chú  -->
-                    <label for="payment--note"><i class="far fa-comment"></i></i>Ghi chú</label>
-                    <textarea type="text" name="user-note" id="payment--note" rows="3"
-                        placeholder="Ghi yêu cầu của bạn tại đây."></textarea>
-                    <!-- Button trigger modal -->
-                    <button type="submit" class="payment--button" name="payment--button" >
-                        Đặt hàng
-                    </button>
-                </form>
+                <?php
+                $id_customer = $_SESSION['id_customer'];
+                $sql = "SELECT * FROM user WHERE id='" . $id_customer . "' LIMIT 1";
+                $row = mysqli_query($mysqli, $sql);
+                $row_data = mysqli_fetch_array($row);
+                ?>
+                <!-- Họ tên  -->
+                <label for="payment__receiver"><i class="fas fa-user"></i>Họ tên</label>
+                <input type="text" id="payment__receiver" required placeholder="Tên người nhận hàng" value="<?php echo $row_data['fullname'] ?>" name="customer_name">
+                <!-- Điện thoại  -->
+                <label for="payment--phone"><i class="fas fa-phone-volume"></i>Điện thoại</label>
+                <input type="tel" name="customer_phone" id="payment--phone" required pattern="(84|0[3|5|7|8|9])+([0-9]{8})\b" placeholder="Số điện thoại người nhận hàng" value="<?php echo $row_data['phone'] ?>">
+                <!-- Địa chỉ  -->
+                <label for="payment--adr"><i class="far fa-address-card"></i></i>Địa chỉ</label>
+                <div>
+
+                    <select class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm" name="customer_city" required>
+                        <option value="" selected>Chọn tỉnh thành</option>
+
+                    </select>
+
+                    <select class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" name="customer_district" required>
+                        <option value="" selected>Chọn quận huyện</option>
+                    </select>
+
+                    <select class="form-select form-select-sm mb-3" id="ward" aria-label=".form-select-sm" name="customer_ward" required>
+                        <option value="" selected>Chọn phường xã</option>
+
+                    </select>
+                    <input type="text" id="payment--adr" required placeholder="Địa chỉ nhận hàng" name="custome_address">
+
+                </div>
+                <!-- <input type="checkbox" id="payment--defaul">
+                <label for="payment--defaul"> Sử dụng thông tin mặc
+                    định <i class="far fa-question-circle">
+                        <div class="more-info">Thông tin về họ tên, số điện thoại, địa chỉ mà bạn lưu trong tài
+                            khoản (nếu có) </div>
+                    </i> </label> -->
+                <!-- Ghi chú  -->
+                <label for="payment--note"><i class="far fa-comment"></i></i>Ghi chú</label>
+                <textarea type="text" name="customer_note" id="payment--note" rows="3" placeholder="Ghi yêu cầu của bạn tại đây."></textarea>
+                <!-- Button trigger modal -->
+                <button type="submit" class="payment--button" name="payment_button">
+                    Đặt hàng
+                </button>
             </div>
             <div class="payment__content__right col-6">
                 <h3>Phương thức thanh toán</h3>
                 <label>Chọn phương thức:</label>
                 <div class="btn-group" id="payment__method" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                    <label class="btn active" for="btnradio1"><img
-                            src="https://bizweb.dktcdn.net/100/421/124/themes/811860/assets/cart_payment_1.svg?1617678628801"
-                            alt="Hình thức thanh toán"></label>
+                    <input type="radio" name="btnradio" id="btnradio1" autocomplete="off" checked value="visa">
+                    <label class="btn active" for="btnradio1"><img src="./img/cart_payment_1.svg" alt="Hình thức thanh toán"></label>
                     <div class="payment__method--visa payment__method">
                         <p>Phương thức hiện tại không khả dụng.</p>
                     </div>
-                    <input type="radio" class="" name="btnradio" id="btnradio2" autocomplete="off">
-                    <label class="btn " for="btnradio2"><img
-                            src="https://bizweb.dktcdn.net/100/421/124/themes/811860/assets/cart_payment_2.svg?1617678628801"
-                            alt="Hình thức thanh toán"></label>
+                    <input type="radio" class="" name="btnradio" id="btnradio2" autocomplete="off" value="mastercard">
+                    <label class="btn " for="btnradio2"><img src="./img/cart_payment_2.svg" alt="Hình thức thanh toán"></label>
                     <div class="payment__method--master payment__method">
                         <p>Phương thức hiện tại không khả dụng.</p>
                     </div>
-                    <input type="radio" class="" name="btnradio" id="btnradio3" autocomplete="off">
-                    <label class="btn " for="btnradio3"><img
-                            src="https://bizweb.dktcdn.net/100/421/124/themes/811860/assets/cart_payment_3.svg?1617678628801"
-                            alt="Hình thức thanh toán"></label>
+                    <input type="radio" class="" name="btnradio" id="btnradio3" autocomplete="off" value="bank">
+                    <label class="btn " for="btnradio3"><img src="./img/cart_payment_3.svg" alt="Hình thức thanh toán"></label>
                     <div class="payment__method--bank payment__method">
                         <p>1. Ngân hàng TMCP Á Châu ACB
                             <br>
@@ -197,10 +109,8 @@
                         </p>
                     </div>
 
-                    <input type="radio" class="" name="btnradio" id="btnradio4" autocomplete="off">
-                    <label class="btn " for="btnradio4"><img
-                            src="https://bizweb.dktcdn.net/100/421/124/themes/811860/assets/cart_payment_4.svg?1617678628801"
-                            alt="Hình thức thanh toán"></label>
+                    <input type="radio" class="" name="btnradio" id="btnradio4" autocomplete="off" value="cash">
+                    <label class="btn " for="btnradio4"><img src="./img/cart_payment_4.svg" alt="Hình thức thanh toán"></label>
                     <div class="payment__method--money payment__method">
                         <p>Quý khách chỉ phải thanh toán khi nhận được hàng - Chi phí vận chuyển và thời gian vận chuyển
                             sẽ được nhân viên gọi điện xác nhận!
@@ -222,121 +132,135 @@
 
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- FOOTER  -->
-    <section class="footer" id="footer">
-        <div class="container">
-            <div class="footer__conect">
-                <p class="time">Thời gian hoạt động: <span> 09h00 - 22h00 mỗi ngày</span></p>
-                <div class="footer__item">
-                    <p>Kết nối Mỳ Cay Seoul:</p>
-                    <a href="https://www.facebook.com/hethongmicayseoul/" target="_blank">
-                        <i class="fab fa-facebook-square"></i>
-                        <a href="https://www.instagram.com/heomixx1305/" target="_blank">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                </div>
-
-            </div>
-            <div class="footer__content">
-                <div class="footer__shipper-main">
-                    <div class="footer__shipper">
-                        <div class="shipper">
-                            <img src="../img/img_index/logo_spicy.png" alt="giao_hang">
-                        </div>
-                        <div class="footer__hotline">
-                            <p>
-                                <i class="fas fa-phone-alt"></i> <span>Hotline đặt hàng</span>
-                            </p>
-                            <p>19003360</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer__blog">
-                    <a href="#">
-                        <p>Blog</p>
-                    </a>
-                    <a href="#">
-                        <p>Tuyển dụng</p>
-                    </a>
-                    <a href="#">
-                        <p>Hệ thống nhà hàng</p>
-                    </a>
-                </div>
-                <div class="footer__buy">
-                    <a href="#">
-                        <p>Chính sách giao hàng</p>
-                    </a>
-                    <a href="#">
-                        <p>Theo dõi đơn hàng</p>
-                    </a>
-                    <a href="#">
-                        <p>Điều khoản và điều kiện</p>
-                    </a>
-                </div>
-                <div class="footer__subscribe">
-                    <a href="#">
-                        <i class="fas fa-bell"></i>
-                        <p>Đăng ký nhận tin</p>
-                    </a>
-                    <a href="#">
-                        <p>Nhận thông tin sản phẩm mới nhất, tin khuyến mãi</p>
-                    </a>
-                    <form action="#" class="subscribe">
-                        <input type="text" placeholder="Email của bạn">
-                        <br>
-                        <button type="submit" class="đk">ĐĂNG KÝ</button>
-                    </form>
-                </div>
-            </div>
         </div>
-        <div class="footer__copy">
-            <p>&copy; <span>2022 Công ty TNHH Mỳ Cay Seoul | Design by My Group</span> </p>
-        </div>
-    </section>
-    <!-- Back to top  -->
-    <a href="#" class="BackToTop cd-top text-replace js-cd-top">
-        <i class="fa fa-angle-up"></i>
-    </a>
-    <!-- JQUERY  -->
-    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-    <!-- BOOSTRAP JS  -->
-    <script src="../js/bootstrap.bundle.min.js"></script>
-    <!-- UTIL JS  -->
-    <script src="../js/util.js"></script>
-    <!-- BACKTOTOP JS  -->
-    <script src="../js/main-backToTop.js"></script>
-    <!-- PAYMENT JS  -->
-    <Script>
-        // kiếm thẻ có id là mainNav 
-        //kiếm thẻ ul
-        var paymentMethod = document.getElementById("payment__method");
-        // kiếm thẻ con li 
-        var listMethod = paymentMethod.getElementsByTagName("label");
-        for (var i = 0; i < listMethod.length; i++) {
-            // khi thẻ li đc click thì gọi hàm nó ra
-            listMethod[i].addEventListener("click", function () {
-                //tìm thẻ nào đang đc gắn acitve
-                var current = document.querySelector("#payment__method .active");
-                // xóa class active của thẻ đang được gắn
-                current.className = current.className.replace("active", "");
-                // thêm class active vào thẻ li được click 
-                this.className += "active";
+    </form>
 
+</section>
+
+
+<!-- Back to top  -->
+<a href="#" class="BackToTop cd-top text-replace js-cd-top">
+    <i class="fa fa-angle-up"></i>
+</a>
+<!-- JQUERY  -->
+<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+<!-- BOOSTRAP JS  -->
+<script src="./js/bootstrap.bundle.min.js"></script>
+<!-- UTIL JS  -->
+<script src="./js/util.js"></script>
+<!-- AXIOS JS -->
+<script src="./js/axios.min.js"></script>
+<!-- BACKTOTOP JS  -->
+<script src="./js/main-backToTop.js"></script>
+<!-- PAYMENT JS  -->
+<Script>
+    // kiếm thẻ có id là mainNav 
+    //kiếm thẻ ul
+    var paymentMethod = document.getElementById("payment__method");
+    // kiếm thẻ con li 
+    var listMethod = paymentMethod.getElementsByTagName("label");
+    for (var i = 0; i < listMethod.length; i++) {
+        // khi thẻ li đc click thì gọi hàm nó ra
+        listMethod[i].addEventListener("click", function() {
+            //tìm thẻ nào đang đc gắn acitve
+            var current = document.querySelector("#payment__method .active");
+            // xóa class active của thẻ đang được gắn
+            current.className = current.className.replace("active", "");
+            // thêm class active vào thẻ li được click 
+            this.className += "active";
+
+        });
+
+
+    }
+</Script>
+<!-- PAYMENT_FORM -->
+<script>
+    $("#payment_form").on("submit", function(event) {
+        event.preventDefault(); // Ngăn chặn việc gửi form một cách thông thường
+
+        // Lấy các giá trị từ các trường input trong form
+        var receiver = $("#payment__receiver").val();
+        var phone = $("#payment--phone").val();
+        var city = $("#city").val();
+        var selectedOptionCityText = $("#city option:selected").text();
+        var selectedOptionDistrictText = $("#district option:selected").text();
+        var selectedOptionWardText = $("#ward option:selected").text();
+        var address = $("#payment--adr").val();
+        var note = $("#payment--note").val();
+        var paymentMethod = $("input[name='btnradio']:checked").val();
+        var fullAddress = address + ', ' + selectedOptionWardText + ', ' + selectedOptionDistrictText + ', ' + selectedOptionCityText;
+        // Tạo đối tượng dữ liệu form
+        const formData = new FormData();
+        formData.append("customer_name", receiver);
+        formData.append("customer_phone", phone);
+        formData.append("customer_city", city);
+        formData.append("customer_address", fullAddress);
+        formData.append("customer_note", note);
+        formData.append("payment_method", paymentMethod);
+
+        fetch("./pages/Handle/payment_handle.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "./pages/thanks.php";
+                } else {
+                    throw new Error("Đã xảy ra lỗi. Mã lỗi: " + response.status);
+                }
+            })
+            .then(data => {
+                alert(data.customer_name);
+            })
+            .catch(error => {
+                console.error("Đã xảy ra lỗi: " + error.message);
             });
+    });
+</script>
 
 
+<!-- SELECT CITY -->
+<script>
+    var citis = document.getElementById("city");
+    var districts = document.getElementById("district");
+    var wards = document.getElementById("ward");
+    var Parameter = {
+        url: "./js/data.json",
+        method: "GET",
+        responseType: "application/json",
+    };
+    var promise = axios(Parameter);
+    promise.then(function(result) {
+        renderCity(result.data);
+    });
+
+    function renderCity(data) {
+        for (const x of data) {
+            citis.options[citis.options.length] = new Option(x.Name, x.Id);
         }
-    </Script>
-    <!-- CHECK DATA  -->
-    <script>
-        function thanks() {
-            window.location.replace("./thanks.html");
-            return false;
-        }
-    </script>
-</body>
+        citis.onchange = function() {
+            district.length = 1;
+            ward.length = 1;
+            if (this.value != "") {
+                const result = data.filter(n => n.Id === this.value);
 
-</html>
+                for (const k of result[0].Districts) {
+                    district.options[district.options.length] = new Option(k.Name, k.Id);
+                }
+            }
+        };
+        district.onchange = function() {
+            ward.length = 1;
+            const dataCity = data.filter((n) => n.Id === citis.value);
+            if (this.value != "") {
+                const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+                for (const w of dataWards) {
+                    wards.options[wards.options.length] = new Option(w.Name, w.Id);
+                }
+            }
+        };
+    }
+</script>

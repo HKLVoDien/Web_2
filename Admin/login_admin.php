@@ -8,7 +8,7 @@ if (isset($_POST['btndangnhap'])) {
 	$row = mysqli_query($mysqli, $sql);
 	$count = mysqli_num_rows($row);
 	if ($count > 0) {
-		$_SESSION['dangnhap'] = $taikhoan;
+		$_SESSION['dangnhap_seoul'] = $taikhoan;
 		header("Location:./index.php");
 	} else {
 ?>

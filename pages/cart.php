@@ -58,7 +58,7 @@
                         <div class="orders__submit--total col-6">
                             <p class="temp--money ">Tạm tính: <span id="price-temp"><?php echo number_format($tongtien, 0, ',', ',') . '₫' ?></span></p>
                             <p class="into--money">Thành tiền: <span id="price-total"><?php echo number_format($tongtien, 0, ',', ',') . '₫' ?></span></p>
-                            <a href="./index.php?quanly=thanhtoan" class="total--pay">Thanh toán</a>
+                            <a href="./index.php?quanly=payment" class="total--pay">Thanh toán</a>
                         </div>
                     </div>
                 <?php
