@@ -47,9 +47,21 @@ while ($row_chitiet = mysqli_fetch_array($query_chitiet)) {
                                 <button class="qtyplus" aria-hidden="true">&plus;</button>
                             </div>
                         </div>
-                        <button type="submit" name="add_cart" class="btn btn-orders <?php if ($row_chitiet['status'] == 0)
-                                                                                        echo 'disabled' ?>" data-bs-toggle="modal" data-bs-target="#Modalcheck-user"><?php if ($row_chitiet['status'] == 0) echo 'Hết hàng';
-                                                                                                                                                                    else echo 'Đặt món'; ?> </button>
+                        <?php
+                        if (isset($_SESSION['username'])) {
+                        ?> <button type="submit" name="add_cart" class="btn add btn-orders <?php if ($row_chitiet['status'] == 0)
+                                                                                                echo 'disabled' ?>"><?php if ($row_chitiet['status'] == 0) echo 'Hết hàng';
+                                                                                                                    else echo 'Đặt món'; ?> </button>
+                        <?php
+                        } else {
+                        ?>
+                            <button type="submit" name="add_cart" class="btn add btn-orders <?php if ($row_chitiet['status'] == 0)
+                                                                                                echo 'disabled' ?>" data-bs-toggle="modal" data-bs-target="#Modalcheck-user"><?php if ($row_chitiet['status'] == 0) echo 'Hết hàng';
+                                                                                                                                                                                else echo 'Đặt món'; ?> </button>
+
+                        <?php
+                        }
+                        ?>
                         <div class="product_tag" id="#readmore">
                             <h4>
                                 Thông tin chi tiết
@@ -120,7 +132,19 @@ while ($row_chitiet = mysqli_fetch_array($query_chitiet)) {
                         <div class="card-body ">
                             <h5 class="card-title"><?php echo $row_pro['product_name'] ?></h5>
                             <p class="card-text"><?php echo number_format($row_pro['price'], 0, ',', ',') . '₫'; ?></p>
-                            <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#Modalcheck-user">Đặt món</a>
+                            <?php
+                            if (isset($_SESSION['username'])) {
+                            ?>
+                                <a href="./index.php?quanly=sanpham&id=<?php echo $row_pro['id'] ?>" class="btn">Đặt món</a>
+                            <?php
+                            } else {
+                            ?>
+                                <a href="./index.php?quanly=sanpham&id=<?php echo $product['id'] ?>" class="btn  <?php if ($product['status'] == 0)
+                                                                                                                        echo 'disabled' ?>" data-bs-toggle="modal" data-bs-target="#Modalcheck-user"><?php if ($product['status'] == 0) echo 'HẾT HÀNG';
+                                                                                                                                                                                                        else echo 'ĐẶT MÓN'; ?></a>
+                            <?php
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -131,26 +155,6 @@ while ($row_chitiet = mysqli_fetch_array($query_chitiet)) {
 
         </div>
     </section>
-    <!-- Modal check-user-->
-    <div class="modal fade" id="Modalcheck-user" tabindex="-1" aria-labelledby="check-user" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title " id="check-user">Bạn chưa đăng nhập!</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Bạn cần đăng nhập hoặc đăng ký tài khoản để mua hàng và thanh toán!
-                </div>
-                <div class="modal-footer justify-content-center">
-                    <button type="button" class="btn btn-danger"><a href="../../pages/Login.html">Đăng
-                            nhập</a></button>
-                    <button type="button" class="btn btn-warning "><a href="../../pages/SignUp.html">Đăng
-                            ký</a></button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 <?php
 }

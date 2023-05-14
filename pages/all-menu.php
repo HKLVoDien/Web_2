@@ -66,10 +66,25 @@ if ($_GET['id'] == 0) {
                         <div class="card-body ">
                             <h5 class="card-title"><?php echo $row_pro['product_name'] ?></h5>
                             <p class="card-text"><?php echo number_format($row_pro['price'], 0, ',', ',') . '₫'; ?></p>
-                            <a href="#" class="btn 
-                        <?php if ($row_pro['status'] == 0)
-                            echo 'disabled' ?>" data-bs-toggle="modal" data-bs-target="#Modalcheck-user"><?php if ($row_pro['status'] == 0) echo 'Hết hàng';
-                                                                                                            else echo 'Đặt món'; ?> </a>
+                            <?php
+                            if (isset($_SESSION['username'])) {
+                            ?>
+
+                                    <a href="./index.php?quanly=sanpham&id=<?php echo $row_pro['id'] ?>" class="btn 
+                             <?php if ($row_pro['status'] == 0)
+                                    echo 'disabled' ?>"><?php if ($row_pro['status'] == 0) echo 'Hết hàng';
+                                                        else echo 'Đặt món'; ?> </a>
+                                </form>
+                            <?php
+                            } else {
+                            ?>
+                                <a href="#" class="btn 
+                            <?php if ($row_pro['status'] == 0)
+                                    echo 'disabled' ?>" data-bs-toggle="modal" data-bs-target="#Modalcheck-user"><?php if ($row_pro['status'] == 0) echo 'Hết hàng';
+                                                                                                                    else echo 'Đặt món'; ?> </a>
+                            <?php
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>

@@ -18,6 +18,15 @@
             </div>
         </div>
     </div>
+    <!-- ADDCART -->
+    <div class="toast-container position-fixed bottom-0  p-3  toast--add">
+        <div id="add--cart" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-body">
+                Sản phẩm đã được thêm vào giỏ hàng
+
+            </div>
+        </div>
+    </div>
     <!-- FOOTER  -->
     <section class="footer" id="footer">
 
@@ -100,7 +109,6 @@
             }, 3000);
         }
 
-
         // ADDCART
         var listAdd = document.getElementsByClassName('add')
         const toastLiveExample = document.getElementById('add--cart')
@@ -110,4 +118,10 @@
                 toast.show()
             });
         }
+    </script>
+    <!-- Btn add cart -->
+    <script>
+        // Lấy danh sách các phần tử sản phẩm
+       var productItems = document.querySelectorAll('.simpleCart_items');
+       
     </script>

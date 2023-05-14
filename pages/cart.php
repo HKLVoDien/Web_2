@@ -43,12 +43,10 @@
                             <div class="orders--items-right col-10">
                                 <div class="items--name"><a href="">Kimbap </a></div>
                                 <div class="items--price">Đơn giá: <span><?php echo number_format($cart_item['giasp'], 0, ',', ',') . '₫'; ?></span></div>
-                                <div class="items--total">Tổng: <span><?php echo number_format($thanhtien, 0, ',', ',') . '₫' ?></span></div>
-                                <a href="./pages/Handle/cart_handle.php?xoa=<?php echo $cart_item['id'] ?>" class="items--remove ">Xoá</a>
+                                <div class="items--total">Tổng: <span id="items_total_<?php echo $cart_item['id'] ?>"><?php echo number_format($thanhtien, 0, ',', ',') . '₫' ?></span></div>
+                                <button href="" class="items--remove ">Xoá</button>
                             </div>
                         </div>
-
-
                     <?php
                     }
                     ?>
@@ -108,14 +106,15 @@
     <script>
         // Lấy danh sách các phần tử sản phẩm
         var productItems = document.querySelectorAll('.orders--items');
-
+        
         // Lặp qua từng phần tử và gắn sự kiện click
         productItems.forEach(function(productItem) {
             // Lấy các phần tử con cần sử dụng trong sản phẩm hiện tại
             var quantityInput = productItem.querySelector('.qty');
             var minusButton = productItem.querySelector('.qtyminus');
             var plusButton = productItem.querySelector('.qtyplus');
-            var removeButton = productItem.querySelector('.remove_items');
+            var removeButton = productItem.querySelector('.items--remove');
+            var id = productItem.querySelector('input[name="id"]').value;
             // Sự kiện khi nhấn nút trừ
             minusButton.addEventListener('click', function() {
                 var currentQuantity = parseInt(quantityInput.value);
@@ -133,7 +132,6 @@
             });
             // Sự kiện khi nhấn nút xóa
             removeButton.addEventListener('click', function() {
-                var id = productItem.querySelector('input[name="id"]').value;
                 // Tạo URL endpoint với các tham số truyền vào
                 var url = './pages/Handle/cart_handle.php?xoa=' + encodeURIComponent(id);
                 // Gửi yêu cầu AJAX
@@ -142,20 +140,17 @@
                     })
                     .then(function(response) {
                         if (response.ok) {
-                            // Xử lý kết quả trả về từ server nếu thành công
-                            response.json().then(function(responseData) {
-                                // Xử lý kết quả JSON
-                                var newTotal = responseData.newTotal;
-                                var thanhtienDetail = responseData.thanhtien_detail;
-                                // Xử lý chuỗi văn bản
-                                document.querySelector('#price-temp').innerHTML = newTotal;
-                                document.querySelector('#price-total').innerHTML = newTotal;
-                                //xóa phần tử
-                                productItem.remove();
-                                //reload lại trang nếu không còn sản phẩm 
-                                if (responseData == '0₫') {
-                                    location.reload();
-                                }
+                           // Xử lý kết quả trả về từ server nếu thành công
+                           response.text().then(function(responseData) {
+                               // Xử lý chuỗi văn bản
+                               document.querySelector('#price-temp').innerHTML = responseData;
+                               document.querySelector('#price-total').innerHTML = responseData;
+                               //xóa phần tử
+                               productItem.remove();
+                               //reload lại trang nếu không còn sản phẩm 
+                               if (responseData == '0₫') {
+                                   location.reload();
+                               }
                             });
                         } else {
                             // Xử lý lỗi nếu không thành công
@@ -191,6 +186,7 @@
                                 // Xử lý chuỗi văn bản
                                 document.querySelector('#price-temp').innerHTML = newTotal;
                                 document.querySelector('#price-total').innerHTML = newTotal;
+                                document.querySelector('#items_total_'+id).innerHTML = thanhtienDetail;
                             });
                         } else {
                             // Xử lý lỗi nếu không thành công

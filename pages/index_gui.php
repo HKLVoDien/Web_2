@@ -98,23 +98,24 @@
                                            <a href="./index.php?quanly=sanpham&id=<?php echo $product['id'] ?>"><img src="./Admin/img/upload/img_product/<?php echo $product['thumbnail'] ?>" alt="ảnh <?php echo $product['product_name'] ?>"></a>
                                        </div>
                                        <div class="food__content">
-                                           <a href="./index.php?quanly=sanpham&id=<?php echo $product['id'] ?>"><?php echo $product['product_name'] ?></a>
+                                           <a href="./index.php?quanly=sanpham&id=<?php echo $product['id'] ?>" class="product_name"><?php echo $product['product_name'] ?></a>
                                            <p><?php echo number_format($product['price'], 0, ',', ',') . '₫'; ?></p>
                                            <?php
                                             if (isset($_SESSION['username'])) {
                                             ?>
+
                                                <div class="orders ">
-                                                   <button href="#" class="btn <?php if ($product['status'] == 0)
-                                                                                    echo 'disabled' ?>"><?php if ($product['status'] == 0) echo 'HẾT HÀNG';
-                                                                                                        else echo 'ĐẶT MÓN'; ?> </button>
+                                                   <a href="./index.php?quanly=sanpham&id=<?php echo $product['id'] ?>" class="btn <?php if ($product['status'] == 0)
+                                                                                            echo 'disabled' ?>"><?php if ($product['status'] == 0) echo 'HẾT HÀNG';
+                                                                                                            else echo 'ĐẶT MÓN'; ?> </a>
                                                </div>
                                            <?php
                                             } else {
                                             ?>
                                                <div class="orders " data-bs-toggle="modal" data-bs-target="#Modalcheck-user">
-                                                   <button href="#" class="btn <?php if ($product['status'] == 0)
+                                                   <a href="./index.php?quanly=sanpham&id=<?php echo $product['id'] ?>" class="btn  <?php if ($product['status'] == 0)
                                                                                     echo 'disabled' ?>"><?php if ($product['status'] == 0) echo 'HẾT HÀNG';
-                                                                                                        else echo 'ĐẶT MÓN'; ?></button>
+                                                                                                        else echo 'ĐẶT MÓN'; ?></a>
                                                </div>
                                            <?php
                                             }
@@ -570,10 +571,13 @@
                    .then(function(response) {
                        if (response.ok) {
                            // Xử lý kết quả trả về từ server nếu thành công
-                           response.text().then(function(responseData) {
+                           response.json().then(function(responseData) {
+                               // Xử lý kết quả JSON
+                               var newTotal = responseData.newTotal;
+                               var thanhtienDetail = responseData.thanhtien_detail;
                                // Xử lý chuỗi văn bản
-                               document.querySelector('#price-temp').innerHTML = responseData;
-                               document.querySelector('#price-total').innerHTML = responseData;
+                               document.querySelector('#price-temp').innerHTML = newTotal;
+                               document.querySelector('#price-total').innerHTML = newTotal;
                            });
                        } else {
                            // Xử lý lỗi nếu không thành công

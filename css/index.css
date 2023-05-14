@@ -447,8 +447,21 @@ main {
     text-align: center;
     transition: all .1s ease-in-out;
 }
-
-.food__content button.disabled {
+.food__content .orders a {
+    text-decoration: none;
+    width: 100%;
+    border: none;
+    background-color: #c40505;
+    border-radius: 3px;
+    color: #f5f4ef;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-align: center;
+    transition: all .1s ease-in-out;
+}
+.food__content .orders a.disabled {
     background-color: gray;
     color: #f5f4ef;
 }
@@ -601,7 +614,7 @@ main {
     background-color: #960605;
 }
 
-.menu__content .food__content a {
+.menu__content .food__content .product_name {
     font-size: 17px;
     font-weight: bold;
     line-height: 25px;
