@@ -395,3 +395,6 @@ a.disabled {
     color: white;
     border-radius: 3px;
 }
+.owl-item.active {
+    width: auto !important;
+}

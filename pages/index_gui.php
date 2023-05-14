@@ -112,9 +112,9 @@
                                            <?php
                                             } else {
                                             ?>
-                                               <div class="orders " data-bs-toggle="modal" data-bs-target="#Modalcheck-user">
+                                               <div class="orders " >
                                                    <a href="./index.php?quanly=sanpham&id=<?php echo $product['id'] ?>" class="btn  <?php if ($product['status'] == 0)
-                                                                                    echo 'disabled' ?>"><?php if ($product['status'] == 0) echo 'HẾT HÀNG';
+                                                                                    echo 'disabled' ?>" data-bs-toggle="modal" data-bs-target="#Modalcheck-user"><?php if ($product['status'] == 0) echo 'HẾT HÀNG';
                                                                                                         else echo 'ĐẶT MÓN'; ?></a>
                                                </div>
                                            <?php

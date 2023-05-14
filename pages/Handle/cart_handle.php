@@ -138,6 +138,7 @@ if (isset($_POST['add_cart'])) {
             $_SESSION['cart_seoul'] = $new_product;
         }
     }
+    echo count($_SESSION['cart_seoul']);
     // if (isset($_SESSION['cart_seoul'])) {
     //     print_r($_SESSION['cart_seoul']);
     // }

@@ -18,15 +18,21 @@
             </div>
         </div>
     </div>
-    <!-- ADDCART -->
-    <div class="toast-container position-fixed bottom-0  p-3  toast--add">
-        <div id="add--cart" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-body">
-                Sản phẩm đã được thêm vào giỏ hàng
+    <?php
+    if (isset($_SESSION['username'])) {
+    ?>
+        <!-- ADDCART -->
+        <div class="toast-container position-fixed bottom-0  p-3  toast--add">
+            <div id="add--cart" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-body">
+                    Sản phẩm đã được thêm vào giỏ hàng
 
+                </div>
             </div>
         </div>
-    </div>
+    <?php
+    }
+    ?>
     <!-- FOOTER  -->
     <section class="footer" id="footer">
 
@@ -122,6 +128,5 @@
     <!-- Btn add cart -->
     <script>
         // Lấy danh sách các phần tử sản phẩm
-       var productItems = document.querySelectorAll('.simpleCart_items');
-       
+        var productItems = document.querySelectorAll('.simpleCart_items');
     </script>

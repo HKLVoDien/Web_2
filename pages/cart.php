@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                             <div class="orders--items-right col-10">
-                                <div class="items--name"><a href="">Kimbap </a></div>
+                                <div class="items--name"><a href=""><?php echo $cart_item['tensanpham'] ?> </a></div>
                                 <div class="items--price">Đơn giá: <span><?php echo number_format($cart_item['giasp'], 0, ',', ',') . '₫'; ?></span></div>
                                 <div class="items--total">Tổng: <span id="items_total_<?php echo $cart_item['id'] ?>"><?php echo number_format($thanhtien, 0, ',', ',') . '₫' ?></span></div>
                                 <button href="" class="items--remove ">Xoá</button>
@@ -57,7 +57,7 @@
                         </div>
                         <div class="orders__submit--total col-6">
                             <p class="temp--money ">Tạm tính: <span id="price-temp"><?php echo number_format($tongtien, 0, ',', ',') . '₫' ?></span></p>
-                            <p class="into--money">Thành tiền: <span id="price-total"><?php echo number_format($tongtien, 0, ',', ',') . '₫' ?>đ</span></p>
+                            <p class="into--money">Thành tiền: <span id="price-total"><?php echo number_format($tongtien, 0, ',', ',') . '₫' ?></span></p>
                             <a href="./index.php?quanly=thanhtoan" class="total--pay">Thanh toán</a>
                         </div>
                     </div>

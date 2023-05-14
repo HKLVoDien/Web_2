@@ -30,7 +30,7 @@ while ($row_chitiet = mysqli_fetch_array($query_chitiet)) {
                     </div>
                 </div>
             </div>
-            <div class="col-6 product_details_info">
+            <div class="col-6 product_details_info" id="myForm">
                 <form action="./pages/Handle/cart_handle.php?id_product=<?php echo $row_chitiet['id'] ?>" method="post">
 
                     <h3><?php echo $row_chitiet['product_name'] ?></h3>
@@ -46,16 +46,17 @@ while ($row_chitiet = mysqli_fetch_array($query_chitiet)) {
                                 <input name="qty" id="qty" min="1" max="20" step="1" value="1" class="text-center">
                                 <button class="qtyplus" aria-hidden="true">&plus;</button>
                             </div>
+                            <input type="hidden" name="add_cart">
                         </div>
                         <?php
                         if (isset($_SESSION['username'])) {
-                        ?> <button type="submit" name="add_cart" class="btn add btn-orders <?php if ($row_chitiet['status'] == 0)
+                        ?> <button type="submit"  class="btn add btn-orders <?php if ($row_chitiet['status'] == 0)
                                                                                                 echo 'disabled' ?>"><?php if ($row_chitiet['status'] == 0) echo 'Hết hàng';
                                                                                                                     else echo 'Đặt món'; ?> </button>
                         <?php
                         } else {
                         ?>
-                            <button type="submit" name="add_cart" class="btn add btn-orders <?php if ($row_chitiet['status'] == 0)
+                            <button type="submit"  class="btn add btn-orders <?php if ($row_chitiet['status'] == 0)
                                                                                                 echo 'disabled' ?>" data-bs-toggle="modal" data-bs-target="#Modalcheck-user"><?php if ($row_chitiet['status'] == 0) echo 'Hết hàng';
                                                                                                                                                                                 else echo 'Đặt món'; ?> </button>
 
@@ -135,12 +136,12 @@ while ($row_chitiet = mysqli_fetch_array($query_chitiet)) {
                             <?php
                             if (isset($_SESSION['username'])) {
                             ?>
-                                <a href="./index.php?quanly=sanpham&id=<?php echo $row_pro['id'] ?>" class="btn">Đặt món</a>
+                                <a href="./index.php?quanly=sanpham&id=<?php echo $row_pro['id'] ?>" class="btn ">Đặt món</a>
                             <?php
                             } else {
                             ?>
-                                <a href="./index.php?quanly=sanpham&id=<?php echo $product['id'] ?>" class="btn  <?php if ($product['status'] == 0)
-                                                                                                                        echo 'disabled' ?>" data-bs-toggle="modal" data-bs-target="#Modalcheck-user"><?php if ($product['status'] == 0) echo 'HẾT HÀNG';
+                                <a href="./index.php?quanly=sanpham&id=<?php echo $row_pro['id'] ?>" class="btn  <?php if ($row_pro['status'] == 0)
+                                                                                                                        echo 'disabled' ?>" data-bs-toggle="modal" data-bs-target="#Modalcheck-user"><?php if ($row_pro['status'] == 0) echo 'HẾT HÀNG';
                                                                                                                                                                                                         else echo 'ĐẶT MÓN'; ?></a>
                             <?php
                             }
@@ -186,7 +187,8 @@ while ($row_chitiet = mysqli_fetch_array($query_chitiet)) {
             },
             1000: {
                 items: 4
-            }
+            },
+
         }
     })
 </script>
@@ -240,5 +242,34 @@ while ($row_chitiet = mysqli_fetch_array($query_chitiet)) {
 
             }
         });
+    });
+</script>
+<!-- Btn add cart -->
+<script>
+    document.querySelector('#myForm form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Ngăn chặn hành vi mặc định của form
+
+        // Lấy dữ liệu form
+        var formData = new FormData(this);
+
+        // Gửi yêu cầu Ajax đến máy chủ
+        fetch(this.action, {
+                method: this.method,
+                body: formData
+            })
+            .then(function(response) {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error('Có lỗi trong quá trình gửi yêu cầu.');
+                }
+            })
+            .then(function(data) {
+                // Xử lý dữ liệu phản hồi từ máy chủ (nếu cần)
+                document.querySelector('.notify-cart').innerHTML = data;
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
     });
 </script>
