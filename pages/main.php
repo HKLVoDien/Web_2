@@ -21,7 +21,11 @@
         include "./pages/cart.php";
     } elseif ($tam == 'payment') {
         include "./pages/payment.php";
-    } else {
+    } elseif ($tam == 'user_file') {
+        include "./pages/user-file.php";
+    }elseif ($tam == 'help') {
+        include "./pages/help.php";
+    }else {
 
         include 'index_gui.php';
     }

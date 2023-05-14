@@ -99,7 +99,7 @@
 
 .hoso-info i {
     margin-left: 12px;
-    opacity: 0;
+    opacity: 1;
     transition: all .5s;
 
 }

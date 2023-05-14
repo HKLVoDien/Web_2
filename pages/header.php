@@ -55,10 +55,10 @@ if (isset($_GET['dangxuat']) && $_GET['dangxuat'] == 1) {
                         <div class="account">
                             <img src="./Admin/img/user_avatar/<?php echo $row_user['avatar'] ?>" alt="">
                             <ul class="list-group">
-                                <li class="list-group-item"><a href="./user-file.php"><i class="fas fa-user"></i>Hồ
+                                <li class="list-group-item"><a href="./index.php?quanly=user_file"><i class="fas fa-user"></i>Hồ
                                         sơ</a></li>
-                                <li class="list-group-item"><a href="./user-file.php"><i class="fas fa-utensils"></i>Đơn hàng</a></li>
-                                <li class="list-group-item"><a href="./user-help.php"><i class="fas fa-question-circle"></i>Hỗ trợ</a>
+                                <li class="list-group-item"><a href="./index.php?quanly=user_file"><i class="fas fa-utensils"></i>Đơn hàng</a></li>
+                                <li class="list-group-item"><a href="./index.php?quanly=help"><i class="fas fa-question-circle"></i>Hỗ trợ</a>
                                 </li>
                                 <li class="list-group-item"><a href="./index.php?dangxuat=1"><i class="fas fa-sign-out-alt"></i>Đăng xuất</a></li>
                             </ul>
