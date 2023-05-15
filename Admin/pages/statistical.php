@@ -7,8 +7,7 @@
     <title>Thống kê | Admin Seoul</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="../../css/fontawesome-free/css/all.min.css">
     <!-- IonIcons -->
@@ -49,7 +48,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../../index.html" class="nav-link">Trang web</a>
+                    <a href="../../index.php" class="nav-link">Trang web</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Liên hệ</a>
@@ -66,8 +65,7 @@
                     <div class="navbar-search-block">
                         <form class="form-inline">
                             <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Tìm kiếm"
-                                    aria-label="Search">
+                                <input class="form-control form-control-navbar" type="search" placeholder="Tìm kiếm" aria-label="Search">
                                 <div class="input-group-append">
                                     <button class="btn btn-navbar" type="submit">
                                         <i class="fas fa-search"></i>
@@ -121,9 +119,8 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="../admin.html" class="brand-link">
-                <img src="../../img/img_index/logo_spicy.png" alt="AdminLTE Logo"
-                    class="brand-image img-circle elevation-3" style="opacity: .8">
+            <a href="../index.php" class="brand-link">
+                <img src="../../img/img_index/logo_spicy.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Admin Seoul</span>
             </a>
 
@@ -132,19 +129,20 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="../../img/img_index/Originals/logo_spicy.png" class="img-circle elevation-2"
-                            alt="User Image">
+                        <!-- <img src="../../img/img_index/Originals/logo_spicy.png" class="img-circle elevation-2"
+                            alt="User Image"> -->
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Ong Bắp Cày</a>
+                        <a href="#" class="d-block"><?php if (isset($_SESSION['dangnhap_seoul'])) {
+                                                        echo $_SESSION['dangnhap_seoul'];
+                                                    } ?></a>
                     </div>
                 </div>
 
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm"
-                            aria-label="Search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm" aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-sidebar">
                                 <i class="fas fa-search fa-fw"></i>
@@ -155,12 +153,11 @@
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item ">
-                            <a href="../admin.html" class="nav-link ">
+                            <a href="../index.php" class="nav-link ">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Bảng tin </p>
@@ -286,19 +283,19 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./All-product.html" class="nav-link active">
+                                    <a href="./All-product.php" class="nav-link active">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tất cả sản phẩm</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./add-product.html" class="nav-link">
+                                    <a href="./add-product.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Thêm mới</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="./category.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Danh mục</p>
                                     </a>
@@ -320,7 +317,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./orders.html" class="nav-link">
+                                    <a href="./orders.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tất cả đơn hàng</p>
                                     </a>
@@ -340,14 +337,14 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="./user.html" class="nav-link ">
+                            <a href="./user.php" class="nav-link ">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Quản lý người dùng </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./statistical.html" class="nav-link active">
+                            <a href="./statistical.php" class="nav-link active">
                                 <i class="nav-icon fas fa-chart-bar"></i>
                                 <p>
                                     Thống kê </p>
@@ -361,12 +358,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../index.html" class="nav-link ">
-                              <i class=" nav-icon fas fa-sign-out-alt"></i></i>
-                              <p>
-                                Đăng xuất </p>
+                            <a href="../index.html?dangxuat=1" class="nav-link ">
+                                <i class=" nav-icon fas fa-sign-out-alt"></i></i>
+                                <p>
+                                    Đăng xuất </p>
                             </a>
-                          </li>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

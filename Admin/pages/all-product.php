@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php session_start();
+include '../../database/config.php';
+
+?>
 
 <head>
   <meta charset="utf-8">
@@ -14,9 +18,7 @@
   <link rel="stylesheet" href="../css/IonIcons.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../css/adminlte.min.css">
-  <?php
-  include '../../database/config.php';
-  ?>
+
   <style>
     .filter__right input {
       border-radius: 5px;
@@ -168,10 +170,12 @@ font        } */
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="../../img/img_index/Originals/logo_spicy.png" class="img-circle elevation-2" alt="User Image">
+            <!-- <img src="../../img/img_index/Originals/logo_spicy.png" class="img-circle elevation-2" alt="User Image"> -->
           </div>
           <div class="info">
-            <a href="#" class="d-block">Ong Bắp Cày</a>
+            <a href="#" class="d-block"><?php if (isset($_SESSION['dangnhap_seoul'])) {
+                                          echo $_SESSION['dangnhap_seoul'];
+                                        } ?></a>
           </div>
         </div>
 
@@ -193,7 +197,7 @@ font        } */
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item ">
-              <a href="../admin.php" class="nav-link ">
+              <a href="../index.php" class="nav-link ">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Bảng tin </p>
@@ -394,7 +398,7 @@ font        } */
               </a>
             </li>
             <li class="nav-item">
-              <a href="../index.php" class="nav-link ">
+              <a href="../index.php?dangxuat=1" class="nav-link ">
                 <i class=" nav-icon fas fa-sign-out-alt"></i></i>
                 <p>
                   Đăng xuất </p>

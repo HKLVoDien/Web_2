@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php session_start();
+include '../../database/config.php';
+
+?>
 
 <head>
     <meta charset="utf-8">
@@ -85,6 +89,7 @@
             border-radius: 3px;
             overflow: hidden;
         }
+
         .dropzone {
             box-sizing: border-box;
             width: 240px;
@@ -93,12 +98,13 @@
             border-radius: 3px;
             overflow: hidden;
         }
+
         .drop-content {
             position: relative;
             height: 100%;
             width: 100%;
         }
-    
+
         .drop-content img {
             position: absolute;
             top: 50%;
@@ -108,7 +114,8 @@
             height: 50%;
         }
 
-        .dropzone input, .dropzone_small input {
+        .dropzone input,
+        .dropzone_small input {
             opacity: 0;
             position: absolute;
             top: 0%;
@@ -116,9 +123,12 @@
             height: 100%;
             width: 100%;
         }
-        .dropzone input:hover, .dropzone_small input:hover {
+
+        .dropzone input:hover,
+        .dropzone_small input:hover {
             cursor: pointer;
         }
+
         .btn-reset {
 
             background-color: #fff;
@@ -171,9 +181,6 @@ font        } */
             margin-top: 5px;
         }
     </style>
-    <?php
-    include '../../database/config.php';
-    ?>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -267,10 +274,12 @@ font        } */
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="../../img/img_index/Originals/logo_spicy.png" class="img-circle elevation-2" alt="User Image">
+                        <!-- <img src="../../img/img_index/Originals/logo_spicy.png" class="img-circle elevation-2" alt="User Image"> -->
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Ong Bắp Cày</a>
+                        <a href="#" class="d-block"><?php if (isset($_SESSION['dangnhap_seoul'])) {
+                                                        echo $_SESSION['dangnhap_seoul'];
+                                                    } ?></a>
                     </div>
                 </div>
 
@@ -292,7 +301,7 @@ font        } */
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item ">
-                            <a href="../admin.php" class="nav-link ">
+                            <a href="../index.php" class="nav-link ">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Bảng tin </p>
@@ -493,7 +502,7 @@ font        } */
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../index.php" class="nav-link ">
+                            <a href="../index.php?dangxuat=1" class="nav-link ">
                                 <i class=" nav-icon fas fa-sign-out-alt"></i></i>
                                 <p>
                                     Đăng xuất </p>
@@ -667,7 +676,7 @@ font        } */
             $('#formUpload .dropzone').hide();
 
         }
-        
+
         function previewImg_small(event) {
             // Gán giá trị các file vào biến files
             var files = document.getElementById('img_file_small').files;
