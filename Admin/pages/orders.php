@@ -278,7 +278,7 @@ include '../../database/config.php';
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./All-product.php" class="nav-link active">
+                                    <a href="./All-product.php" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tất cả sản phẩm</p>
                                     </a>

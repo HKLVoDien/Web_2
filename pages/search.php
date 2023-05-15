@@ -1,27 +1,54 @@
+<link rel="stylesheet" href="./css/search.css">
 
-    <!-- BREADCRUMB-->
-    <section class="breadcrumb_section container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../index.html">Trang chủ</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tìm kiếm</li>
+<!-- BREADCRUMB-->
+<section class="breadcrumb_section container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./index.php">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Tìm kiếm</li>
 
-            </ol>
-        </nav>
-    </section>
-    <!-- SEARCH  -->
-    <section class="seoul__search container">
+        </ol>
+    </nav>
+</section>
+
+<!-- SEARCH  -->
+<section class="seoul__search container">
+    <?php
+    if (isset($_POST['search'])) {
+        $tukhoa = $_POST['search'];
+        $sql_pro = "SELECT * FROM product WHERE product_name LIKE '%" . $tukhoa . "%'";
+        $query_pro = mysqli_query($mysqli, $sql_pro);
+        $count = mysqli_num_rows($query_pro);
+    ?>
         <h1>Tìm kiếm</h1>
-        <p class="mb-3">Có 3 kết quả phù hợp cho <strong>"tok"</strong></p>
+        <p class="mb-3">Có <?php echo $count ?> kết quả phù hợp cho <strong>"<?php echo $tukhoa ?>"</strong></p>
         <div class="product__filter mb-3 row">
-            <div class="filter--range col-6 ">
+            <div class="filter--range col-12 ">
                 <p>Khoảng giá:</p>
                 <form action="" class="d-inline-block">
-                    <input type="text" maxlength="13" placeholder="Từ ₫">
+                    <input type="text" name="min_price" id="min_price" maxlength="13" placeholder="Từ ₫">
                     <div class="line"></div>
-                    <input type="text" maxlength="13" placeholder="Đến ₫">
+                    <input type="text" name="max_price" id="max_price" maxlength="13" placeholder="Đến ₫">
+                    <button class="btn btn-success mx-2" type="button" onclick="applyFilter()">Áp dụng</button>
                 </form>
             </div>
+
+            <div class="filter--sort col-6 mt-3">
+                <p>Danh mục:</p>
+                <select id="category_select" class="form-select" aria-label="Default select example" onchange="applyFilter()">
+                    <option value="0" selected>Chọn danh mục</option>
+                    <?php $sql_cate = "SELECT * FROM category ORDER BY id ASC";
+                    $query_cate = mysqli_query($mysqli, $sql_cate);
+                    while ($row_cate = mysqli_fetch_array($query_cate)) {
+                    ?>
+                        <option value="<?php echo $row_cate['id']; ?>"><?php echo $row_cate['name']; ?></option>
+
+                    <?php
+                    }
+                    ?>
+                </select>
+            </div>
+
             <div class="filter--sort col-6 text-end">
                 <p>Sắp xếp theo:</p>
                 <select class="form-select" aria-label="Default select example">
@@ -34,44 +61,46 @@
                 </select>
             </div>
 
+
         </div>
         <div class="row product_content" id="product">
-            <div class="col-3 product_content_items">
-                <div class="card">
-                    <div class="product_content__img"><a href="./Product/dav_TBKhaisan-product.html"><img
-                                src="../img/AnVat/Tokbokki/TBHS.jpg" class="card-img-top" alt="..."></a>
-                    </div>
-                    <div class="card-body ">
-                        <h5 class="card-title">tokbokki hải sản</h5>
-                        <p class="card-text">55,000₫</p>
-                        <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#Modalcheck-user">Đặt món</a>
+            <?php
+            $sql_pro = "SELECT * FROM product WHERE product_name LIKE '%" . $tukhoa . "%'";
+            $query_pro = mysqli_query($mysqli, $sql_pro);
+            while ($row_pro = mysqli_fetch_array($query_pro)) {
+            ?>
+                <div class="col-3 product_content_items">
+                    <div class="card">
+                        <div class="product_content__img"><a href="index.php?quanly=sanpham&id=<?php echo $row_pro['id'] ?>">
+                                <img src="./admin/img/upload/img_product/<?php echo $row_pro['thumbnail'] ?>" class="card-img-top" alt="..."></a>
+                        </div>
+                        <div class="card-body ">
+                            <h5 class="card-title"><?php echo $row_pro['product_name'] ?></h5>
+                            <p class="card-text"><?php echo number_format($row_pro['price'], 0, ',', ',') . '₫'; ?></p>
+                            <?php
+                            if (isset($_SESSION['username'])) {
+                            ?>
+
+                                <a href="./index.php?quanly=sanpham&id=<?php echo $row_pro['id'] ?>" class="btn 
+                             <?php if ($row_pro['status'] == 0)
+                                    echo 'disabled' ?>"><?php if ($row_pro['status'] == 0) echo 'Hết hàng';
+                                                        else echo 'Đặt món'; ?> </a>
+                            <?php
+                            } else {
+                            ?>
+                                <a href="#" class="btn 
+                            <?php if ($row_pro['status'] == 0)
+                                    echo 'disabled' ?>" data-bs-toggle="modal" data-bs-target="#Modalcheck-user"><?php if ($row_pro['status'] == 0) echo 'Hết hàng';
+                                                                                                                    else echo 'Đặt món'; ?> </a>
+                            <?php
+                            }
+                            ?>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-3 product_content_items">
-                <div class="card">
-                    <div class="product_content__img"><a href="./Product/dav_TBKtruyenthong-product.html"><img
-                                src="../img/AnVat/Tokbokki/Seoul 201421.jpg" class="card-img-top" alt="..."></a>
-                    </div>
-                    <div class="card-body ">
-                        <h5 class="card-title">Tokbokki truyền thống</h5>
-                        <p class="card-text">99,000₫</p>
-                        <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#Modalcheck-user">Đặt món</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3 product_content_items">
-                <div class="card">
-                    <div class="product_content__img"><a href="./Product/dav_TBKphomai-product.html"><img
-                                src="../img/AnVat/Tokbokki/TBLPM.jpg" class="card-img-top" alt="..."></a>
-                    </div>
-                    <div class="card-body ">
-                        <h5 class="card-title">Tokbokki phô mai</h5>
-                        <p class="card-text">25,000₫</p>
-                        <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#Modalcheck-user">Đặt món</a>
-                    </div>
-                </div>
-            </div>
+            <?php
+            }
+            ?>
         </div>
         <!-- Modal check-user-->
         <div class="modal fade" id="Modalcheck-user" tabindex="-1" aria-labelledby="check-user" aria-hidden="true">
@@ -115,40 +144,52 @@
                 </li>
             </ul>
         </nav>
-    </section>
+    <?php
+    }
+    ?>
+</section>
 
 
-    <!-- Back to top  -->
-    <a href="#" class="BackToTop cd-top text-replace js-cd-top">
-        <i class="fa fa-angle-up"></i>
-    </a>
-    <!-- JQUERY  -->
-    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-    <!-- BOOSTRAP JS  -->
-    <script src="../js/bootstrap.bundle.min.js"></script>
-    <!-- UTIL JS  -->
-    <script src="../js/util.js"></script>
-    <!-- BACKTOTOP JS  -->
-    <script src="../js/main-backToTop.js"></script>
-    <!-- PAYMENT JS  -->
-    <Script>
-        // kiếm thẻ có id là mainNav 
-        //kiếm thẻ ul
-        var paymentMethod = document.getElementById("payment__method");
-        // kiếm thẻ con li 
-        var listMethod = paymentMethod.getElementsByTagName("label");
-        for (var i = 0; i < listMethod.length; i++) {
-            // khi thẻ li đc click thì gọi hàm nó ra
-            listMethod[i].addEventListener("click", function () {
-                //tìm thẻ nào đang đc gắn acitve
-                var current = document.querySelector("#payment__method .active");
-                // xóa class active của thẻ đang được gắn
-                current.className = current.className.replace("active", "");
-                // thêm class active vào thẻ li được click 
-                this.className += "active";
+<!-- Back to top  -->
+<a href="#" class="BackToTop cd-top text-replace js-cd-top">
+    <i class="fa fa-angle-up"></i>
+</a>
+<!-- JQUERY  -->
+<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+<!-- BOOSTRAP JS  -->
+<script src="./js/bootstrap.bundle.min.js"></script>
+<!-- UTIL JS  -->
+<script src="./js/util.js"></script>
+<!-- BACKTOTOP JS  -->
+<script src="./js/main-backToTop.js"></script>
+</Script>
 
-            });
+<!-- JS PHÂN LOẠI  -->
+<script>
+    function filterProducts(categoryId, keyword, minPrice, maxPrice) {
+        // Gửi yêu cầu AJAX
+        $.ajax({
+            url: "./pages/Handle/search_handle.php",
+            method: "POST",
+            data: {
+                category_id: categoryId,
+                search_keyword: keyword,
+                min_price: minPrice,
+                max_price: maxPrice
+            },
+            success: function(response) {
+                // Xử lý phản hồi từ máy chủ và cập nhật nội dung sản phẩm trên trang web
+                $("#product").html(response);
+            }
+        });
+    }
 
-
-        }
-    </Script>
+    function applyFilter() {
+        // Lấy giá trị của các trường khoảng giá và danh mục
+        var categoryId = $("#category_select").val();
+        var minPrice = $("#min_price").val();
+        var maxPrice = $("#max_price").val();
+        // Gọi phương thức filterProducts với giá trị khoảng giá và danh mục đã chọn
+        filterProducts(categoryId, '<?php echo $tukhoa; ?>', minPrice, maxPrice);
+    }
+</script>

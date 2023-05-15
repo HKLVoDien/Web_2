@@ -24,8 +24,8 @@ if (isset($_GET['dangxuat']) && $_GET['dangxuat'] == 1) {
             </ul>
         </nav>
         <div class="header__tool d-flex align-items-center ">
-            <form class="input-group" action="./pages/search.html" method="post">
-                <input type="text" class="form-control" placeholder="Tìm món ăn..." aria-label="Recipient's username" aria-describedby="button-addon2">
+            <form class="input-group" action="./index.php?quanly=search" method="post">
+                <input type="text" class="form-control" placeholder="Tìm món ăn..." aria-label="Recipient's username" aria-describedby="button-addon2" name="search">
                 <button type="submit" id="button-addon2" class="header__search--button "><i class="fas fa-search"></i></button>
             </form>
 

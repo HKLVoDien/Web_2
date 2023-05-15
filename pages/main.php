@@ -27,6 +27,8 @@
         include "./pages/help.php";
     } elseif ($tam == 'thanks') {
         include "./pages/thanks.php";
+    }  elseif ($tam == 'search') {
+        include "./pages/search.php";
     } else {
 
         include 'index_gui.php';
