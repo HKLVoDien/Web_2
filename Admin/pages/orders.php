@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php session_start();
+include '../../database/config.php';
+
+?>
 
 <head>
     <meta charset="utf-8">
@@ -7,8 +11,7 @@
     <title>Quản lý đơn hàng | Admin Seoul</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="../../css/fontawesome-free/css/all.min.css">
     <!-- IonIcons -->
@@ -58,8 +61,7 @@
                     <div class="navbar-search-block">
                         <form class="form-inline">
                             <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Tìm kiếm"
-                                    aria-label="Search">
+                                <input class="form-control form-control-navbar" type="search" placeholder="Tìm kiếm" aria-label="Search">
                                 <div class="input-group-append">
                                     <button class="btn btn-navbar" type="submit">
                                         <i class="fas fa-search"></i>
@@ -113,9 +115,8 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="../admin.html" class="brand-link">
-                <img src="../../img/img_index/logo_spicy.png" alt="AdminLTE Logo"
-                    class="brand-image img-circle elevation-3" style="opacity: .8">
+            <a href="../index.php" class="brand-link">
+                <img src="../../img/img_index/logo_spicy.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Admin Seoul</span>
             </a>
 
@@ -124,19 +125,19 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="../../img/img_index/Originals/logo_spicy.png" class="img-circle elevation-2"
-                            alt="User Image">
+                        <!-- <img src="../../img/img_index/Originals/logo_spicy.png" class="img-circle elevation-2" alt="User Image"> -->
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Ong Bắp Cày</a>
+                        <a href="#" class="d-block"><?php if (isset($_SESSION['dangnhap_seoul'])) {
+                                                        echo $_SESSION['dangnhap_seoul'];
+                                                    } ?></a>
                     </div>
                 </div>
 
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm"
-                            aria-label="Search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm" aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-sidebar">
                                 <i class="fas fa-search fa-fw"></i>
@@ -147,12 +148,11 @@
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item ">
-                            <a href="../admin.html" class="nav-link ">
+                            <a href="../index.php" class="nav-link ">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Bảng tin </p>
@@ -278,19 +278,19 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./All-product.html" class="nav-link active">
+                                    <a href="./All-product.php" class="nav-link active">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tất cả sản phẩm</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./add-product.html" class="nav-link">
+                                    <a href="./add-product.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Thêm mới</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="./category.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Danh mục</p>
                                     </a>
@@ -312,7 +312,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item ">
-                                    <a href="./orders.html" class="nav-link active">
+                                    <a href="./orders.php" class="nav-link active">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tất cả đơn hàng</p>
                                     </a>
@@ -332,14 +332,14 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="./user.html" class="nav-link ">
+                            <a href="./user.php" class="nav-link ">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Quản lý người dùng </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./statistical.html" class="nav-link ">
+                            <a href="./statistical.php" class="nav-link ">
                                 <i class="nav-icon fas fa-chart-bar"></i>
                                 <p>
                                     Thống kê </p>
@@ -353,12 +353,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../index.html" class="nav-link ">
-                              <i class=" nav-icon fas fa-sign-out-alt"></i></i>
-                              <p>
-                                Đăng xuất </p>
+                            <a href="../index.php?dangxuat=1" class="nav-link ">
+                                <i class=" nav-icon fas fa-sign-out-alt"></i>>
+                                <p>
+                                    Đăng xuất </p>
                             </a>
-                          </li>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -387,34 +387,28 @@
                             <!-- List tác vụ -->
                             <div class="row  my-3 m-0">
                                 <div class="mr-3  ">
-                                    <a class="btn-order btn-outline-success btn" href="#"
-                                        title="Thêm"><i class="fas fa-plus"></i>
+                                    <a class="btn-order btn-outline-success btn" href="#" title="Thêm"><i class="fas fa-plus"></i>
                                         Tạo mới</a>
                                 </div>
                                 <div class="mr-3">
-                                    <a class="btn-order btn-outline-info btn" type="button" title="Nhập"
-                                        onclick="myFunction(this)"><i class="fas fa-file-upload"></i> Tải từ
+                                    <a class="btn-order btn-outline-info btn" type="button" title="Nhập" onclick="myFunction(this)"><i class="fas fa-file-upload"></i> Tải từ
                                         file</a>
                                 </div>
 
                                 <div class="mr-3">
-                                    <a class="btn-order btn-outline-info btn " type="button" title="In"
-                                        onclick="myApp.printTable()"><i class="fas fa-print"></i> In dữ liệu</a>
+                                    <a class="btn-order btn-outline-info btn " type="button" title="In" onclick="myApp.printTable()"><i class="fas fa-print"></i> In dữ liệu</a>
                                 </div>
                                 <div class="mr-3">
-                                    <a class="btn-order btn-outline-warning btn js-textareacopybtn" type="button"
-                                        title="Sao chép"><i class="fas fa-copy"></i> Sao
+                                    <a class="btn-order btn-outline-warning btn js-textareacopybtn" type="button" title="Sao chép"><i class="fas fa-copy"></i> Sao
                                         chép</a>
                                 </div>
 
                                 <div class="mr-3">
-                                    <a class="btn-order btn-outline-success btn" href="" title="In"><i
-                                            class="fas fa-file-excel"></i> Xuất
+                                    <a class="btn-order btn-outline-success btn" href="" title="In"><i class="fas fa-file-excel"></i> Xuất
                                         Excel</a>
                                 </div>
                                 <div class="mr-3">
-                                    <a class="btn btn-outline-secondary " type="button" title="Xóa"
-                                        onclick="myFunction(this)"><i class="fas fa-trash-alt"></i> Xóa tất cả </a>
+                                    <a class="btn btn-outline-secondary " type="button" title="Xóa" onclick="myFunction(this)"><i class="fas fa-trash-alt"></i> Xóa tất cả </a>
                                 </div>
                             </div>
                             <!-- /List tác vụ -->
@@ -459,93 +453,81 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                        <td>MD0837</td>
-                                        <td>Triệu Thanh Phú</td>
-                                        <td>07:47 22/11/2022</td>
-                                        <td>Mỳ kim chi hải sản, Mỳ kim chi cá, Mỳ kim chi bò mỹ</td>
-                                        <td>400.000 đ</td>
-                                        <td><span class="badge bg-warning">Chưa xử lý</span></td>
-                                        <td><button class="btn btn-outline-danger  btn-sm trash m-1" type="button"
-                                                title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i
-                                                    class="fas fa-trash-alt"></i> </button>
-                                            <button class="btn btn-outline-warning btn-sm edit m-1" type="button"
-                                                title="Sửa" data-bs-toggle="modal" data-bs-target="#ModalUP"><i
-                                                    class="fa fa-edit"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                        <td>MD0836</td>
-                                        <td>Triệu Tử Long</td>
-                                        <td>17:47 23/10/2022</td>
-                                        <td>Mỳ lẩu thái gà, Mỳ kim chi cá, Kim châm</td>
-                                        <td>650.000 đ</td>
-                                        <td><span class="badge bg-success">Hoàn thành</span></td>
-                                        <td><button class="btn btn-outline-danger  btn-sm trash m-1" type="button"
-                                                title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i
-                                                    class="fas fa-trash-alt"></i> </button>
-                                            <button class="btn btn-outline-warning btn-sm edit m-1" type="button"
-                                                title="Sửa" data-bs-toggle="modal" data-bs-target="#ModalUP"><i
-                                                    class="fa fa-edit"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                        <td>MD0835</td>
-                                        <td>Nguyễn Xuân Việt</td>
-                                        <td>12:00 23/10/2022</td>
-                                        <td>Mỳ kim chi hải sản, Mỳ kim chi cá, Mỳ kim chi bò mỹ, Kim châm</td>
-                                        <td>460.000 đ</td>
-                                        <td><span class="badge bg-danger">Đã huỷ</span></td>
-                                        <td><button class="btn btn-outline-danger  btn-sm trash m-1" type="button"
-                                                title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i
-                                                    class="fas fa-trash-alt"></i> </button>
-                                            <button class="btn btn-outline-warning btn-sm edit m-1" type="button"
-                                                title="Sửa" data-bs-toggle="modal" data-bs-target="#ModalUP"><i
-                                                    class="fa fa-edit"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                        <td>MD0834</td>
-                                        <td>Nguyễn Ngọc Anh Thy</td>
-                                        <td>7:11 21/10/2022</td>
-                                        <td>Mỳ lẩu thái đặc biệt,Cá viên</td>
-                                        <td>550.000 đ</td>
-                                        <td><span class="badge bg-primary">Đang giao hàng</span></td>
-                                        <td><button class="btn btn-outline-danger  btn-sm trash m-1" type="button"
-                                                title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i
-                                                    class="fas fa-trash-alt"></i> </button>
-                                            <button class="btn btn-outline-warning btn-sm edit m-1" type="button"
-                                                title="Sửa" data-bs-toggle="modal" data-bs-target="#ModalUP"><i
-                                                    class="fa fa-edit"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                        <td>MD0833</td>
-                                        <td>Trần Thị Như Ý</td>
-                                        <td>23:00 20/10/2022</td>
-                                        <td>Mỳ kim chi hải sản, Gà viên chiên, Ăn vặt thập cẩm </td>
-                                        <td>330.000 đ</td>
-                                        <td><span class="badge bg-success">Hoàn thành</span></td>
-                                        <td><button class="btn btn-outline-danger  btn-sm trash m-1" type="button"
-                                                title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i
-                                                    class="fas fa-trash-alt"></i> </button>
-                                            <button class="btn btn-outline-warning btn-sm edit m-1" type="button"
-                                                title="Sửa" data-bs-toggle="modal" data-bs-target="#ModalUP"><i
-                                                    class="fa fa-edit"></i></button>
-                                        </td>
-                                    </tr>
+                                    <?php
+                                    $sql_order = "SELECT * FROM orders ORDER BY id DESC";
+                                    $query_order = mysqli_query($mysqli, $sql_order);
+                                    while ($row_order = mysqli_fetch_array($query_order)) {
+                                        $sql_order_detail = "SELECT orders_details.id,product.product_name, orders_details.total_money,orders_details.num FROM orders_details,product  WHERE  orders_details.order_id = '$row_order[id]'  and product.id = orders_details.product_id ORDER BY id ASC";
+                                        $query_order_detail = mysqli_query($mysqli, $sql_order_detail);
+                                    ?>
+                                        <tr>
+                                            <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                            <td class="id_order"><?php echo $row_order['id'] ?></td>
+                                            <td><?php echo $row_order['fullname'] ?></td>
+                                            <td><?php echo $row_order['order_date'] ?></td>
+                                            <td>
+                                                <?php while ($row_order_detail = mysqli_fetch_array($query_order_detail)) {
+                                                ?>
+                                                    <?php echo $row_order_detail['product_name'] . ', '; ?>
+                                                <?php
+                                                }
+                                                ?>
+                                            </td>
+                                            <td><?php echo number_format($row_order['total_money'], 0, ',', ',') . '₫'; ?></td>
+                                            <td><span class="badge  <?php
+                                                                    switch ($row_order['status']) {
+                                                                        case  1;
+                                                                            echo 'bg-warning';
+                                                                            break;
+                                                                        case  2;
+                                                                            echo 'bg-info';
+                                                                            break;
+                                                                        case  3;
+                                                                            echo 'bg-primary';
+                                                                            break;
+                                                                        case  4;
+                                                                            echo 'bg-success';
+                                                                            break;
+                                                                        case  5;
+                                                                            echo 'bg-danger';
+                                                                            break;
+                                                                    }
+                                                                    ?>">
+                                                    <?php
+                                                    switch ($row_order['status']) {
+                                                        case  1;
+                                                            echo 'Chưa xác nhận';
+                                                            break;
+                                                        case  2;
+                                                            echo 'Đã xác nhận';
+                                                            break;
+                                                        case  3;
+                                                            echo 'Đang vận chuyển';
+                                                            break;
+                                                        case  4;
+                                                            echo 'Đã hoàn thành';
+                                                            break;
+                                                        case  5;
+                                                            echo 'Đã huỷ';
+                                                            break;
+                                                    }
+                                                    ?>
+                                                </span>
+                                            </td>
+                                            <td><button class="btn btn-outline-danger  btn-sm trash m-1" type="button" title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i> </button>
+                                                <button class="btn btn-outline-warning btn-sm edit m-1" type="button" title="Sửa" data-bs-toggle="modal" data-bs-target="#ModalUP"><i class="fa fa-edit"></i></button>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                    }
+
+                                    ?>
                                 </tbody>
                             </table>
                             <!--
                                  MODAL
                                 -->
-                            <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true"
-                                data-backdrop="static" data-keyboard="false">
+                            <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                                 <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                                     <div class="modal-content">
 
@@ -561,39 +543,36 @@
 
                                                 <div class="form-group  col-md-4">
                                                     <label class="control-label">ID đơn hàng</label>
-                                                    <input class="form-control" type="text" value="MD0837">
+                                                    <input class="form-control" type="text" value="MD0837" readonly>
                                                 </div>
                                                 <div class="form-group  col-md-4">
                                                     <label class="control-label">Tên khách hàng</label>
-                                                    <input class="form-control" type="text" value="Triệu Thanh Phú">
+                                                    <input class="form-control" type="text" value="Triệu Thanh Phú" readonly>
                                                 </div>
                                                 <div class="form-group  col-md-4">
                                                     <label class="control-label">Số điện thoại khách
                                                         hàng</label>
-                                                    <input class="form-control" type="number" value="0354986796">
+                                                    <input class="form-control" type="number" value="0354986796" readonly>
                                                 </div>
                                                 <div class="form-group  col-md-4">
                                                     <label class="control-label">Địa chỉ khách hàng</label>
-                                                    <input class="form-control" type="text"
-                                                        value="273, An Dương Vương Quận 5,TP HCM">
+                                                    <input class="form-control" type="text" value="273, An Dương Vương Quận 5,TP HCM" readonly>
                                                 </div>
                                                 <div class="form-group  col-md-4">
                                                     <label class="control-label">Ngày làm đơn hàng</label>
-                                                    <input class="form-control" type="date" value="2022-12-15">
+                                                    <input class="form-control" type="date" value="2022-12-15" readonly>
                                                 </div>
                                                 <div class="form-group  col-md-4">
                                                     <label class="control-label">Tên sản phẩm</label>
-                                                    <input class="form-control" type="text"
-                                                        value="Mỳ kim chi hải sản, Mỳ kim chi cá, Mỳ kim chi bò mỹ">
+                                                    <input class="form-control" type="text" value="Mỳ kim chi hải sản, Mỳ kim chi cá, Mỳ kim chi bò mỹ" readonly>
                                                 </div>
                                                 <div class="form-group  col-md-4">
                                                     <label class="control-label">Mã sản phẩm</label>
-                                                    <input class="form-control" type="text" value="MT026,MT007,MT008">
+                                                    <input class="form-control" type="text" value="MT026,MT007,MT008" readonly>
                                                 </div>
                                                 <div class="form-group  col-md-4">
                                                     <label class="control-label">Số lượng</label>
-                                                    <input class="form-control" type="text"
-                                                        value="MT026 (1) ,MT007 (2) ,MT008 (1)">
+                                                    <input class="form-control" type="text" value="MT026 (1) ,MT007 (2) ,MT008 (1)" readonly>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="exampleSelect1" class="control-label">Tình
@@ -608,7 +587,7 @@
                                                 </div>
                                                 <div class="form-group  col-md-12">
                                                     <label class="control-label">Ghi chú đơn hàng</label>
-                                                    <textarea class="form-control" rows="4"></textarea>
+                                                    <textarea class="form-control" rows="4" readonly></textarea>
                                                 </div>
 
                                             </div>
@@ -623,8 +602,7 @@
                             </div>
                         </div>
                         <!-- Modal -->
-                        <div class="modal fade" id="ModalRM" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
+                        <div class="modal fade" id="ModalRM" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered ">
                                 <div class="modal-content">
                                     <div class="modal-header justify-content-center">
@@ -635,7 +613,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ
                                             bỏ</button>
-                                        <button type="button" class="btn btn-success">Đồng ý</button>
+                                        <button type="button" class="btn btn-success remove">Đồng ý</button>
                                     </div>
                                 </div>
                             </div>
@@ -650,7 +628,7 @@
                                     </a>
                                 </li>
                                 <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a cla    s="page-link" href="#">2</a></li>
                                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                                 <li class="page-item">
                                     <a class="page-link" href="#" aria-label="Tiếp">
@@ -699,6 +677,53 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="../js/dashboard3.js"></script>
 
+    <!-- JS DELETED -->
+    <script>
+        $(document).ready(function() {
+            var id_order = null;
+
+            $('.trash').click(function() {
+                id_order = $(this).closest('tr').find('.id_order').text().trim();
+                console.log('id_order:', id_order);
+            });
+
+            $(".remove").click(function() {
+                if (id_order) {
+                    var id = id_order;
+                    $.ajax({
+                        url: '../manage/manage_order.php',
+                        type: 'GET',
+                        data: {
+                            id: id
+                        },
+                        success: function(response) {
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            // Xử lý lỗi nếu có
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <!-- JS UPDATED -->
+    <script>
+        $(document).ready(function() {
+            $('.edit').click(function() {
+                id_order = $(this).closest('tr').find('.id_order').text().trim();
+                console.log('id_order:', id_order);
+
+                $.post('../manage/manage_order.php', {
+                        id_update: id_order
+                    },
+                    function(data) {
+                        $('#ModalUP .modal-content').html(data);
+                    });
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -36,6 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST)) {
 
             $insert_order_details = "INSERT INTO orders_details(order_id,product_id,price,num,total_money) VALUE('" . $orders_id . "','" . $id_product . "','" . $price . "','" . $num . "','" . $total_money_detail . "')";
             mysqli_query($mysqli, $insert_order_details);
+            //Cập nhật lại các sản phẩm đã được bán
+            // $sql_update = "UPDATE product SET sold='" . 1 . "'WHERE id ='" . $id_product . "'";
+            // mysqli_query($mysqli, $sql_update);
         }
     }
     unset($_SESSION['cart_seoul']);
