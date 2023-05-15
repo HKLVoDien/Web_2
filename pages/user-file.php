@@ -45,8 +45,7 @@
                     <p><?php echo $row_user['email'] ?><i class="far fa-edit" data-bs-toggle="modal" data-bs-target="#notifyModal"></i></p>
                     <p>*******<?php echo substr($row_user['phone'], -3) ?><i class="far fa-edit" data-bs-toggle="modal" data-bs-target="#notifyModal"></i></p>
 
-                    <p><?php echo $row_user['address'] ?><i class="far fa-edit edit_address-button" ></i></p>
-
+                    <p><?php echo $row_user['address'] ?><i class="far fa-edit edit_address-button"></i></p>
                     </p>
                 </div>
                 <div class="hoso--img col-4">
@@ -100,10 +99,11 @@
                     <option value="1">Đã hoàn thành</option>
                     <option value="2">Đang vận chuyển</option>
                     <option value="3">Đã huỷ</option>
-                    <option value="4">Đang xử lý</option>
-                    <option value="5">Chưa xử lý</option>
+                    <option value="4">Đã xác nhận</option>
+                    <option value="5">Chưa xác nhận</option>
 
                 </select>
+
                 <table class="table">
                     <thead class="table">
                         <tr>
@@ -116,53 +116,207 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">DH044</th>
-                            <td>Mì lẩu thái bò </td>
-                            <td>34,000₫</td>
-                            <td>
-                                <div class=" tr tr__xl">Đang xử lý</div>
-                            </td>
-                            <td><i class="fas fa-eye" data-bs-toggle="modal" data-bs-target="#detail-order_1"></i>
-                            </td>
+                        <?php
+                        $sql_order = "SELECT * FROM orders  WHERE user_id ='$_SESSION[id_customer]' ORDER BY id DESC";
+                        $query_order = mysqli_query($mysqli, $sql_order);
 
-                        </tr>
-                        <tr>
-                            <th scope="row">DH034</th>
-                            <td>Mì kim chi bò mỹ, Tôm thêm</td>
-                            <td>56,000₫</td>
-                            <td>
-                                <div class=" tr tr__dag">Đang vận chuyển</div>
-                            </td>
-                            <td><i class="fas fa-eye" data-bs-toggle="modal" data-bs-target="#detail-order_2"></i>
-                            </td>
+                        while ($row_order = mysqli_fetch_array($query_order)) {
+                            $sql_order_detail = "SELECT orders_details.id,product.product_name FROM orders_details,product  WHERE  orders_details.order_id = '$row_order[id]'  and product.id = orders_details.product_id ORDER BY id ASC";
+                            $query_order_detail = mysqli_query($mysqli, $sql_order_detail);
 
-                        </tr>
-                        <tr>
-                            <th scope="row">DH022</th>
-                            <td>Lẩu kim chi bạch tuộc</td>
-                            <td>239,000₫</td>
-                            <td>
-                                <div class=" tr tr__dh">Đã huỷ</div>
-                            </td>
-                            <td><i class="fas fa-eye " data-bs-toggle="modal" data-bs-target="#detail-order_3"></i>
-                            </td>
+                        ?>
 
-                        </tr>
-                        <tr>
-                            <th scope="row">DH017</th>
-                            <td>Lẩu thái hải sản</td>
-                            <td>210,000₫</td>
-                            <td>
-                                <div class=" tr tr__dg">Đã hoàn thành</div>
-                            </td>
-                            <td><i class="fas fa-eye" data-bs-toggle="modal" data-bs-target="#detail-order_4"></i>
-                            </td>
+                            <tr>
+                                <th scope="row"><?php echo $row_order['id'] ?></th>
+                                <td><?php while ($row_order_detail = mysqli_fetch_array($query_order_detail)) {
+                                        echo $row_order_detail['product_name'] . ', ';
+                                    }
+                                    ?>
+                                </td>
+                                <td><?php echo number_format($row_order['total_money'], 0, ',', ',') . '₫'; ?></td>
+                                <td>
+                                    <div class=" tr <?php
+                                                    switch ($row_order['status']) {
+                                                        case  1;
+                                                            echo 'chuaxacnhan';
+                                                            break;
+                                                        case  2;
+                                                            echo 'daxacnhan';
+                                                            break;
+                                                        case  3;
+                                                            echo 'danggiao';
+                                                            break;
+                                                        case  4;
+                                                            echo 'dahoanthanh';
+                                                            break;
+                                                        case  5;
+                                                            echo 'dahuy';
+                                                            break;
+                                                    }
+                                                    ?>">
+                                        <?php
+                                        switch ($row_order['status']) {
+                                            case  1;
+                                                echo 'Chưa xác nhận';
+                                                break;
+                                            case  2;
+                                                echo 'Đã xác nhận';
+                                                break;
+                                            case  3;
+                                                echo 'Đang vận chuyển';
+                                                break;
+                                            case  4;
+                                                echo 'Đã hoàn thành';
+                                                break;
+                                            case  5;
+                                                echo 'Đã huỷ';
+                                                break;
+                                        }
+                                        ?>
+                                    </div>
+                                </td>
+                                <td> <i class="fas fa-eye" data-bs-toggle="modal" data-bs-target="#detail-order_<?php echo $row_order['id']; ?>"></i>
+                                </td>
 
-                        </tr>
+                            </tr>
+                        <?php
+                        }
+
+                        ?>
                     </tbody>
 
                 </table>
+                <?php
+                $sql_order = "SELECT * FROM orders  WHERE user_id ='$_SESSION[id_customer]' ORDER BY id DESC";
+                $query_order = mysqli_query($mysqli, $sql_order);
+                while ($row_order = mysqli_fetch_array($query_order)) {
+                    $sql_order_detail = "SELECT orders_details.id,product.product_name, orders_details.total_money,orders_details.num,product.price FROM orders_details,product  WHERE  orders_details.order_id = '$row_order[id]'  and product.id = orders_details.product_id ORDER BY id ASC";
+                    $query_order_detail = mysqli_query($mysqli, $sql_order_detail);
+
+                ?>
+                    <!-- Modal chi tiết đơn hàng-->
+                    <div class="modal fade" id="detail-order_<?php echo $row_order['id']; ?>" tabindex="-1" aria-labelledby="detail-orderModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header border-0">
+                                    <h1 class="modal-title fs-5 fw-normal" id="detail-orderModalLabel">Đơn hàng:
+                                        <strong><?php echo $row_order['id']; ?></strong>
+                                    </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body ">
+                                    <div class="row">
+                                        <table class="table ">
+                                            <thead class="table ">
+                                                <tr>
+                                                    <th scope="col">Ngày đặt</th>
+                                                    <th scope="col">Sản phẩm</th>
+                                                    <th scope="col">Đơn giá</th>
+                                                    <th scope="col">Số lượng</th>
+                                                    <th scope="col">Tổng tiền</th>
+                                                    <th scope="col">Trạng thái</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row" class="fw-normal">
+                                                        <p><?php echo $row_order['order_date'] ?></p>
+                                                    </th>
+                                                    <td><?php while ($row_order_detail = mysqli_fetch_array($query_order_detail)) {
+                                                        ?>
+                                                            <p> <?php echo $row_order_detail['product_name']; ?></p>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php
+                                                        mysqli_data_seek($query_order_detail, 0); // Đặt con trỏ về đầu kết quả
+                                                        while ($row_order_detail = mysqli_fetch_array($query_order_detail)) {
+                                                        ?>
+                                                            <p><?php echo number_format($row_order_detail['price'], 0, ',', ',') . '₫'; ?></p>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php
+                                                        mysqli_data_seek($query_order_detail, 0); // Đặt con trỏ về đầu kết quả
+                                                        while ($row_order_detail = mysqli_fetch_array($query_order_detail)) {
+                                                        ?>
+                                                            <p><?php echo $row_order_detail['num'] ?></p>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php
+                                                        mysqli_data_seek($query_order_detail, 0); // Đặt con trỏ về đầu kết quả
+                                                        while ($row_order_detail = mysqli_fetch_array($query_order_detail)) {
+                                                        ?>
+                                                            <p><?php echo number_format($row_order_detail['total_money'], 0, ',', ',') . '₫'; ?></p>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td>
+                                                        <div class=" tr <?php
+                                                                        switch ($row_order['status']) {
+                                                                            case  1;
+                                                                                echo 'chuaxacnhan';
+                                                                                break;
+                                                                            case  2;
+                                                                                echo 'daxacnhan';
+                                                                                break;
+                                                                            case  3;
+                                                                                echo 'danggiao';
+                                                                                break;
+                                                                            case  4;
+                                                                                echo 'dahoanthanh';
+                                                                                break;
+                                                                            case  5;
+                                                                                echo 'dahuy';
+                                                                                break;
+                                                                        }
+                                                                        ?>">
+                                                            <?php
+                                                            switch ($row_order['status']) {
+                                                                case  1;
+                                                                    echo 'Chưa xác nhận';
+                                                                    break;
+                                                                case  2;
+                                                                    echo 'Đã xác nhận';
+                                                                    break;
+                                                                case  3;
+                                                                    echo 'Đang vận chuyển';
+                                                                    break;
+                                                                case  4;
+                                                                    echo 'Đã hoàn thành';
+                                                                    break;
+                                                                case  5;
+                                                                    echo 'Đã huỷ';
+                                                                    break;
+                                                            }
+                                                            ?>
+                                                        </div>
+                                                    </td>
+
+
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer border-0">
+                                    <p class="fs-5">Thành tiền: <span class="fw-bold text-danger"><?php echo number_format($row_order['total_money'], 0, ',', ',') . '₫'; ?></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END Modal chi tiết đơn hàng-->
+                <?php
+                }
+
+                ?>
                 <!-- Modal chi tiết đơn hàng-->
                 <div class="modal fade" id="detail-order_1" tabindex="-1" aria-labelledby="detail-orderModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -214,179 +368,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal fade" id="detail-order_2" tabindex="-1" aria-labelledby="detail-orderModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header border-0">
-                                <h1 class="modal-title fs-5 fw-normal" id="detail-orderModalLabel">Đơn hàng:
-                                    <strong>DH034</strong>
-                                </h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body ">
-                                <div class="row">
-                                    <table class="table ">
-                                        <thead class="table ">
-                                            <tr>
-                                                <th scope="col">Ngày đặt</th>
-                                                <th scope="col">Sản phẩm</th>
-                                                <th scope="col">Đơn giá</th>
-                                                <th scope="col">Số lượng</th>
-                                                <th scope="col">Tổng tiền</th>
-                                                <th scope="col">Trạng thái</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row" class="fw-normal">
-                                                    <p>08:46</p>
-                                                    <p>6/12/2022</p>
-                                                </th>
-                                                <td>
-                                                    <p>Mì kim chi bò mỹ </p>
-                                                    <p>Tôm thêm</p>
-
-                                                </td>
-                                                <td>
-                                                    <p>49,000₫</p>
-                                                    <p>7,000₫</p>
-                                                </td>
-                                                <td>
-                                                    <p>1</p>
-                                                    <p>1</p>
-                                                </td>
-                                                <td>
-                                                    <p>49,000₫</p>
-                                                    <p>7,000₫</p>
-                                                </td>
-                                                <td>
-                                                    <div class=" tr tr__dag">Đang vận chuyển</div>
-                                                </td>
-
-                                            </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="modal-footer border-0">
-                                <p class="fs-5">Thành tiền: <span class="fw-bold text-danger">56,000₫</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="detail-order_3" tabindex="-1" aria-labelledby="detail-orderModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header border-0">
-                                <h1 class="modal-title fs-5 fw-normal" id="detail-orderModalLabel">Đơn hàng:
-                                    <strong>DH022</strong>
-                                </h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body ">
-                                <div class="row">
-                                    <table class="table ">
-                                        <thead class="table ">
-                                            <tr>
-                                                <th scope="col">Ngày đặt</th>
-                                                <th scope="col">Sản phẩm</th>
-                                                <th scope="col">Đơn giá</th>
-                                                <th scope="col">Số lượng</th>
-                                                <th scope="col">Tổng tiền</th>
-                                                <th scope="col">Trạng thái</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row" class="fw-normal">
-                                                    <p>12:46</p>
-                                                    <p>03/12/2022</p>
-                                                </th>
-                                                <td>
-                                                    <p>Lẩu kim cho bạch tuộc</p>
-
-                                                </td>
-                                                <td>
-                                                    <p>239,000₫</p>
-                                                </td>
-                                                <td>
-                                                    <p>1</p>
-                                                </td>
-                                                <td>
-                                                    <p>239,000₫</p>
-                                                </td>
-                                                <td>
-                                                    <div class=" tr tr__dh">Đã huỷ</div>
-                                                </td>
-
-                                            </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="modal-footer border-0">
-                                <p class="fs-5">Thành tiền: <span class="fw-bold text-danger">239,000₫</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="detail-order_4" tabindex="-1" aria-labelledby="detail-orderModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header border-0">
-                                <h1 class="modal-title fs-5 fw-normal" id="detail-orderModalLabel">Đơn hàng:
-                                    <strong>DH017</strong>
-                                </h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body ">
-                                <div class="row">
-                                    <table class="table ">
-                                        <thead class="table ">
-                                            <tr>
-                                                <th scope="col">Ngày đặt</th>
-                                                <th scope="col">Sản phẩm</th>
-                                                <th scope="col">Đơn giá</th>
-                                                <th scope="col">Số lượng</th>
-                                                <th scope="col">Tổng tiền</th>
-                                                <th scope="col">Trạng thái</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row" class="fw-normal">
-                                                    <p>10:06</p>
-                                                    <p>03/12/2022</p>
-                                                </th>
-                                                <td>
-                                                    <p>Lẩu thái hải sản</p>
-
-                                                </td>
-                                                <td>
-                                                    <p>210,000₫</p>
-                                                </td>
-                                                <td>
-                                                    <p>1</p>
-                                                </td>
-                                                <td>
-                                                    <p>210,000₫</p>
-                                                </td>
-                                                <td>
-                                                    <div class=" tr tr__dg">Đã hoàn thành</div>
-                                                </td>
-
-                                            </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="modal-footer border-0">
-                                <p class="fs-5">Thành tiền: <span class="fw-bold text-danger">210,000₫</span></p>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
                 <!-- END Modal chi tiết đơn hàng-->
 
@@ -466,8 +447,8 @@
             // Hiển thị modal chỉnh sửa
             $("#editModal").modal("show");
         });
-         // Xử lý khi nút chỉnh sửa được click
-         $(".edit_address-button").on("click", function() {
+        // Xử lý khi nút chỉnh sửa được click
+        $(".edit_address-button").on("click", function() {
             // Hiển thị modal chỉnh sửa
             $("#editModal_address").modal("show");
         });

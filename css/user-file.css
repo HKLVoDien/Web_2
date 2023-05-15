@@ -152,19 +152,23 @@
     text-align: center;
     border-radius: 2px;
 }
-.donhang .table .tr__dg{
+.donhang .table .danggiao{
     border-color:  blue;
     color: blue;
 }
-.donhang .table .tr__dag{
+.donhang .table .dahoanthanh{
     border-color:  green;
     color: green;
 }
-.donhang .table .tr__dh{
+.donhang .table .dahuy{
     border-color:  red;
     color: red;
 }
-.donhang .table .tr__xl{
+.donhang .table .daxacnhan{
+    border-color:  brown;
+    color: brown;
+}
+.donhang .table .chuaxacnhan{
     border-color:  orange;
     color: orange;
 }
