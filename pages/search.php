@@ -16,8 +16,17 @@
     <?php
     if (isset($_POST['search'])) {
         $tukhoa = $_POST['search'];
-        $sql_pro = "SELECT * FROM product WHERE product_name LIKE '%" . $tukhoa . "%'";
+        // Xác định số sản phẩm trên mỗi trang
+        $limit = 12;
+
+        // Xác định trang hiện tại
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+        // Tính toán vị trí bắt đầu và truy vấn SQL với LIMIT
+        $start = ($page - 1) * $limit;
+        $sql_pro = "SELECT * FROM product WHERE product_name LIKE '%" . $tukhoa . "%' ";
         $query_pro = mysqli_query($mysqli, $sql_pro);
+
         $count = mysqli_num_rows($query_pro);
     ?>
         <h1>Tìm kiếm</h1>
@@ -65,8 +74,13 @@
         </div>
         <div class="row product_content" id="product">
             <?php
-            $sql_pro = "SELECT * FROM product WHERE product_name LIKE '%" . $tukhoa . "%'";
+
+            // Truy vấn SQL với LIMIT và ORDER BY
+            $sql_pro = "SELECT * FROM product WHERE product_name LIKE '%" . $tukhoa . "%' LIMIT $start, $limit";
             $query_pro = mysqli_query($mysqli, $sql_pro);
+            // Lấy tổng số sản phẩm
+            $total_records = mysqli_fetch_array(mysqli_query($mysqli, "SELECT COUNT(*) as total FROM product"));
+            $total_pages = ceil($total_records['total'] / $limit);
             while ($row_pro = mysqli_fetch_array($query_pro)) {
             ?>
                 <div class="col-3 product_content_items">
@@ -114,34 +128,57 @@
                         Bạn cần đăng nhập hoặc đăng ký tài khoản để mua hàng và thanh toán!
                     </div>
                     <div class="modal-footer justify-content-center">
-                        <button type="button" class="btn btn-danger"><a href="../../pages/Login.html">Đăng
+                        <button type="button" class="btn btn-danger"><a href="./index.php?quanly=login">Đăng
                                 nhập</a></button>
-                        <button type="button" class="btn btn-warning "><a href="../../pages/SignUp.html">Đăng
+                        <button type="button" class="btn btn-warning "><a href="./index.php?quanly=signup">Đăng
                                 ký</a></button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Load more -->
-        <!-- <div class="col-12 text-center">
-                <a href="#" id="loadMore">Xem thêm</a>
-            </div> -->
-
         <!-- PAGINATION  -->
         <nav aria-label="Page navigation " class="product__pagination">
             <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item active"><a class="page-link" href="./all-menu.html">1</a></li>
+                <?php if ($page > 1) : ?>
+                    <li class="page-item">
+                        <a class="page-link" href="./index.php?quanly=search&page=<?php echo ($page - 1); ?>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                <?php else : ?>
+                    <li class="page-item disabled">
+                        <a class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
 
-                <li class="page-item disabled">
-                    <a class="page-link" href="./all-menu_2.html" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
+                <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                    <?php if ($i == $page) : ?>
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="#product"><?php echo $i; ?></a>
+                        </li>
+                    <?php else : ?>
+                        <li class="page-item">
+                            <a class="page-link" href="./index.php?quanly=search&page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                        </li>
+                    <?php endif; ?>
+                <?php endfor; ?>
+
+                <?php if ($page < $total_pages) : ?>
+                    <li class="page-item">
+                        <a class="page-link" href="./index.php?quanly=search&page=<?php echo ($page + 1); ?>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                <?php else : ?>
+                    <li class="page-item disabled">
+                        <a class="page-link" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
             </ul>
         </nav>
     <?php

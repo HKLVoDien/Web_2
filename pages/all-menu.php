@@ -2,12 +2,25 @@
 
 <!-- PRODUCT -->
 <?php
+
 //Truy vấn danh sách danh mục 
 $sql_cate = "SELECT * FROM category ORDER BY id ASC";
 $query_cate = mysqli_query($mysqli, $sql_cate);
 if ($_GET['id'] == 0) {
-    $sql_pro = "SELECT * FROM product   ORDER BY id DESC";
+    // Xác định số sản phẩm trên mỗi trang
+    $limit = 12;
+
+    // Xác định trang hiện tại
+    $page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+    // Tính toán vị trí bắt đầu và truy vấn SQL với LIMIT
+    $start = ($page - 1) * $limit;
+    // Truy vấn SQL với LIMIT và ORDER BY
+    $sql_pro = "SELECT * FROM product ORDER BY id DESC LIMIT $start, $limit";
     $query_pro = mysqli_query($mysqli, $sql_pro);
+    // Lấy tổng số sản phẩm
+    $total_records = mysqli_fetch_array(mysqli_query($mysqli, "SELECT COUNT(*) as total FROM product"));
+    $total_pages = ceil($total_records['total'] / $limit);
     //get ten danh muc
     $sql_cate = "SELECT * FROM category ORDER BY id ASC";
     $query_cate = mysqli_query($mysqli, $sql_cate);
@@ -70,7 +83,7 @@ if ($_GET['id'] == 0) {
                             if (isset($_SESSION['username'])) {
                             ?>
 
-                                    <a href="./index.php?quanly=sanpham&id=<?php echo $row_pro['id'] ?>" class="btn 
+                                <a href="./index.php?quanly=sanpham&id=<?php echo $row_pro['id'] ?>" class="btn 
                              <?php if ($row_pro['status'] == 0)
                                     echo 'disabled' ?>"><?php if ($row_pro['status'] == 0) echo 'Hết hàng';
                                                         else echo 'Đặt món'; ?> </a>
@@ -121,26 +134,65 @@ if ($_GET['id'] == 0) {
         <!-- PAGINATION  -->
         <nav aria-label="Page navigation " class="product__pagination">
             <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item active" aria-current="page"><a class="page-link" href="#product">1</a></li>
-                <li class="page-item "><a class="page-link" href="./all-menu_2.html">2</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="./all-menu_2.html" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
+                <?php if ($page > 1) : ?>
+                    <li class="page-item">
+                        <a class="page-link" href="./index.php?quanly=thucdon&id=0&page=<?php echo ($page - 1); ?>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                <?php else : ?>
+                    <li class="page-item disabled">
+                        <a class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                    <?php if ($i == $page) : ?>
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="#product"><?php echo $i; ?></a>
+                        </li>
+                    <?php else : ?>
+                        <li class="page-item">
+                            <a class="page-link" href="./index.php?quanly=thucdon&id=0&page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                        </li>
+                    <?php endif; ?>
+                <?php endfor; ?>
+
+                <?php if ($page < $total_pages) : ?>
+                    <li class="page-item">
+                        <a class="page-link" href="./index.php?quanly=thucdon&id=0&page=<?php echo ($page + 1); ?>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                <?php else : ?>
+                    <li class="page-item disabled">
+                        <a class="page-link" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
             </ul>
         </nav>
+
     </section>
 <?php
 } else {
+    // Xác định số sản phẩm trên mỗi trang
+    $limit = 12;
 
-    $sql_pro = "SELECT * FROM product  WHERE product.category_id='$_GET[id]' ORDER BY id DESC";
+    // Xác định trang hiện tại
+    $page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+    // Tính toán vị trí bắt đầu và truy vấn SQL với LIMIT
+    $start = ($page - 1) * $limit;
+    $sql_pro = "SELECT * FROM product  WHERE product.category_id='$_GET[id]' ORDER BY id DESC LIMIT $start, $limit";
     $query_pro = mysqli_query($mysqli, $sql_pro);
+    // Lấy tổng số sản phẩm
+    $total_records = mysqli_fetch_array(mysqli_query($mysqli, "SELECT COUNT(*) as total FROM product"));
+    $total_pages = ceil($total_records['total'] / $limit);
     //get ten danh muc
     $sql_cate_detail = "SELECT * FROM category WHERE id='$_GET[id]'ORDER BY id ASC";
     $query_cate_detail = mysqli_query($mysqli, $sql_cate_detail);
@@ -237,22 +289,49 @@ if ($_GET['id'] == 0) {
         <!-- <div class="col-12 text-center">
                     <a href="#" id="loadMore">Xem thêm</a>
                 </div> -->
-
         <!-- PAGINATION  -->
         <nav aria-label="Page navigation " class="product__pagination">
             <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item active" aria-current="page"><a class="page-link" href="#product">1</a></li>
-                <li class="page-item "><a class="page-link" href="./all-menu_2.html">2</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="./all-menu_2.html" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
+                <?php if ($page > 1) : ?>
+                    <li class="page-item">
+                        <a class="page-link" href="./index.php?quanly=thucdon&id=<?php echo $row_title['id'] ?> &page=<?php echo ($page - 1); ?>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                <?php else : ?>
+                    <li class="page-item disabled">
+                        <a class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                    <?php if ($i == $page) : ?>
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="#product"><?php echo $i; ?></a>
+                        </li>
+                    <?php else : ?>
+                        <li class="page-item">
+                            <a class="page-link" href="./index.php?quanly=thucdon&id=<?php echo $row_title['id'] ?> &page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                        </li>
+                    <?php endif; ?>
+                <?php endfor; ?>
+
+                <?php if ($page < $total_pages) : ?>
+                    <li class="page-item">
+                        <a class="page-link" href="./index.php?quanly=thucdon&id=<?php echo $row_title['id'] ?> &page=<?php echo ($page + 1); ?>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                <?php else : ?>
+                    <li class="page-item disabled">
+                        <a class="page-link" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
             </ul>
         </nav>
     </section>
