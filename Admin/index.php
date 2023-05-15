@@ -130,8 +130,8 @@ if (isset($_GET['dangxuat']) && $_GET['dangxuat'] == 1) {
             <!-- <img src="../img/img_index/Originals/logo_spicy.png" class="img-circle elevation-2" alt="User Image"> -->
           </div>
           <div class="info">
-            <a href="#" class="d-block"><?php if (isset($_SESSION['dangnhap'])) {
-                                          echo $_SESSION['dangnhap'];
+            <a href="#" class="d-block"><?php if (isset($_SESSION['dangnhap_seoul'])) {
+                                          echo $_SESSION['dangnhap_seoul'];
                                         } ?></a>
           </div>
         </div>

@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php session_start();
+include '../../database/config.php';
+
+?>
 
 <head>
     <meta charset="utf-8">
@@ -7,8 +11,7 @@
     <title>Quản lý người dùng | Admin Seoul</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="../../css/fontawesome-free/css/all.min.css">
     <!-- IonIcons -->
@@ -24,6 +27,12 @@
         .app-content {
             background-color: #fff;
         }
+
+        .user_avatar {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
     </style>
 </head>
 
@@ -37,7 +46,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../../index.html" class="nav-link">Trang web</a>
+                    <a href="../../index.php" class="nav-link">Trang web</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Liên hệ</a>
@@ -54,8 +63,7 @@
                     <div class="navbar-search-block">
                         <form class="form-inline">
                             <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Tìm kiếm"
-                                    aria-label="Search">
+                                <input class="form-control form-control-navbar" type="search" placeholder="Tìm kiếm" aria-label="Search">
                                 <div class="input-group-append">
                                     <button class="btn btn-navbar" type="submit">
                                         <i class="fas fa-search"></i>
@@ -110,8 +118,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="../admin.html" class="brand-link">
-                <img src="../../img/img_index/logo_spicy.png" alt="AdminLTE Logo"
-                    class="brand-image img-circle elevation-3" style="opacity: .8">
+                <img src="../../img/img_index/logo_spicy.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Admin Seoul</span>
             </a>
 
@@ -120,19 +127,19 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="../../img/img_index/Originals/logo_spicy.png" class="img-circle elevation-2"
-                            alt="User Image">
+                        <!-- <img src="../../img/img_index/Originals/logo_spicy.png" class="img-circle elevation-2" alt="User Image"> -->
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Ong Bắp Cày</a>
+                        <a href="#" class="d-block"><?php if (isset($_SESSION['dangnhap_seoul'])) {
+                                                        echo $_SESSION['dangnhap_seoul'];
+                                                    } ?></a>
                     </div>
                 </div>
 
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm"
-                            aria-label="Search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Tìm kiếm" aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-sidebar">
                                 <i class="fas fa-search fa-fw"></i>
@@ -143,12 +150,11 @@
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item ">
-                            <a href="../admin.html" class="nav-link ">
+                            <a href="../index.php" class="nav-link ">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Bảng tin </p>
@@ -274,19 +280,19 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./All-product.html" class="nav-link active">
+                                    <a href="./all-product.php" class="nav-link active">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tất cả sản phẩm</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./add-product.html" class="nav-link">
+                                    <a href="./add-product.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Thêm mới</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="./category.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Danh mục</p>
                                     </a>
@@ -308,7 +314,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./orders.html" class="nav-link">
+                                    <a href="./orders.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tất cả đơn hàng</p>
                                     </a>
@@ -328,14 +334,14 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="./user.html" class="nav-link active">
+                            <a href="./user.php" class="nav-link active">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Quản lý người dùng </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./statistical.html" class="nav-link ">
+                            <a href="./statistical.php" class="nav-link ">
                                 <i class="nav-icon fas fa-chart-bar"></i>
                                 <p>
                                     Thống kê </p>
@@ -349,12 +355,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../index.html" class="nav-link ">
-                              <i class=" nav-icon fas fa-sign-out-alt"></i></i>
-                              <p>
-                                Đăng xuất </p>
+                            <a href="../index.php?dangxuat=1" class="nav-link ">
+                                <i class=" nav-icon fas fa-sign-out-alt"></i></i>
+                                <p>
+                                    Đăng xuất </p>
                             </a>
-                          </li>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -383,32 +389,26 @@
                             <div class="tile-body">
                                 <div class="row element-button m-0">
                                     <div class="mr-3 mb-3">
-                                        <a class="btn btn-outline-success " href="#"
-                                            title="Thêm"><i class="fas fa-plus"></i>
+                                        <a class="btn btn-outline-success" href="#" title="Thêm" data-bs-toggle="modal" data-bs-target="#addUserModal"><i class="fas fa-plus"></i>
                                             Thêm mới khách hàng</a>
                                     </div>
                                     <div class="mr-3 mb-3">
-                                        <a class="btn btn-outline-warning  nhap-tu-file" type="button" title="Nhập"><i
-                                                class="fas fa-file-upload"></i> Tải từ file</a>
+                                        <a class="btn btn-outline-warning  nhap-tu-file" type="button" title="Nhập"><i class="fas fa-file-upload"></i> Tải từ file</a>
                                     </div>
 
                                     <div class="mr-3 mb-3">
-                                        <a class="btn btn-outline-primary  print-file" type="button" title="In"
-                                            onclick="myApp.printTable()"><i class="fas fa-print"></i> In dữ liệu</a>
+                                        <a class="btn btn-outline-primary  print-file" type="button" title="In" onclick="myApp.printTable()"><i class="fas fa-print"></i> In dữ liệu</a>
                                     </div>
                                     <div class="mr-3 mb-3">
-                                        <a class="btn btn-outline-primary  print-file js-textareacopybtn" type="button"
-                                            title="Sao chép"><i class="fas fa-copy"></i> Sao chép</a>
+                                        <a class="btn btn-outline-primary  print-file js-textareacopybtn" type="button" title="Sao chép"><i class="fas fa-copy"></i> Sao chép</a>
                                     </div>
 
                                     <div class="mr-3 mb-3">
-                                        <a class="btn btn-outline-success " href="" title="In"><i
-                                                class="fas fa-file-excel"></i> Xuất
+                                        <a class="btn btn-outline-success " href="" title="In"><i class="fas fa-file-excel"></i> Xuất
                                             Excel</a>
                                     </div>
                                     <div class="mr-3 mb-3">
-                                        <a class="btn btn-outline-secondary " type="button" title="Xóa"
-                                            onclick="myFunction(this)"><i class="fas fa-trash-alt"></i> Xóa tất cả </a>
+                                        <a class="btn btn-outline-secondary " type="button" title="Xóa" onclick="myFunction(this)"><i class="fas fa-trash-alt"></i> Xóa tất cả </a>
                                     </div>
                                 </div>
                                 <div class="row element-filter mx-0 mb-3">
@@ -432,135 +432,54 @@
                                     <thead>
                                         <tr>
                                             <th width="10"><input type="checkbox" id="all"></th>
+                                            <th>ID</th>
+                                            <th>Avatar</th>
                                             <th>Tên người dùng</th>
                                             <th>Họ và tên</th>
+                                            <th>Số điện thoại</th>
                                             <th>Địa chỉ</th>
                                             <th>Email</th>
-                                            <th>Vai trò</th>
                                             <th style="width: 8vw;">Chức năng</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                            <td>TeamOngBapCay</td>
-                                            <td>Lê Ánh Nam</td>
-                                            <td>273, An Dương Vương, Quận 5, Tp HCM</td>
-                                            <!-- <td>40</td> -->
-                                            <td>TeamOngBapCay@gmail.com</td>
-                                            <td>Khách hàng cao cấp<i class="fas fa-star text-warning ml-1"></i></td>
-                                            <td><button class="btn btn-outline-danger btn-sm trash" type="button"
-                                                    title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i
-                                                        class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-outline-warning btn-sm edit" type="button"
-                                                    title="Sửa" id="show-emp" data-bs-toggle="modal"
-                                                    data-bs-target="#ModalUP"><i class="fas fa-eye"></i></i></button>
-                                                <button class="btn btn-outline-info btn-sm mt-2" type="button"
-                                                    title="reset" id="show-emp" data-bs-toggle="modal"
-                                                    data-bs-target="#ModalReset"><i class="fas fa-key"></i></button>
-                                                <button class="btn btn-outline-light btn-sm mt-2" type="button" title="Sửa"
-                                                    id="show-emp" data-bs-toggle="modal" data-bs-target="#ModalLock"><i
-                                                        class="fas fa-lock"></i></i></button>
+                                        <?php
+                                        $sql_user = "SELECT * FROM user ORDER BY id DESC";
+                                        $query_user = mysqli_query($mysqli, $sql_user);
+                                        while ($row_user = mysqli_fetch_array($query_user)) {
 
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                            <td>DCT121C1</td>
-                                            <td>Công nghệ thông tin</td>
-                                            <td>273, An Dương Vương, Quận 5, Tp HCM</td>
-                                            <!-- <td>40</td> -->
-                                            <td>dct121c1@gmail.com</td>
-                                            <td>Quản lý<i class="fas fa-user-cog ml-2 text-success"></i></td>
-                                            <td><button class="btn btn-outline-danger btn-sm trash" type="button"
-                                                    title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i
-                                                        class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-outline-warning btn-sm edit" type="button"
-                                                    title="Sửa" id="show-emp" data-bs-toggle="modal"
-                                                    data-bs-target="#ModalUP"><i class="fas fa-eye"></i></i></button>
-                                                <button class="btn btn-outline-info btn-sm mt-2" type="button"
-                                                    title="reset" id="show-emp" data-bs-toggle="modal"
-                                                    data-bs-target="#ModalReset"><i class="fas fa-key"></i></button>
-                                                <button class="btn btn-outline-light btn-sm mt-2" type="button" title="Sửa"
-                                                    id="show-emp" data-bs-toggle="modal" data-bs-target="#ModalLock"><i
-                                                        class="fas fa-lock"></i></i></button>
+                                        ?>
+                                            <tr>
+                                                <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                                <td class="id_user"><?php echo $row_user['id'] ?></td>
+                                                <td class="text-center"><img class="user_avatar" src="../img/user_avatar/<?php echo $row_user['avatar'] ?>" alt=""> </td>
+                                                <td><?php echo $row_user['username'] ?></td>
+                                                <td><?php echo $row_user['fullname'] ?></td>
+                                                <td><?php echo $row_user['phone'] ?></td>
+                                                <td><?php echo $row_user['address'] ?></td>
+                                                <td><?php echo $row_user['email'] ?></td>
+                                                <td>
+                                                    <button class="btn btn-outline-danger btn-sm trash mb-2" type="button" title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-warning btn-sm edit mb-2" type="button" title="Sửa" id="show-emp" data-bs-toggle="modal" data-bs-target="#ModalUP"><i class="fas fa-edit"></i></i></button>
+                                                    <button class="btn btn-outline-info btn-sm mb-2 reset" type="button" title="reset" id="show-emp" data-bs-toggle="modal" data-bs-target="#ModalReset"><i class="fas fa-key"></i></button>
+                                                    <?php
+                                                    if ($row_user['is_block'] == 1) {
+                                                    ?>
+                                                        <button class="btn btn-outline-light btn-sm mb-2 block" type="button" title="Khoá" id="show-emp" data-bs-toggle="modal" data-bs-target="#ModalLock" data-userid="<?php echo $row_user['id']; ?>"><i class="fas fa-lock"></i></i></button>
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        <button class="btn btn-outline-light btn-sm mb-2 unblock" type="button" title="Mở Khoá" id="show-emp" data-bs-toggle="modal" data-bs-target="#ModalUnLock" data-userid="<?php echo $row_user['id']; ?>"><i class="fas fa-unlock"></i></i></button>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                        }
 
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                            <td>DienJVo</td>
-                                            <td>Lê Văn Hoàn</td>
-                                            <td>273, An Dương Vương, Quận 5, Tp HCM</td>
-                                            <!-- <td>40</td> -->
-                                            <td>dienjvo@gmail.com</td>
-                                            <td>Khách hàng</i></td>
-                                            <td><button class="btn btn-outline-danger btn-sm trash" type="button"
-                                                    title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i
-                                                        class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-outline-warning btn-sm edit" type="button"
-                                                    title="Sửa" id="show-emp" data-bs-toggle="modal"
-                                                    data-bs-target="#ModalUP"><i class="fas fa-eye"></i></i></button>
-                                                <button class="btn btn-outline-info btn-sm mt-2" type="button"
-                                                    title="reset" id="show-emp" data-bs-toggle="modal"
-                                                    data-bs-target="#ModalReset"><i class="fas fa-key"></i></button>
-                                                <button class="btn btn-outline-light btn-sm mt-2" type="button" title="Sửa"
-                                                    id="show-emp" data-bs-toggle="modal" data-bs-target="#ModalLock"><i
-                                                        class="fas fa-lock"></i></i></button>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                            <td>Tui tên Nam</td>
-                                            <td>Đinh Văn Nam</td>
-                                            <td>273, An Dương Vương, Quận 5, Tp HCM</td>
-                                            <!-- <td>40</td> -->
-                                            <td>drfafafa@gmail.com</td>
-                                            <td>Khách hàng</i></td>
-                                            <td><button class="btn btn-outline-danger btn-sm trash" type="button"
-                                                    title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i
-                                                        class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-outline-warning btn-sm edit" type="button"
-                                                    title="Sửa" id="show-emp" data-bs-toggle="modal"
-                                                    data-bs-target="#ModalUP"><i class="fas fa-eye"></i></i></button>
-                                                <button class="btn btn-outline-info btn-sm mt-2" type="button"
-                                                    title="reset" id="show-emp" data-bs-toggle="modal"
-                                                    data-bs-target="#ModalReset"><i class="fas fa-key"></i></button>
-                                                <button class="btn btn-outline-light btn-sm mt-2" type="button" title="Sửa"
-                                                    id="show-emp" data-bs-toggle="modal" data-bs-target="#ModalLock"><i
-                                                        class="fas fa-lock"></i></i></button>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                                            <td>Arrid Ngô</td>
-                                            <td>Ngô Ánh Thanh Tươi</td>
-                                            <td>273, An Dương Vương, Quận 5, Tp HCM</td>
-                                            <!-- <td>40</td> -->
-                                            <td>arridngo@gmail.com</td>
-                                            <td>Khách hàng</i></td>
-                                            <td><button class="btn btn-outline-danger btn-sm trash" type="button"
-                                                    title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i
-                                                        class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-outline-warning btn-sm edit" type="button"
-                                                    title="Sửa" id="show-emp" data-bs-toggle="modal"
-                                                    data-bs-target="#ModalUP"><i class="fas fa-eye"></i></i></button>
-                                                <button class="btn btn-outline-info btn-sm mt-2" type="button"
-                                                    title="reset" id="show-emp" data-bs-toggle="modal"
-                                                    data-bs-target="#ModalReset"><i class="fas fa-key"></i></button>
-                                                <button class="btn btn-outline-light btn-sm mt-2" type="button" title="Sửa"
-                                                    id="show-emp" data-bs-toggle="modal" data-bs-target="#ModalLock"><i
-                                                        class="fas fa-lock"></i></i></button>
-
-                                            </td>
-                                        </tr>
+                                        ?>
                                 </table>
                                 <!-- pagination -->
                                 <nav aria-label="Page navigation ">
@@ -585,132 +504,152 @@
                     </div>
                 </div>
             </main>
-            <!--
-  MODAL
--->
-            <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
-                data-keyboard="false">
-                <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <!-- Modal Thêm người dùng  -->
+            <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered ">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Chi tiết người dùng</h1>
-                            <button type="button" class="btn fs-5" data-bs-dismiss="modal"><i
-                                    class="fas fa-times"></i></button>
+                            <h5 class="modal-title" id="addUserModalLabel">Thêm mới người dùng</h5>
+                            <button type="button" class="btn fs-5" data-bs-dismiss="modal"><i class="fas fa-times"></i></button>
                         </div>
-                        <div class="modal-body">
-                            <table class="table table-hover table-bordered" id="sampleTable">
-                                <thead>
-                                    <tr>
-                                        <th>Tên người dùng</th>
-                                        <th>Họ và tên</th>
-                                        <th>Địa chỉ</th>
-                                        <th>Số điện thoại</th>
-                                        <th>Email</th>
-                                        <th>Giới tính</th>
-                                        <th>Vai trò</th>
-                                        <th style="width: 8vw;">Chức năng</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>TeamOngBapCay</td>
-                                        <td>Lê Ánh Nam</td>
-                                        <td>273, An Dương Vương, Quận 5, Tp HCM</td>
-                                        <td>0354986796</td>
-                                        <td>TeamOngBapCay@gmail.com</td>
-                                        <td>Nam</td>
-                                        <td>Khách hàng cao cấp<i class="fas fa-star text-warning ml-1"></i></td>
-                                        <td><button class="btn btn-outline-danger btn-sm trash" type="button"
-                                                title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i
-                                                    class="fas fa-trash-alt"></i>
-                                            </button>
-                                            <button class="btn btn-outline-light btn-sm " type="button" title="chặn"
-                                                id="show-emp" data-bs-toggle="modal" data-bs-target="#ModalLock"><i
-                                                    class="fas fa-lock"></i></i></button>
-                                            <button class="btn btn-outline-info btn-sm mt-2 " type="button" title="reset"
-                                                id="show-emp" data-bs-toggle="modal" data-bs-target="#ModalReset"><i
-                                                    class="fas fa-key"></i></button>
+                        <!-- Form to add user details -->
+                        <form id="addUserForm">
+                            <div class="modal-body">
 
-                                        </td>
-                                    </tr>
-                            </table>
-                            <BR>
-                            <a class="btn btn-danger" href="#">Chỉnh sửa</a>
-                            <BR>
-                        </div>
-                        <div class="modal-footer">
-                        </div>
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Tên người dùng</label>
+                                    <input type="text" class="form-control" name="username" placeholder="Nhập tên người dùng" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Mật khẩu</label>
+                                    <input type="password" class="form-control" name="password" placeholder="Nhập mật khẩu" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fullname" class="form-label">Họ và tên</label>
+                                    <input type="text" class="form-control" name="fullname" placeholder="Nhập họ và tên" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Số điện thoại</label>
+                                    <input type="tel" class="form-control" name="phone" placeholder="Nhập số điện thoại" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Địa chỉ</label>
+                                    <input type="text" class="form-control" name="address" placeholder="Nhập địa chỉ" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" name="email" placeholder="Nhập email" required>
+                                </div>
+
+                            </div>
+                            <input type="hidden" name="add_user" id="">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                <button type="submit" class="btn btn-primary">Lưu</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            <!-- Modal -->
-            <div class="modal fade" id="ModalRM" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered ">
+            <!-- Chỉnh sửa người dùng -->
+            <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                     <div class="modal-content">
-                        <div class="modal-header justify-content-center">
-                            <h1 class="modal-title fs-6 fw-bold" id="exampleModalLabel">Cảnh báo</h1>
-                        </div>
-                        <div class="modal-body text-center">
-                            Bạn chắc chắn muốn <strong>xoá</strong> người dùng này? </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ bỏ</button>
-                            <button type="button" class="btn btn-success">Đồng ý</button>
-                        </div>
+
+
+
                     </div>
+
                 </div>
             </div>
-            <div class="modal fade" id="ModalLock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered ">
-                    <div class="modal-content">
-                        <div class="modal-header justify-content-center">
-                            <h1 class="modal-title fs-6 fw-bold" id="exampleModalLabel">Cảnh báo</h1>
-                        </div>
-                        <div class="modal-body text-center">
-                            Bạn chắc chắn muốn <strong>chặn</strong> người dùng này? </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ bỏ</button>
-                            <button type="button" class="btn btn-success">Đồng ý</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="ModalReset" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered ">
-                    <div class="modal-content">
-                        <div class="modal-header justify-content-center">
-                            <h1 class="modal-title fs-6 fw-bold" id="exampleModalLabel">Cảnh báo</h1>
-                        </div>
-                        <div class="modal-body text-center">
-                            Bạn chắc chắn muốn <strong>thiết lập lại mật khẩu</strong>của người dùng này? </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ bỏ</button>
-                            <button type="button" class="btn btn-success">Đồng ý</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--
-MODAL
--->
         </div>
 
-        <!-- /.content-wrapper -->
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
-
-        <!-- Main Footer -->
-        <footer class="container-fluid main-footer">
-            <strong>Copyright &copy; 2022 <a href="https://adminlte.io">AdminSeoul</a>.</strong>
-
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 0.0.0
+        <!-- Modal Xoá-->
+        <div class="modal fade" id="ModalRM" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered ">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                        <h1 class="modal-title fs-6 fw-bold" id="exampleModalLabel">Cảnh báo</h1>
+                    </div>
+                    <div class="modal-body text-center">
+                        Bạn chắc chắn muốn <strong>xoá</strong> người dùng này? </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ bỏ</button>
+                        <button class=" btn btn-success remove"> Đồng ý</button>
+                    </div>
+                </div>
             </div>
-        </footer>
+        </div>
+        <!-- Modal khoá người dùng -->
+        <div class="modal fade" id="ModalLock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered ">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                        <h1 class="modal-title fs-6 fw-bold" id="exampleModalLabel">Cảnh báo</h1>
+                    </div>
+                    <div class="modal-body text-center">
+                        Bạn chắc chắn muốn <strong>chặn</strong> người dùng này? </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ bỏ</button>
+                        <button type="button" class="btn btn-success">Đồng ý</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Mở khoá người dùng -->
+        <div class="modal fade" id="ModalUnLock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered ">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                        <h1 class="modal-title fs-6 fw-bold" id="exampleModalLabel">Cảnh báo</h1>
+                    </div>
+                    <div class="modal-body text-center">
+                        Bạn chắc chắn muốn <strong>mở khoá</strong> người dùng này? </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ bỏ</button>
+                        <button type="button" class="btn btn-success">Đồng ý</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL RESET -->
+        <div class="modal fade" id="ModalReset" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered ">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                        <h1 class="modal-title fs-6 fw-bold" id="exampleModalLabel">Cảnh báo</h1>
+                    </div>
+                    <div class="modal-body text-center">
+                        Bạn chắc chắn muốn <strong>thiết lập lại mật khẩu</strong>của người dùng này? </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ bỏ</button>
+                        <button type="button " class="btn btn-success user_reset">Đồng ý</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--
+MODAL
+-->
+    </div>
+
+    <!-- /.content-wrapper -->
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    <footer class="container-fluid main-footer">
+        <strong>Copyright &copy; 2022 <a href="https://adminlte.io">AdminSeoul</a>.</strong>
+
+        <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 0.0.0
+        </div>
+    </footer>
     </div>
     <!-- ./wrapper -->
 
@@ -728,6 +667,191 @@ MODAL
     <!-- <script src="dist/js/demo.js"></script> -->
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="../js/dashboard3.js"></script>
+
+
+    <!-- Thêm người dùng JS -->
+    <script>
+        document.getElementById('addUserForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var form = event.target;
+            var formData = new FormData(form);
+
+            fetch('../manage/manage_user.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(function(response) {
+                    // Đóng modal khi đã gửi thành công
+                    var modal = document.getElementById('addUserModal');
+                    var modalInstance = bootstrap.Modal.getInstance(modal);
+                    modalInstance.hide();
+                    location.reload();
+                })
+                .then(function(data) {
+                    // Xử lý phản hồi từ máy chủ nếu cần thiết
+                    console.log(data);
+
+
+                })
+                .catch(function(error) {
+                    console.error('Lỗi:', error);
+                });
+        });
+    </script>
+    <!-- JS DELETED -->
+    <script>
+        $(document).ready(function() {
+            var id_user = null;
+
+            $('.trash').click(function() {
+                id_user = $(this).closest('tr').find('.id_user').text().trim();
+                console.log('id_user:', id_user);
+            });
+
+            $(".remove").click(function() {
+                if (id_user) {
+                    var id = id_user;
+                    $.ajax({
+                        url: '../manage/manage_user.php',
+                        type: 'GET',
+                        data: {
+                            id: id
+                        },
+                        success: function(response) {
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            // Xử lý lỗi nếu có
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <!-- JS RESET -->
+    <script>
+        $(document).ready(function() {
+            var id_user = null;
+
+            $('.reset').click(function() {
+                id_user = $(this).closest('tr').find('.id_user').text().trim();
+                console.log('id_user:', id_user);
+            });
+
+            $(".user_reset").click(function() {
+                if (id_user) {
+                    var id = id_user
+                    $.ajax({
+                        url: '../manage/manage_user.php',
+                        type: 'GET',
+                        data: {
+                            id_reset: id,
+                        },
+                        success: function(response) {
+                            alert('Reset password thành công!');
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            // Xử lý lỗi nếu có
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <!-- JS UPDATED -->
+    <script>
+        $(document).ready(function() {
+            $('.edit').click(function() {
+                id_user = $(this).closest('tr').find('.id_user').text().trim();
+                $.post('../manage/manage_user.php', {
+                        id_update: id_user
+                    },
+                    function(data) {
+                        $('#ModalUP .modal-content').html(data);
+                    });
+            });
+        });
+    </script>
+    <!-- JS BLOCK -->
+    <script>
+        $('.block').click(function() {
+            var userId = $(this).data('userid');
+            console.log('userId:', userId);
+            // Thực hiện các hành động cần thiết khi khoá người dùng được chọn
+
+        });
+        $('#ModalLock .btn-success').click(function() {
+            // Lấy ID người dùng được chọn từ button
+            var userId = $('.block').data('userid');
+            if (userId) {
+                // Thực hiện các hành động để khoá người dùng với ID đã lấy được
+                // Ví dụ: gửi yêu cầu AJAX để thực hiện khoá người dùng
+                $.ajax({
+                    url: '../manage/manage_user.php',
+                    type: 'GET',
+                    data: {
+                        lockUserId: userId
+                    },
+                    success: function(response) {
+                        // Xử lý phản hồi thành công từ server
+                        console.log('Khoá người dùng thành công');
+                        location.reload();
+
+                        // Cập nhật giao diện nếu cần thiết
+                    },
+                    error: function(xhr, status, error) {
+                        // Xử lý lỗi nếu có
+                        console.error('Lỗi khi khoá người dùng:', error);
+                    }
+                });
+
+                // Đóng modal
+                $('#ModalLock').modal('hide');
+            }
+        });
+    </script>
+    <!-- JS BLOCK -->
+    <script>
+        $('.unblock').click(function() {
+            var userId = $(this).data('userid');
+            console.log('userId:', userId);
+            // Thực hiện các hành động cần thiết khi khoá người dùng được chọn
+
+        });
+        $('#ModalUnLock .btn-success').click(function() {
+            // Lấy ID người dùng được chọn từ button
+            var userId = $('.unblock').data('userid');
+            if (userId) {
+                // Thực hiện các hành động để khoá người dùng với ID đã lấy được
+                // Ví dụ: gửi yêu cầu AJAX để thực hiện khoá người dùng
+                $.ajax({
+                    url: '../manage/manage_user.php',
+                    type: 'GET',
+                    data: {
+                        UnlockUserId: userId
+                    },
+                    success: function(response) {
+                        // Xử lý phản hồi thành công từ server
+                        console.log('Khoá người dùng thành công');
+                        location.reload();
+                        // Cập nhật giao diện nếu cần thiết
+                    },
+                    error: function(xhr, status, error) {
+                        // Xử lý lỗi nếu có
+                        console.error('Lỗi khi khoá người dùng:', error);
+                    }
+                });
+
+                // Đóng modal
+                $('#ModalLock').modal('hide');
+            }
+        });
+    </script>
+
 </body>
 
 </html>
