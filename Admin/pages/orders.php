@@ -414,20 +414,37 @@ include '../../database/config.php';
                             <!-- /List tác vụ -->
                             <div class="row element-filter mx-0 mb-3">
                                 <div class="filter__date col-6 p-0">
-                                    <form action="">
+                                    <form action="../manage/manage_order.php" method="GET" id="form_date">
                                         <label for="datein">Từ ngày: </label>
                                         <input type="date" name="datein" id="datein">
                                         <label for="dateout">đến ngày: </label>
                                         <input type="date" name="dateout" id="dateout">
                                         <input type="submit" class="btn-secondary" value="Áp dụng">
                                     </form>
+                                    <form action="../manage/manage_order.php" method="GET" id="form_zone">
+                                        <label for="datein">Khu vực: </label>
+                                        <select class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm" name="customer_city" required>
+                                            <option value="" selected>Chọn tỉnh thành</option>
+
+                                        </select>
+
+                                        <!-- <select class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" name="customer_district" required>
+                                            <option value="" selected>Chọn quận huyện</option>
+                                        </select>
+
+                                        <select class="form-select form-select-sm mb-3" id="ward" aria-label=".form-select-sm" name="customer_ward" required>
+                                            <option value="" selected>Chọn phường xã</option>
+
+                                        </select> -->
+                                        <input type="submit" class="btn-secondary" value="Áp dụng">
+                                    </form>
                                 </div>
-
-
                                 <div class="filter__right col-6 p-0 text-right">
                                     <span>Tìm kiếm:</span>
                                     <input type="search" placeholder="">
                                 </div>
+
+
                                 <div class="filter__left col-6 p-0 mt-3">
                                     <span>Hiện</span>
                                     <select class="form-select px-3" aria-label="Default select">
@@ -438,6 +455,7 @@ include '../../database/config.php';
                                     </select>
                                     <span>đơn hàng</span>
                                 </div>
+
                             </div>
                             <table class="table table-hover table-bordered" id="sampleTable">
                                 <thead>
@@ -446,6 +464,7 @@ include '../../database/config.php';
                                         <th>ID</th>
                                         <th>Khách hàng</th>
                                         <th>Ngày</th>
+                                        <th>Địa chỉ</th>
                                         <th>Đơn hàng</th>
                                         <th style="width: 7vw;">Tổng</th>
                                         <th>Tình trạng</th>
@@ -465,6 +484,7 @@ include '../../database/config.php';
                                             <td class="id_order"><?php echo $row_order['id'] ?></td>
                                             <td><?php echo $row_order['fullname'] ?></td>
                                             <td><?php echo $row_order['order_date'] ?></td>
+                                            <td><?php echo $row_order['address'] ?></td>
                                             <td>
                                                 <?php while ($row_order_detail = mysqli_fetch_array($query_order_detail)) {
                                                 ?>
@@ -531,70 +551,6 @@ include '../../database/config.php';
                                 <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                                     <div class="modal-content">
 
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="form-group  col-md-12">
-                                                    <span class="thong-tin-thanh-toan">
-                                                        <h5>Chi tiết đơn hàng</h5>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-
-                                                <div class="form-group  col-md-4">
-                                                    <label class="control-label">ID đơn hàng</label>
-                                                    <input class="form-control" type="text" value="MD0837" readonly>
-                                                </div>
-                                                <div class="form-group  col-md-4">
-                                                    <label class="control-label">Tên khách hàng</label>
-                                                    <input class="form-control" type="text" value="Triệu Thanh Phú" readonly>
-                                                </div>
-                                                <div class="form-group  col-md-4">
-                                                    <label class="control-label">Số điện thoại khách
-                                                        hàng</label>
-                                                    <input class="form-control" type="number" value="0354986796" readonly>
-                                                </div>
-                                                <div class="form-group  col-md-4">
-                                                    <label class="control-label">Địa chỉ khách hàng</label>
-                                                    <input class="form-control" type="text" value="273, An Dương Vương Quận 5,TP HCM" readonly>
-                                                </div>
-                                                <div class="form-group  col-md-4">
-                                                    <label class="control-label">Ngày làm đơn hàng</label>
-                                                    <input class="form-control" type="date" value="2022-12-15" readonly>
-                                                </div>
-                                                <div class="form-group  col-md-4">
-                                                    <label class="control-label">Tên sản phẩm</label>
-                                                    <input class="form-control" type="text" value="Mỳ kim chi hải sản, Mỳ kim chi cá, Mỳ kim chi bò mỹ" readonly>
-                                                </div>
-                                                <div class="form-group  col-md-4">
-                                                    <label class="control-label">Mã sản phẩm</label>
-                                                    <input class="form-control" type="text" value="MT026,MT007,MT008" readonly>
-                                                </div>
-                                                <div class="form-group  col-md-4">
-                                                    <label class="control-label">Số lượng</label>
-                                                    <input class="form-control" type="text" value="MT026 (1) ,MT007 (2) ,MT008 (1)" readonly>
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <label for="exampleSelect1" class="control-label">Tình
-                                                        trạng</label>
-                                                    <select class="form-control" id="exampleSelect1">
-                                                        <option>Chưa xử lý</option>
-                                                        <option>Đã xử lý</option>
-                                                        <option>Đang giao hàng</option>
-                                                        <option>Hoàn thành</option>
-                                                        <option>Đã hủy</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group  col-md-12">
-                                                    <label class="control-label">Ghi chú đơn hàng</label>
-                                                    <textarea class="form-control" rows="4" readonly></textarea>
-                                                </div>
-
-                                            </div>
-                                            <button class="btn btn-success" type="button">Lưu lại</button>
-                                            <a class="btn btn-danger" data-bs-dismiss="modal" href="#">Hủy
-                                                bỏ</a>
-                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                     </div>
@@ -628,7 +584,7 @@ include '../../database/config.php';
                                     </a>
                                 </li>
                                 <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a cla    s="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
                                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                                 <li class="page-item">
                                     <a class="page-link" href="#" aria-label="Tiếp">
@@ -670,6 +626,8 @@ include '../../database/config.php';
     <script src="../../js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE -->
     <script src="../js/adminlte.js"></script>
+    <!-- AXIOS JS -->
+    <script src="../../js/axios.min.js"></script>
     <!-- OPTIONAL SCRIPTS -->
     <script src="../js/Chart.min.js"></script>
     <!-- AdminLTE for demo purposes -->
@@ -677,6 +635,146 @@ include '../../database/config.php';
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="../js/dashboard3.js"></script>
 
+    <!-- JS LỌC DATE -->
+    <script>
+        $(document).ready(function() {
+            // Lắng nghe sự kiện submit của form_date
+            $('#form_date').submit(function(event) {
+                event.preventDefault(); // Ngăn chặn hành vi submit mặc định của form
+
+                // Gửi yêu cầu AJAX đến trang xử lý PHP
+                $.ajax({
+                    url: $(this).attr('action'), // URL của trang xử lý PHP
+                    type: $(this).attr('method'), // Phương thức gửi dữ liệu (GET hoặc POST)
+                    data: $(this).serialize(), // Dữ liệu gửi đi từ form
+
+                    success: function(response) {
+                        // Lấy tbody element
+                        var tbody = $('#sampleTable tbody');
+
+                        // Thay thế nội dung của tbody với dữ liệu trả về từ PHP
+                        tbody.html(response);
+                        // JS DELETED
+                        $(document).ready(function() {
+                            var id_order = null;
+
+                            $('.trash').click(function() {
+                                id_order = $(this).closest('tr').find('.id_order').text().trim();
+                                console.log('id_order:', id_order);
+                            });
+
+                            $(".remove").click(function() {
+                                if (id_order) {
+                                    var id = id_order;
+                                    $.ajax({
+                                        url: '../manage/manage_order.php',
+                                        type: 'GET',
+                                        data: {
+                                            id_order: id,
+                                        },
+                                        success: function(response) {
+                                            location.reload();
+                                        },
+                                        error: function(xhr, status, error) {
+                                            // Xử lý lỗi nếu có
+                                            console.log(error);
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                        // JS UPDATED
+                        $('.edit').click(function() {
+                            id_order = $(this).closest('tr').find('.id_order').text().trim();
+                            console.log('id_order:', id_order);
+                            $.post('../manage/manage_order.php', {
+                                    id_update: id_order
+                                },
+                                function(data) {
+                                    $('#ModalUP .modal-content').html(data);
+                                });
+                        });
+                    },
+
+                    error: function(xhr, status, error) {
+                        // Xử lý lỗi nếu có
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+    <!-- JS LỌC Khu vực -->
+    <script>
+        $(document).ready(function() {
+            // Lắng nghe sự kiện submit của form_date
+            $('#form_zone').submit(function(event) {
+                event.preventDefault(); // Ngăn chặn hành vi submit mặc định của form
+                var selectedOptionCityText = $("#city option:selected").text();
+                // Gửi yêu cầu AJAX đến trang xử lý PHP
+                $.ajax({
+                    url: $(this).attr('action'), // URL của trang xử lý PHP
+                    type: $(this).attr('method'), // Phương thức gửi dữ liệu (GET hoặc POST)
+                    data: {
+                        city: selectedOptionCityText,
+                    }, // Dữ liệu gửi đi từ form
+
+                    success: function(response) {
+                        // Lấy tbody element
+                        var tbody = $('#sampleTable tbody');
+
+                        // Thay thế nội dung của tbody với dữ liệu trả về từ PHP
+                        tbody.html(response);
+                        // JS DELETED
+                        $(document).ready(function() {
+                            var id_order = null;
+
+                            $('.trash').click(function() {
+                                id_order = $(this).closest('tr').find('.id_order').text().trim();
+                                console.log('id_order:', id_order);
+                            });
+
+                            $(".remove").click(function() {
+                                if (id_order) {
+                                    var id = id_order;
+                                    $.ajax({
+                                        url: '../manage/manage_order.php',
+                                        type: 'GET',
+                                        data: {
+                                            id_order: id,
+                                        },
+                                        success: function(response) {
+                                            location.reload();
+                                        },
+                                        error: function(xhr, status, error) {
+                                            // Xử lý lỗi nếu có
+                                            console.log(error);
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                        // JS UPDATED
+                        $('.edit').click(function() {
+                            id_order = $(this).closest('tr').find('.id_order').text().trim();
+                            console.log('id_order:', id_order);
+                            $.post('../manage/manage_order.php', {
+                                    id_update: id_order
+                                },
+                                function(data) {
+                                    $('#ModalUP .modal-content').html(data);
+                                });
+                        });
+                    },
+
+                    error: function(xhr, status, error) {
+                        // Xử lý lỗi nếu có
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
     <!-- JS DELETED -->
     <script>
         $(document).ready(function() {
@@ -694,7 +792,7 @@ include '../../database/config.php';
                         url: '../manage/manage_order.php',
                         type: 'GET',
                         data: {
-                            id: id
+                            id_order: id,
                         },
                         success: function(response) {
                             location.reload();
@@ -710,19 +808,60 @@ include '../../database/config.php';
     </script>
     <!-- JS UPDATED -->
     <script>
-        $(document).ready(function() {
-            $('.edit').click(function() {
-                id_order = $(this).closest('tr').find('.id_order').text().trim();
-                console.log('id_order:', id_order);
-
-                $.post('../manage/manage_order.php', {
-                        id_update: id_order
-                    },
-                    function(data) {
-                        $('#ModalUP .modal-content').html(data);
-                    });
-            });
+        $('.edit').click(function() {
+            id_order = $(this).closest('tr').find('.id_order').text().trim();
+            console.log('id_order:', id_order);
+            $.post('../manage/manage_order.php', {
+                    id_update: id_order
+                },
+                function(data) {
+                    $('#ModalUP .modal-content').html(data);
+                });
         });
+    </script>
+
+    <!-- SELECT CITY -->
+    <script>
+        var citis = document.getElementById("city");
+        var districts = document.getElementById("district");
+        var wards = document.getElementById("ward");
+        var Parameter = {
+            url: "../../js/data.json",
+            method: "GET",
+            responseType: "application/json",
+        };
+        var promise = axios(Parameter);
+        promise.then(function(result) {
+            renderCity(result.data);
+        });
+
+        function renderCity(data) {
+            for (const x of data) {
+                citis.options[citis.options.length] = new Option(x.Name, x.Id);
+            }
+            citis.onchange = function() {
+                district.length = 1;
+                ward.length = 1;
+                if (this.value != "") {
+                    const result = data.filter(n => n.Id === this.value);
+
+                    for (const k of result[0].Districts) {
+                        district.options[district.options.length] = new Option(k.Name, k.Id);
+                    }
+                }
+            };
+            district.onchange = function() {
+                ward.length = 1;
+                const dataCity = data.filter((n) => n.Id === citis.value);
+                if (this.value != "") {
+                    const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+                    for (const w of dataWards) {
+                        wards.options[wards.options.length] = new Option(w.Name, w.Id);
+                    }
+                }
+            };
+        }
     </script>
 </body>
 

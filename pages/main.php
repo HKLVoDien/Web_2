@@ -15,7 +15,7 @@
         include "./pages/contact.php";
     } elseif ($tam == 'login') {
         include "./pages/login.php";
-    }elseif ($tam == 'signup') {
+    } elseif ($tam == 'signup') {
         include "./pages/signup.php";
     } elseif ($tam == 'cart') {
         include "./pages/cart.php";
@@ -23,9 +23,11 @@
         include "./pages/payment.php";
     } elseif ($tam == 'user_file') {
         include "./pages/user-file.php";
-    }elseif ($tam == 'help') {
+    } elseif ($tam == 'help') {
         include "./pages/help.php";
-    }else {
+    } elseif ($tam == 'thanks') {
+        include "./pages/thanks.php";
+    } else {
 
         include 'index_gui.php';
     }

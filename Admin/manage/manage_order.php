@@ -81,7 +81,7 @@ if (isset($_POST['id_update'])) {
                     </div>
                     <div class="form-group  col-md-12">
                         <label class="control-label">Ghi chú đơn hàng</label>
-                        <textarea class="form-control" rows="4" readonly></textarea>
+                        <textarea class="form-control" rows="4" readonly><?php echo $dong['note']; ?></textarea>
                     </div>
 
                 </div>
@@ -94,7 +94,7 @@ if (isset($_POST['id_update'])) {
         </form>
 
 
-<?php
+    <?php
     }
 } elseif (isset($_POST['order_update'])) {
     $id_order = $_POST['id_order'];
@@ -102,8 +102,161 @@ if (isset($_POST['id_update'])) {
     $sql_update = "UPDATE orders SET status='" . $status . "' WHERE id='" . $id_order . "'";
     mysqli_query($mysqli, $sql_update);
     header('Location:../pages/orders.php');
+}
+//Lọc đơn hàng bằng ngày
+elseif (isset($_GET['datein']) && isset($_GET['dateout'])) {
+    // Lấy giá trị ngày từ biểu mẫu
+    $datein = $_GET['datein'];
+    $dateout = $_GET['dateout'];
+
+    // Thực hiện truy vấn cơ sở dữ liệu với điều kiện ngày
+    $sql_order = "SELECT * FROM orders WHERE DATE(order_date) BETWEEN '$datein' AND '$dateout' ORDER BY id DESC";
+    $query_order = mysqli_query($mysqli, $sql_order);
+
+    while ($row_order = mysqli_fetch_array($query_order)) {
+        // Xử lý các thông tin đơn hàng
+        $sql_order_detail = "SELECT orders_details.id,product.product_name, orders_details.total_money,orders_details.num FROM orders_details,product  WHERE  orders_details.order_id = '$row_order[id]'  and product.id = orders_details.product_id ORDER BY id ASC";
+        $query_order_detail = mysqli_query($mysqli, $sql_order_detail);
+    ?>
+        <tr>
+            <td width="10"><input type="checkbox" name="check1" value="1"></td>
+            <td class="id_order"><?php echo $row_order['id'] ?></td>
+            <td><?php echo $row_order['fullname'] ?></td>
+            <td><?php echo $row_order['order_date'] ?></td>
+            <td>
+                <?php while ($row_order_detail = mysqli_fetch_array($query_order_detail)) {
+                ?>
+                    <?php echo $row_order_detail['product_name'] . ', '; ?>
+                <?php
+                }
+                ?>
+            </td>
+            <td><?php echo number_format($row_order['total_money'], 0, ',', ',') . '₫'; ?></td>
+            <td><span class="badge  <?php
+                                    switch ($row_order['status']) {
+                                        case  1;
+                                            echo 'bg-warning';
+                                            break;
+                                        case  2;
+                                            echo 'bg-info';
+                                            break;
+                                        case  3;
+                                            echo 'bg-primary';
+                                            break;
+                                        case  4;
+                                            echo 'bg-success';
+                                            break;
+                                        case  5;
+                                            echo 'bg-danger';
+                                            break;
+                                    }
+                                    ?>">
+                    <?php
+                    switch ($row_order['status']) {
+                        case  1;
+                            echo 'Chưa xác nhận';
+                            break;
+                        case  2;
+                            echo 'Đã xác nhận';
+                            break;
+                        case  3;
+                            echo 'Đang vận chuyển';
+                            break;
+                        case  4;
+                            echo 'Đã hoàn thành';
+                            break;
+                        case  5;
+                            echo 'Đã huỷ';
+                            break;
+                    }
+                    ?>
+                </span>
+            </td>
+            <td><button class="btn btn-outline-danger  btn-sm trash m-1" type="button" title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i> </button>
+                <button class="btn btn-outline-warning btn-sm edit m-1" type="button" title="Sửa" data-bs-toggle="modal" data-bs-target="#ModalUP"><i class="fa fa-edit"></i></button>
+            </td>
+        </tr>
+    <?php
+    }
+} //Lọc đơn hàng bằng khu vực
+elseif (isset($_GET['city'])) {
+    // Lấy giá khu vực ngày từ biểu mẫu
+    $city = $_GET['city'];
+
+    // Thực hiện truy vấn cơ sở dữ liệu với điều kiện ngày
+    $sql_order = "SELECT * FROM orders WHERE address LIKE '%$city%' ORDER BY id DESC";
+    $query_order = mysqli_query($mysqli, $sql_order);
+
+    while ($row_order = mysqli_fetch_array($query_order)) {
+        // Xử lý các thông tin đơn hàng
+        $sql_order_detail = "SELECT orders_details.id,product.product_name, orders_details.total_money,orders_details.num FROM orders_details,product  WHERE  orders_details.order_id = '$row_order[id]'  and product.id = orders_details.product_id ORDER BY id ASC";
+        $query_order_detail = mysqli_query($mysqli, $sql_order_detail);
+    ?>
+        <tr>
+            <td width="10"><input type="checkbox" name="check1" value="1"></td>
+            <td class="id_order"><?php echo $row_order['id'] ?></td>
+            <td><?php echo $row_order['fullname'] ?></td>
+            <td><?php echo $row_order['order_date'] ?></td>
+            <td><?php echo $row_order['address'] ?></td>
+            <td>
+                <?php while ($row_order_detail = mysqli_fetch_array($query_order_detail)) {
+                ?>
+                    <?php echo $row_order_detail['product_name'] . ', '; ?>
+                <?php
+                }
+                ?>
+            </td>
+            <td><?php echo number_format($row_order['total_money'], 0, ',', ',') . '₫'; ?></td>
+            <td><span class="badge  <?php
+                                    switch ($row_order['status']) {
+                                        case  1;
+                                            echo 'bg-warning';
+                                            break;
+                                        case  2;
+                                            echo 'bg-info';
+                                            break;
+                                        case  3;
+                                            echo 'bg-primary';
+                                            break;
+                                        case  4;
+                                            echo 'bg-success';
+                                            break;
+                                        case  5;
+                                            echo 'bg-danger';
+                                            break;
+                                    }
+                                    ?>">
+                    <?php
+                    switch ($row_order['status']) {
+                        case  1;
+                            echo 'Chưa xác nhận';
+                            break;
+                        case  2;
+                            echo 'Đã xác nhận';
+                            break;
+                        case  3;
+                            echo 'Đang vận chuyển';
+                            break;
+                        case  4;
+                            echo 'Đã hoàn thành';
+                            break;
+                        case  5;
+                            echo 'Đã huỷ';
+                            break;
+                    }
+                    ?>
+                </span>
+            </td>
+            <td><button class="btn btn-outline-danger  btn-sm trash m-1" type="button" title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i> </button>
+                <button class="btn btn-outline-warning btn-sm edit m-1" type="button" title="Sửa" data-bs-toggle="modal" data-bs-target="#ModalUP"><i class="fa fa-edit"></i></button>
+            </td>
+        </tr>
+<?php
+    }
 } else {
-    $id = $_GET['id'];
-    $sql_xoa = "DELETE FROM user WHERE id ='" . $id . "'";
+    $id = $_GET['id_order'];
+    $sql_xoa_detail = "DELETE FROM orders_details WHERE order_id ='" . $id . "'";
+    mysqli_query($mysqli, $sql_xoa_detail);
+    $sql_xoa = "DELETE FROM orders WHERE id ='" . $id . "'";
     mysqli_query($mysqli, $sql_xoa);
 }

@@ -206,7 +206,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    window.location.href = "./pages/thanks.php";
+                    window.location.href = "./index.php?quanly=thanks";
                 } else {
                     throw new Error("Đã xảy ra lỗi. Mã lỗi: " + response.status);
                 }
