@@ -16,7 +16,7 @@ if ($_GET['id'] == 0) {
     // Tính toán vị trí bắt đầu và truy vấn SQL với LIMIT
     $start = ($page - 1) * $limit;
     // Truy vấn SQL với LIMIT và ORDER BY
-    $sql_pro = "SELECT * FROM product ORDER BY id DESC LIMIT $start, $limit";
+    $sql_pro = "SELECT * FROM product WHERE visible != 0 ORDER BY id DESC LIMIT $start, $limit";
     $query_pro = mysqli_query($mysqli, $sql_pro);
     // Lấy tổng số sản phẩm
     $total_records = mysqli_fetch_array(mysqli_query($mysqli, "SELECT COUNT(*) as total FROM product"));

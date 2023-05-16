@@ -34,8 +34,9 @@ if (isset($_POST['login'])) {
 	$sql = "SELECT * FROM user WHERE username='" . $username . "' AND password='" . $password . "' LIMIT 1";
 	$row = mysqli_query($mysqli, $sql);
 	$count = mysqli_num_rows($row);
-	if ($count > 0) {
-		$row_data = mysqli_fetch_array($row);
+	$row_data = mysqli_fetch_array($row);
+	if ($count > 0 && $row_data['is_block'] == 1) {
+
 		$_SESSION['username'] = $row_data['username'];
 		$_SESSION['phone'] = $row_data['phone'];
 		$_SESSION['id_customer'] = $row_data['id'];
@@ -72,6 +73,26 @@ if (isset($_POST['login'])) {
 
 		// Lưu thông tin giỏ hàng vào session
 		$_SESSION['cart_seoul'] = $cart;
+	} elseif ($count > 0 && $row_data['is_block'] == 0) {
+	?><div class="modalfail activefail">
+			<div class="modal_innerfail">
+				<div class="modal_headerfail">
+					<div class="iconfail">
+						<i class="far fa-times-circle"></i>
+					</div>
+				</div>
+				<div class="modal_bodyfail">
+					<h4>Xin lỗi!</h4>
+					<p>Tài khoản của bạn đã bị khoá.</p>
+				</div>
+				<div class="modal_footerfail">
+					<button class="btnfail">
+						<a href="./index.php?quanly=login">Mời bạn đăng nhập lại</a>
+					</button>
+				</div>
+			</div>
+		</div>
+	<?php
 	} else {
 	?><div class="modalfail activefail">
 			<div class="modal_innerfail">

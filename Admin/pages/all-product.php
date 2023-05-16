@@ -472,7 +472,7 @@ font        } */
 
                 </div>
                 <?php
-                $sql_lietke_sp = "SELECT *, product.id as product_id FROM product,category WHERE product.category_id =category.id ORDER BY product.id asc";
+                $sql_lietke_sp = "SELECT *, product.id as product_id FROM product,category WHERE product.category_id =category.id AND git  visible != 0 ORDER BY product.id asc";
                 $query_lietke_sp = mysqli_query($mysqli, $sql_lietke_sp);
                 ?>
                 <table class="table table-hover table-bordered" id="sampleTable">
@@ -623,15 +623,7 @@ font        } */
       <div class="modal fade" id="ModalRM" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered ">
           <div class="modal-content">
-            <div class="modal-header justify-content-center">
-              <h1 class="modal-title fs-6 fw-bold" id="exampleModalLabel">Cảnh báo</h1>
-            </div>
-            <div class="modal-body text-center">
-              Bạn chắc chắn muốn xoá sản phẩm này? </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ bỏ</button>
-              <button class=" btn btn-success remove " onclick="location.reload()"> Đồng ý</button>
-            </div>
+
           </div>
         </div>
       </div>
@@ -681,8 +673,6 @@ MODAL
       $('.trash').click(function() {
         id_product = $(this).closest('tr').find('.id_product').text().trim();
         console.log('id_product:', id_product);
-      });
-      $(".remove").click(function() {
         if (id_product) {
           var id = id_product;
           $.ajax({
@@ -691,9 +681,51 @@ MODAL
             data: {
               id: id
             },
+            success: function(response) {
+              $('#ModalRM .modal-content').html(response);
+              $(".remove").click(function() {
+                if (id_product) {
+                  console.log('id_product:', id_product);
+
+                  var id = id_product;
+                  $.ajax({
+                    url: '../manage/manage_product.php',
+                    type: 'GET',
+                    data: {
+                      id_remove: id
+                    },
+                    success: function(response) {
+                      location.reload();
+                    }
+                  });
+                }
+              });
+              $(".hide").click(function() {
+                if (id_product) {
+                  console.log('id_product:', id_product);
+
+                  var id = id_product;
+                  $.ajax({
+                    url: '../manage/manage_product.php',
+                    type: 'GET',
+                    data: {
+                      id_hide: id
+                    },
+                    success: function(response) {
+                      location.reload();
+                    }
+                  });
+                }
+              });
+            },
+            error: function(xhr, status, error) {
+              // Xử lý lỗi nếu có
+              console.log(error);
+            }
           });
         }
       });
+
     });
   </script>
   <!-- JS UPDATED -->

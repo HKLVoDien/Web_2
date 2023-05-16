@@ -139,7 +139,7 @@ if (isset($_POST['add_product'])) {
                 <BR>
             </div>
         </form>
-<?php
+    <?php
     }
 }
 //Thực hiện sửa thông tin sản phẩm nếu đồng ý
@@ -179,8 +179,8 @@ elseif (isset($_POST['product_update'])) {
     }
 
     header('Location:../pages/all-product.php');
-} else {
-    $id = $_GET['id'];
+} elseif (isset($_GET['id_remove'])) {
+    $id = $_GET['id_remove'];
     $sql = "SELECT * FROM product WHERE id = '$id' LIMIT 1";
     $query = mysqli_query($mysqli, $sql);
     unlink('../img/upload/img_product/' . $row['thumbnail']);
@@ -194,7 +194,37 @@ elseif (isset($_POST['product_update'])) {
     $sql_xoa = "DELETE FROM product WHERE id ='" . $id . "'";
     mysqli_query($mysqli, $sql_xoa_gallery);
     mysqli_query($mysqli, $sql_xoa);
-    // header('Location:../pages/all-product.php');
-    // echo '<script>location.reload();</script>';
-
+} elseif (isset($_GET['id_hide'])) {
+    $id = $_GET['id_hide'];
+    $sql_update = "UPDATE product SET visible='" . 0 . "' WHERE id='" . $id . "'";
+    mysqli_query($mysqli, $sql_update);
+} else {
+    $id = $_GET['id'];
+    $sql_check_order = "SELECT * FROM product,orders_details WHERE orders_details.product_id = '$id' ";
+    $query_check_order = mysqli_query($mysqli, $sql_check_order);
+    if ($row_check_order = mysqli_fetch_array($query_check_order)) {
+    ?>
+        <div class="modal-header justify-content-center">
+            <h1 class="modal-title fs-6 fw-bold" id="exampleModalLabel">Cảnh báo</h1>
+        </div>
+        <div class="modal-body text-center">
+            Sản phẩm này đã được bán ra! Không thể xoá. Bạn có muốn ẩn sản phẩm?</div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ bỏ</button>
+            <button class=" btn btn-success hide "> Đồng ý</button>
+        </div>
+    <?php
+    } else {
+    ?>
+        <div class="modal-header justify-content-center">
+            <h1 class="modal-title fs-6 fw-bold" id="exampleModalLabel">Cảnh báo</h1>
+        </div>
+        <div class="modal-body text-center">
+            Sản phẩm này chưa được bán ra! Không thể xoá. Bạn có chắc <strong>XOÁ</strong> sản phẩm?</div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ bỏ</button>
+            <button class=" btn btn-success remove "> Đồng ý</button>
+        </div>
+<?php
+    }
 }

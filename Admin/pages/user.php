@@ -459,8 +459,8 @@ include '../../database/config.php';
                                                 <td><?php echo $row_user['address'] ?></td>
                                                 <td><?php echo $row_user['email'] ?></td>
                                                 <td>
-                                                    <button class="btn btn-outline-danger btn-sm trash mb-2" type="button" title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i>
-                                                    </button>
+                                                    <!-- <button class="btn btn-outline-danger btn-sm trash mb-2" type="button" title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i>
+                                                    </button> -->
                                                     <button class="btn btn-outline-warning btn-sm edit mb-2" type="button" title="Sửa" id="show-emp" data-bs-toggle="modal" data-bs-target="#ModalUP"><i class="fas fa-edit"></i></i></button>
                                                     <button class="btn btn-outline-info btn-sm mb-2 reset" type="button" title="reset" id="show-emp" data-bs-toggle="modal" data-bs-target="#ModalReset"><i class="fas fa-key"></i></button>
                                                     <?php
@@ -565,7 +565,7 @@ include '../../database/config.php';
         </div>
 
         <!-- Modal Xoá-->
-        <div class="modal fade" id="ModalRM" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- <div class="modal fade" id="ModalRM" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered ">
                 <div class="modal-content">
                     <div class="modal-header justify-content-center">
@@ -579,7 +579,7 @@ include '../../database/config.php';
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Modal khoá người dùng -->
         <div class="modal fade" id="ModalLock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered ">
@@ -700,7 +700,7 @@ MODAL
         });
     </script>
     <!-- JS DELETED -->
-    <script>
+    <!-- <script>
         $(document).ready(function() {
             var id_user = null;
 
@@ -729,7 +729,7 @@ MODAL
                 }
             });
         });
-    </script>
+    </script> -->
     <!-- JS RESET -->
     <script>
         $(document).ready(function() {
@@ -778,15 +778,16 @@ MODAL
     </script>
     <!-- JS BLOCK -->
     <script>
+        var userId = null
         $('.block').click(function() {
-            var userId = $(this).data('userid');
+            userId = $(this).data('userid');
             console.log('userId:', userId);
             // Thực hiện các hành động cần thiết khi khoá người dùng được chọn
 
         });
         $('#ModalLock .btn-success').click(function() {
             // Lấy ID người dùng được chọn từ button
-            var userId = $('.block').data('userid');
+            // var userId = $('.block').data('userid');
             if (userId) {
                 // Thực hiện các hành động để khoá người dùng với ID đã lấy được
                 // Ví dụ: gửi yêu cầu AJAX để thực hiện khoá người dùng
@@ -814,17 +815,19 @@ MODAL
             }
         });
     </script>
-    <!-- JS BLOCK -->
+    <!-- JS UNBLOCK -->
     <script>
+        var userId = null
+
         $('.unblock').click(function() {
-            var userId = $(this).data('userid');
+            userId = $(this).data('userid');
             console.log('userId:', userId);
             // Thực hiện các hành động cần thiết khi khoá người dùng được chọn
 
         });
         $('#ModalUnLock .btn-success').click(function() {
             // Lấy ID người dùng được chọn từ button
-            var userId = $('.unblock').data('userid');
+            // var userId = $('.unblock').data('userid');
             if (userId) {
                 // Thực hiện các hành động để khoá người dùng với ID đã lấy được
                 // Ví dụ: gửi yêu cầu AJAX để thực hiện khoá người dùng

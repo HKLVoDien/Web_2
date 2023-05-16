@@ -80,7 +80,7 @@
            <div class="menu__food">
                <div class="food__main" id="all">
                    <?php
-                    $sql_pro = "SELECT * FROM product ORDER BY id DESC";
+                    $sql_pro = "SELECT * FROM product WHERE visible != 0 ORDER BY id DESC";
                     $query_pro = mysqli_query($mysqli, $sql_pro);
                     $products = mysqli_fetch_all($query_pro, MYSQLI_ASSOC);
                     $count = mysqli_num_rows($query_pro);
