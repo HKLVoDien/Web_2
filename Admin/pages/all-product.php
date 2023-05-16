@@ -472,7 +472,7 @@ font        } */
 
                 </div>
                 <?php
-                $sql_lietke_sp = "SELECT *, product.id as product_id FROM product,category WHERE product.category_id =category.id AND git  visible != 0 ORDER BY product.id asc";
+                $sql_lietke_sp = "SELECT *, product.id as product_id FROM product,category WHERE product.category_id =category.id AND visible != 0 ORDER BY product.id asc";
                 $query_lietke_sp = mysqli_query($mysqli, $sql_lietke_sp);
                 ?>
                 <table class="table table-hover table-bordered" id="sampleTable">

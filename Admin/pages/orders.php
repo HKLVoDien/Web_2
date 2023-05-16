@@ -534,7 +534,9 @@ include '../../database/config.php';
                                                     ?>
                                                 </span>
                                             </td>
-                                            <td><button class="btn btn-outline-danger  btn-sm trash m-1" type="button" title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i> </button>
+                                            <td>
+                                                <!-- <button class="btn btn-outline-danger  btn-sm trash m-1" type="button" title="Xóa" data-bs-toggle="modal" data-bs-target="#ModalRM"><i class="fas fa-trash-alt"></i> </button> -->
+
                                                 <button class="btn btn-outline-warning btn-sm edit m-1" type="button" title="Sửa" data-bs-toggle="modal" data-bs-target="#ModalUP"><i class="fa fa-edit"></i></button>
                                             </td>
                                         </tr>
