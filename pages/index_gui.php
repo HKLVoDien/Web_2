@@ -138,7 +138,7 @@
                     ?>
 
                </div>
-               <div class=" food__main " id=" MM">
+               <!-- <div class=" food__main " id=" MM">
                    <div class="row-1">
                        <div class="food__item-1  food__item">
                            <div class="food__img">
@@ -265,7 +265,7 @@
                        </div>
 
                    </div>
-               </div>
+               </div> -->
                <div class="menu__cart">
                    <div class="sticky-right">
                        <div class="title">Giỏ hàng</div>

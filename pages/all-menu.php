@@ -106,26 +106,7 @@ if ($_GET['id'] == 0) {
             ?>
 
         </div>
-        <!-- Modal check-user-->
-        <div class="modal fade" id="Modalcheck-user" tabindex="-1" aria-labelledby="check-user" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title " id="check-user">Bạn chưa đăng nhập!</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Bạn cần đăng nhập hoặc đăng ký tài khoản để mua hàng và thanh toán!
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                        <button type="button" class="btn btn-danger"><a href="../../pages/Login.html">Đăng
-                                nhập</a></button>
-                        <button type="button" class="btn btn-warning "><a href="../../pages/SignUp.html">Đăng
-                                ký</a></button>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
         <!-- Load more -->
         <!-- <div class="col-12 text-center">
                 <a href="#" id="loadMore">Xem thêm</a>
